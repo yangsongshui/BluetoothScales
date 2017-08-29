@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="myapplication.com.bluetoothscales.activity.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/main_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/iv" />
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="match_parent"
+        android:background="@color/gray"
+        android:layout_above="@+id/main_rgrpNavigation"
+        android:layout_height="1dp" />
+    <RadioGroup
+        android:id="@+id/main_rgrpNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <RadioButton
+            android:id="@+id/main_home"
+            style="@style/MainRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/main_home_check"
+            android:text="@string/main_home" />
+
+        <RadioButton
+            android:id="@+id/main_trend"
+            style="@style/MainRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/main_home_check"
+            android:text="@string/main_trend" />
+
+        <RadioButton
+            android:id="@+id/main_discover"
+            style="@style/MainRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/main_home_check"
+            android:text="@string/main_discover" />
+    </RadioGroup>
+</RelativeLayout>

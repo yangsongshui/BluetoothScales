@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BluetoothScales</string>
+    <string name="main_home">Home</string>
+    <string name="main_trend">Trend</string>
+    <string name="main_discover">Discover</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
