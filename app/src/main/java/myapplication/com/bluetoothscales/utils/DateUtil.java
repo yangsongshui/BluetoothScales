@@ -31,6 +31,8 @@ public class DateUtil {
 
     // 格式：小时：分钟：秒
     public static final String LONG_TIME_FORMAT = "HH:mm:ss";
+    // 格式：小时：分钟
+    public static final String LONG_TIME = "HH:mm";
 
     //格式：年-月
     public static final String MONTG_DATE_FORMAT = "yyyy-MM";
@@ -82,11 +84,26 @@ public class DateUtil {
         return d;
     }
 
+    public static String stringtoString(String dateStr, String format) {
+        Date d = null;
+        String date = "";
+        SimpleDateFormat formater = new SimpleDateFormat(format);
+        try {
+            formater.setLenient(false);
+            d = formater.parse(dateStr);
+        } catch (Exception e) {
+            // log.error(e);
+            d = null;
+        }
+        date = dateToString(d, LONG_TIME);
+        return date;
+    }
+
     /**
      * 把符合日期格式的字符串转换为日期类型
      */
     public static Date stringtoDate(String dateStr, String format,
-                                              ParsePosition pos) {
+                                    ParsePosition pos) {
         Date d = null;
         SimpleDateFormat formater = new SimpleDateFormat(format);
         try {
@@ -104,7 +121,7 @@ public class DateUtil {
      * @param date
      * @return
      */
-        public static String dateToString(Date date, String format) {
+    public static String dateToString(Date date, String format) {
         String result = "";
         SimpleDateFormat formater = new SimpleDateFormat(format);
         try {
@@ -190,6 +207,13 @@ public class DateUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month - 1, 1);
         return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 获取当前月份的天数
+     */
+    public static int getDayOfMonth() {
+        return Integer.parseInt(getLastDayOfMonth("dd"));
     }
 
     /**
@@ -443,8 +467,23 @@ public class DateUtil {
         return cal.getTime();
     }
 
+    /**
+     * 取得指定日期过 hour 小时后的日期 (当 day 为负数表示指日期之前);
+     *
+     * @param date 日期 为null时表示当天
+     *             相加(相减)的月数
+     */
+    public static Date nextHour(Date date, int hour) {
+        Calendar cal = Calendar.getInstance();
+        if (date != null) {
+            cal.setTime(date);
+        }
+        cal.add(Calendar.HOUR, hour);
+        return cal.getTime();
+    }
+
     // 获取本周一的日期
-    public Date getDateOfMondayInWeek(){
+    public Date getDateOfMondayInWeek() {
         int day = this.getDaysOfNow2SundayInWeek() + 1; // 加1，即周一离本周日的间隔天数
         GregorianCalendar gCalendar = new GregorianCalendar();
 
@@ -454,13 +493,15 @@ public class DateUtil {
     }
 
     // 获取上周一的日期
-    public Date getDateOfSaturdayInLastWeek(){
-        return  nextDay(getDateOfMondayInWeek(),-7);
+    public Date getDateOfSaturdayInLastWeek() {
+        return nextDay(getDateOfMondayInWeek(), -7);
     }
+
     // 获取下周一的日期
-    public Date getDateOfSaturdayInNextWeek(){
-        return  nextDay(getDateOfMondayInWeek(),8);
+    public Date getDateOfSaturdayInNextWeek() {
+        return nextDay(getDateOfMondayInWeek(), 8);
     }
+
     // 获取当前日期与本周日的相差天数
     public int getDaysOfNow2SundayInWeek() {
         Calendar calendar = Calendar.getInstance();

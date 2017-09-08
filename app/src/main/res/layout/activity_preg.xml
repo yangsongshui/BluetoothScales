@@ -69,10 +69,10 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/preg_pregancy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp">
+                android:padding="15dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -89,9 +89,10 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/preg_expecting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp">
+                android:padding="15dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -108,10 +109,10 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/preg_weight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
-                android:layout_marginStart="15dp">
+                android:padding="15dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -131,15 +132,19 @@
                 android:id="@+id/edit_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <EditText
+                    android:id="@+id/preg_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/blue2"
                     android:gravity="center"
                     android:inputType="number"
+                    android:maxLength="4"
                     android:padding="13dp"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
 
                 <android.support.design.widget.TabLayout
@@ -155,8 +160,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/preg_bt"
                     android:paddingBottom="5dp"
                     android:paddingEnd="35dp"
