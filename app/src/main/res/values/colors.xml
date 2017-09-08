@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="blue">#00CCFF</color>
+    <color name="blue2">#7200bdff</color>
     <color name="green">#32FECC</color>
     <color name="black">#222222</color>
     <color name="green2">#199782</color>
@@ -11,4 +12,7 @@
     <color name="gray">#D4D4D4</color>
     <color name="pale_turquoise">#B1ECF5</color>
     <color name="maya_blue">#58CAFA</color>
+    <color name="maya_blue2">#82E8FA</color>
+    <color name="maya">#00FFFF</color>
+    <color name="grey">#666666</color>
 </resources>
