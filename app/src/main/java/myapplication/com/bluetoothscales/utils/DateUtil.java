@@ -177,11 +177,11 @@ public class DateUtil {
      */
     public static int getDaysOfMonth(String year, String month) {
         int days = 0;
-        if (month.equals("1") || month.equals("3") || month.equals("5")
-                || month.equals("7") || month.equals("8") || month.equals("10")
+        if (month.equals("01") || month.equals("03") || month.equals("05")
+                || month.equals("07") || month.equals("08") || month.equals("10")
                 || month.equals("12")) {
             days = 31;
-        } else if (month.equals("4") || month.equals("6") || month.equals("9")
+        } else if (month.equals("04") || month.equals("06") || month.equals("09")
                 || month.equals("11")) {
             days = 30;
         } else {

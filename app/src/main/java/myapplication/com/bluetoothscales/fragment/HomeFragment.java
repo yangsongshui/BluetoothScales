@@ -8,7 +8,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import myapplication.com.bluetoothscales.R;
-import myapplication.com.bluetoothscales.activity.PregActivity;
+import myapplication.com.bluetoothscales.activity.WorkoutActivity;
 import myapplication.com.bluetoothscales.base.BaseFragment;
 
 
@@ -41,6 +41,6 @@ public class HomeFragment extends BaseFragment {
 
     @OnClick(R.id.home_mode)
     public void onViewClicked() {
-        startActivity(new Intent(getActivity(), PregActivity.class));
+        startActivity(new Intent(getActivity(), WorkoutActivity.class));
     }
 }

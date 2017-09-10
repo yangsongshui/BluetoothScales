@@ -7,27 +7,7 @@
     android:background="@drawable/main_home"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="myapplication.com.bluetoothscales.activity.PregActivity">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <ImageView
-            android:id="@+id/preg_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:src="@drawable/back" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="Pregnancy Mode"
-            android:textColor="@color/white" />
-    </RelativeLayout>
+    tools:context="myapplication.com.bluetoothscales.activity.BabyActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -48,12 +28,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_margin="5dp"
-                    android:text="Pregnacy data"
+                    android:text="Baby data"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/preg_edit"
+                    android:id="@+id/baby_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -69,20 +49,20 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/preg_pregancy"
+                android:id="@+id/baby_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp">
 
                 <TextView
-                    android:id="@+id/preg_msg"
+                    android:id="@+id/baby_msg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pregancy Date:"
+                    android:text="Birth Date:"
                     android:textColor="@color/white" />
 
                 <TextView
-                    android:id="@+id/pregancy_time"
+                    android:id="@+id/baby_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -91,48 +71,48 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/preg_expecting"
+                android:id="@+id/baby_weight_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp">
 
                 <TextView
 
-                    android:id="@+id/preg_msg2"
+                    android:id="@+id/baby_msg2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Expecting Date:"
+                    android:text="Birth Weight:"
                     android:textColor="@color/white" />
 
                 <TextView
 
-                    android:id="@+id/expecting_time"
+                    android:id="@+id/baby_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="2018/06/25"
+                    android:text="4 kg"
                     android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/preg_weight"
+                android:id="@+id/baby_sex_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp">
 
                 <TextView
-                    android:id="@+id/preg_msg3"
+                    android:id="@+id/baby_msg3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Weight before prenancy:"
+                    android:text="Gender:"
                     android:textColor="@color/white" />
 
                 <TextView
-                    android:id="@+id/weight_tv"
+                    android:id="@+id/baby_sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="51 kg"
+                    android:text="boy／girl"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -144,7 +124,7 @@
                 android:visibility="gone">
 
                 <EditText
-                    android:id="@+id/preg_et"
+                    android:id="@+id/baby_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/blue2"
@@ -197,6 +177,56 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:text="Instruction on step on scale"
+                android:textColor="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1) Mom Step on scale:"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/mom_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="45 kg"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2) Mom + Baby Step on scale: "
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/baby_mom_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="51 kg"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -240,19 +270,30 @@
                     android:textColor="@color/white" />
             </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/preg_daily"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
-                android:button="@null"
-                android:drawableEnd="@drawable/down2"
-                android:drawablePadding="10dp"
-                android:text="Daily reminder"
-                android:textColor="@color/grey"
-                android:textSize="16sp" />
         </LinearLayout>
+
     </ScrollView>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/baby_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Baby Mode"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+
 </LinearLayout>
+
