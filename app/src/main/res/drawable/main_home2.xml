@@ -6,6 +6,7 @@
         android:centerX="0.5"
         android:centerY="0.5"
         android:endColor="@color/green"
+        android:centerColor="@color/viola"
         android:startColor="@color/viola"
         android:type="linear" />
 

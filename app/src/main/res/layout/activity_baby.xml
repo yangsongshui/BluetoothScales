@@ -8,7 +8,25 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="myapplication.com.bluetoothscales.activity.BabyActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
+        <ImageView
+            android:id="@+id/baby_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Baby Mode"
+            android:textColor="@color/white" />
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -274,25 +292,7 @@
 
     </ScrollView>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
 
-        <ImageView
-            android:id="@+id/baby_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:src="@drawable/back" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="Baby Mode"
-            android:textColor="@color/white" />
-    </RelativeLayout>
 
 
 </LinearLayout>

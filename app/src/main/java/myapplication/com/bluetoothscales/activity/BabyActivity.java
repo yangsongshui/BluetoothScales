@@ -13,6 +13,7 @@ import butterknife.OnClick;
 import myapplication.com.bluetoothscales.R;
 import myapplication.com.bluetoothscales.base.BaseActivity;
 import myapplication.com.bluetoothscales.utils.DateUtil;
+import myapplication.com.bluetoothscales.utils.SpUtils;
 import myapplication.com.bluetoothscales.utils.Toastor;
 
 public class BabyActivity extends BaseActivity {
@@ -51,7 +52,7 @@ public class BabyActivity extends BaseActivity {
     TextView currentTime;
     Toastor toastor;
     int postion = 0;
-    int indext = 1;
+    int indext = 0;
 
     @Override
     protected int getContentView() {
@@ -100,26 +101,34 @@ public class BabyActivity extends BaseActivity {
                 setView();
                 break;
             case R.id.baby_birth:
-                indext = 1;
-                setText();
-                babyEt.setText("");
-                initTab();
+                if (indext != 0) {
+                    indext = 1;
+                    setText();
+                    pregNext.setText("Next");
+                    babyEt.setText("");
+                    initTab();
+                }
                 break;
             case R.id.baby_weight_ll:
-                indext = 2;
-                postion = 2;
-                babyEt.setText("");
-                setText();
-                tabLayout.removeAllTabs();
-                tabLayout.addTab(tabLayout.newTab().setText("Weight"));
+                if (indext != 0) {
+                    indext = 2;
+                    postion = 2;
+                    babyEt.setText("");
+                    setText();
+                    pregNext.setText("Next");
+                    tabLayout.removeAllTabs();
+                    tabLayout.addTab(tabLayout.newTab().setText("Weight"));
+                }
                 break;
             case R.id.baby_sex_ll:
-                indext = 3;
-                setText();
-                tabLayout.removeAllTabs();
-                tabLayout.addTab(tabLayout.newTab().setText("Sex"));
-                pregNext.setText("Commit");
-                postion = 3;
+                if (indext != 0) {
+                    indext = 3;
+                    setText();
+                    tabLayout.removeAllTabs();
+                    tabLayout.addTab(tabLayout.newTab().setText("Sex"));
+                    pregNext.setText("Commit");
+                    postion = 3;
+                }
                 break;
         }
     }
@@ -132,7 +141,7 @@ public class BabyActivity extends BaseActivity {
         babyWeight.setTextColor(getColor(indext == 2 ? R.color.grey : R.color.white));
         babyMsg3.setTextColor(getColor(indext == 3 ? R.color.grey : R.color.white));
         babySex.setTextColor(getColor(indext == 3 ? R.color.grey : R.color.white));
-        babyEt.setInputType(indext == 3 ? InputType.TYPE_NULL : InputType.TYPE_CLASS_NUMBER);
+        babyEt.setInputType(indext == 3 ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_NUMBER);
     }
 
     private void setView() {
@@ -186,6 +195,7 @@ public class BabyActivity extends BaseActivity {
                         babySex.setText(msg);
                         babyEt.setText("");
                         setData();
+                        SpUtils.putString("sex",msg.trim().toLowerCase());
                     } else
                         toastor.showSingletonToast("请输入正确性别");
                     break;

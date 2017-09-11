@@ -1,10 +1,15 @@
 package myapplication.com.bluetoothscales.activity;
 
+import android.Manifest;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
+
+import com.zhy.m.permission.MPermissions;
+import com.zhy.m.permission.PermissionDenied;
+import com.zhy.m.permission.PermissionGrant;
 
 import butterknife.BindView;
 import myapplication.com.bluetoothscales.R;
@@ -15,11 +20,13 @@ import myapplication.com.bluetoothscales.fragment.HomeFragment;
 import myapplication.com.bluetoothscales.fragment.TrendFragment;
 
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+    private final static int REQUECT_CODE_COARSE = 1;
     @BindView(R.id.main_rgrpNavigation)
     RadioGroup mainRgrpNavigation;
     private Fragment[] frags = new Fragment[3];
     protected BaseFragment currentFragment;
     private HomeFragment homeFragment;
+
     @Override
     protected int getContentView() {
         return R.layout.activity_main;
@@ -27,6 +34,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     protected void init() {
+        initPermission();
         initData();
         mainRgrpNavigation.setOnCheckedChangeListener(this);
         mainRgrpNavigation.check(R.id.main_home);
@@ -61,6 +69,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
 
     }
+
     private void showFragment(int position) {
         if (frags[position] == null) {
             frags[position] = getFrag(position);
@@ -105,5 +114,24 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+    private void initPermission(){
+        MPermissions.requestPermissions(MainActivity.this, REQUECT_CODE_COARSE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        MPermissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @PermissionGrant(REQUECT_CODE_COARSE)
+    public void requestSdcardSuccess() {
+    }
+
+    @PermissionDenied(REQUECT_CODE_COARSE)
+    public void requestSdcardFailed() {
+        MPermissions.requestPermissions(MainActivity.this, REQUECT_CODE_COARSE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
     }
 }

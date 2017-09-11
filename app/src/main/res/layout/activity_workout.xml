@@ -8,6 +8,7 @@
     android:background="@drawable/main_home"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+
     tools:context="myapplication.com.bluetoothscales.activity.WorkoutActivity">
 
     <RelativeLayout
@@ -31,12 +32,16 @@
     </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:fitsSystemWindows="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -48,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:text="Measurement"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
@@ -241,7 +246,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:text="Goal"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
@@ -354,8 +359,9 @@
                 android:id="@+id/work_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
                 android:button="@null"
                 android:drawableEnd="@drawable/down2"
                 android:drawablePadding="10dp"
@@ -367,8 +373,9 @@
                 android:id="@+id/work_recommended"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="10dp"
                 android:button="@null"
                 android:drawableEnd="@drawable/down2"
                 android:drawablePadding="10dp"
@@ -396,13 +403,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="10dp"
                     android:text="Reminder setting "
                     android:textColor="@color/grey"
                     android:textSize="16sp" />
@@ -422,10 +430,24 @@
                     android:text="edit"
                     android:textColor="@color/white" />
             </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/work_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="08:00"
+                android:visibility="gone"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
             <LinearLayout
                 android:id="@+id/edit_ll3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical"
                 android:visibility="gone">
 

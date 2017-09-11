@@ -76,7 +76,7 @@ public class PregActivity extends BaseActivity {
         });
     }
 
-    int indext = 1;
+    int indext = 0;
 
     @SuppressLint("NewApi")
     @OnClick({R.id.preg_back, R.id.preg_next, R.id.preg_edit, R.id.preg_pregancy, R.id.preg_expecting, R.id.preg_weight})
@@ -96,24 +96,30 @@ public class PregActivity extends BaseActivity {
 
                 break;
             case R.id.preg_pregancy:
-                indext = 1;
-                preg_et.setText("");
-                initTab();
-                setText();
+                if (indext != 0) {
+                    indext = 1;
+                    preg_et.setText("");
+                    initTab();
+                    setText();
+                }
                 break;
             case R.id.preg_expecting:
-                indext = 2;
-                setText();
-                preg_et.setText("");
-                initTab();
+                if (indext != 0) {
+                    indext = 2;
+                    setText();
+                    preg_et.setText("");
+                    initTab();
+                }
                 break;
             case R.id.preg_weight:
-                indext = 3;
-                postion=3;
-                preg_et.setText("");
-                setText();
-                tabLayout.removeAllTabs();
-                tabLayout.addTab(tabLayout.newTab().setText("Weight"));
+                if (indext != 0) {
+                    indext = 3;
+                    postion = 3;
+                    preg_et.setText("");
+                    setText();
+                    tabLayout.removeAllTabs();
+                    tabLayout.addTab(tabLayout.newTab().setText("Weight"));
+                }
                 break;
             case R.id.preg_daily:
                 break;

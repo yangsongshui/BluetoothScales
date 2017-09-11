@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/work_pop"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="Workout Mode"
+        android:textSize="12sp"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/preg_pop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:textSize="12sp"
+        android:text="Pregnancy Mode"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/baby_pop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:textSize="12sp"
+        android:text="Baby Mode"
+        android:textColor="@color/white" />
+
+</LinearLayout>

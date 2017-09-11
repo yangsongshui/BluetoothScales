@@ -8,7 +8,7 @@
     tools:context="myapplication.com.bluetoothscales.fragment.DiscoverFragment">
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/discover_title"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_gravity="center"
@@ -52,12 +52,7 @@
                     android:textColor="@color/white" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:background="@color/white" />
+
 
             <CheckBox
                 android:id="@+id/muscle_bt"
@@ -87,15 +82,17 @@
                     android:text="@string/muscle_msg"
                     android:textColor="@color/white" />
             </LinearLayout>
-
-            <View
+            <CheckBox
+                android:id="@+id/exercise_bt"
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:background="@color/white" />
-
-
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawableEnd="@drawable/down2"
+                android:padding="10dp"
+                android:text="Choose Efficiency  exercise"
+                android:textColor="@color/grey"
+                android:textSize="15sp"
+                android:visibility="gone" />
             <LinearLayout
                 android:id="@+id/exercise_msg"
                 android:layout_width="match_parent"
@@ -111,14 +108,6 @@
                     android:text="@string/exercise_msg"
                     android:textColor="@color/white" />
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:background="@color/white" />
-
             <CheckBox
                 android:id="@+id/tips_bt"
                 android:layout_width="match_parent"
@@ -131,17 +120,7 @@
                 android:textSize="15sp" />
 
 
-            <CheckBox
-                android:id="@+id/exercise_bt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:button="@null"
-                android:drawableEnd="@drawable/down2"
-                android:padding="10dp"
-                android:text="Choose Efficiency  exercise"
-                android:textColor="@color/grey"
-                android:textSize="15sp"
-                android:visibility="gone" />
+
 
             <LinearLayout
                 android:id="@+id/discover_tips"
@@ -198,12 +177,7 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:background="@color/white" />
+
 
 
             <CheckBox
