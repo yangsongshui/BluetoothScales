@@ -244,7 +244,7 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
                             workNext2.setText("Commit");
                         } else {
                             postion = 0;
-                            workDuration.setText(msg + "kg");
+                            workDuration.setText(msg + "Weeks");
                             setText2();
                             editLl2.setVisibility(View.GONE);
                             goalEdit.setVisibility(View.VISIBLE);
