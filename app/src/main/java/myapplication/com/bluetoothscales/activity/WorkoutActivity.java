@@ -3,6 +3,7 @@ package myapplication.com.bluetoothscales.activity;
 import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -116,11 +117,12 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
     @Override
     protected void init() {
         toastor = new Toastor(this);
-        tabLayout.addTab(tabLayout.newTab().setText("Weight"));
+        tabLayout.addTab(tabLayout.newTab().setText("Height"));
         tabLayout2.addTab(tabLayout2.newTab().setText("Weight"));
 
         tabLayout3.addTab(tabLayout3.newTab().setText("hour"));
         tabLayout3.addTab(tabLayout3.newTab().setText("min"));
+        workNext.setText("Commit");
         tabLayout3.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -143,8 +145,9 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
     }
 
 
-    @OnClick({R.id.baby_back, R.id.work_edit, R.id.work_weight_ll, R.id.work_height_ll, R.id.work_bmi_ll, R.id.work_mucs_ll, R.id.work_fat_ll, R.id.work_next,
-            R.id.goal_edit, R.id.work_target_ll, R.id.work_duration_ll, R.id.work_next2, R.id.work_next3, R.id.setting_edit})
+    @OnClick({R.id.baby_back, R.id.work_edit, R.id.work_next,
+            R.id.goal_edit, R.id.work_target_ll, R.id.work_duration_ll,
+            R.id.work_next2, R.id.work_next3, R.id.setting_edit, R.id.work_measure})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.baby_back:
@@ -155,61 +158,21 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
                 editLl.setVisibility(View.VISIBLE);
                 workEdit.setVisibility(View.GONE);
                 setText();
-                setData();
-                break;
-            case R.id.work_weight_ll:
-                if (indext != 0) {
-                    indext = 1;
-                    setText();
-                    setData();
-                }
-                break;
-            case R.id.work_height_ll:
-                if (indext != 0) {
-                    indext = 2;
-                    setText();
-                    setData();
-                }
-                break;
-            case R.id.work_bmi_ll:
-                if (indext != 0) {
-                    indext = 3;
-                    setText();
-                    setData();
-                }
-                break;
-            case R.id.work_mucs_ll:
-                if (indext != 0) {
-                    indext = 4;
-                    setText();
-                    setData();
-                }
-                break;
-            case R.id.work_fat_ll:
-                if (indext != 0) {
-                    indext = 5;
-                    setText();
-                    setData();
-                }
-                break;
-            case R.id.work_next:
-                if (indext < 5) {
-                    setView();
-                } else {
-                    String msg = workEt.getText().toString().trim();
-                    if (!msg.equals("")) {
-                        workFat.setText(msg);
-                        editLl.setVisibility(View.GONE);
-                        workEdit.setVisibility(View.VISIBLE);
-                        indext = 0;
-                        workEt.setText("");
-                        setText();
-                    } else {
-                        toastor.showSingletonToast("输入内容不能为空");
-                    }
 
-                }
                 break;
+
+            case R.id.work_next:
+
+                setView();
+
+                break;
+            case R.id.work_measure:
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setTitle("Hint");
+                dialog.setMessage("Please stand on the electronic scale");
+                dialog.show();
+                break;
+
             case R.id.goal_edit:
                 postion = 1;
                 editLl2.setVisibility(View.VISIBLE);
@@ -238,7 +201,7 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
                 if (!msg.equals("")) {
                     if (Integer.parseInt(msg) <= 250) {
                         if (postion == 1) {
-                            workTarget.setText(msg + "kg");
+                            workTarget.setText(msg + "lbs");
                             postion++;
                             setText2();
                             workNext2.setText("Commit");
@@ -304,68 +267,21 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
         }
     }
 
-    private void setData() {
-        tabLayout.removeAllTabs();
-        switch (indext) {
-            case 1:
-                tabLayout.addTab(tabLayout.newTab().setText("Weight"));
-
-                break;
-            case 2:
-
-                tabLayout.addTab(tabLayout.newTab().setText("Height"));
-                break;
-            case 3:
-                tabLayout.removeAllTabs();
-                tabLayout.addTab(tabLayout.newTab().setText("BMI"));
-                break;
-            case 4:
-
-                tabLayout.addTab(tabLayout.newTab().setText("Muscle"));
-                break;
-            case 5:
-
-                tabLayout.addTab(tabLayout.newTab().setText("Fat"));
-
-                break;
-
-        }
-        workNext.setText(indext == 5 ? "Commit" : "Next");
-    }
 
     private void setView() {
         String msg = workEt.getText().toString().trim();
 
         if (!msg.equals("")) {
-            switch (indext) {
-                case 1:
-                    if (Integer.parseInt(msg) <= 250)
-                        workWeight.setText(msg + "kg");
-                    else {
-                        toastor.showSingletonToast("请输入正确体重");
-                        return;
-                    }
-                    break;
-                case 2:
-                    if (Integer.parseInt(msg) <= 250)
-                        workHeight.setText(msg + "cm");
-                    else {
-                        toastor.showSingletonToast("请输入正确身高");
-                        return;
-                    }
-                    break;
-                case 3:
-                    workBmi.setText(msg);
-                    break;
-                case 4:
-                    workMucs.setText(msg);
-                    break;
-
-
+            if (Integer.parseInt(msg) <= 250) {
+                editLl.setVisibility(View.GONE);
+                workEdit.setVisibility(View.VISIBLE);
+                workHeight.setText(msg + "cm");
+                indext = 0;
+                setText();
+            } else {
+                toastor.showSingletonToast("请输入正确身高");
+                return;
             }
-            indext++;
-            setText();
-            setData();
 
         } else {
             toastor.showSingletonToast("输入内容不能为空");
@@ -387,16 +303,9 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
 
     @SuppressLint("NewApi")
     private void setText() {
-        workMsg.setTextColor(getColor(indext == 1 ? R.color.grey : R.color.white));
-        workWeight.setTextColor(getColor(indext == 1 ? R.color.grey : R.color.white));
-        workMsg2.setTextColor(getColor(indext == 2 ? R.color.grey : R.color.white));
-        workHeight.setTextColor(getColor(indext == 2 ? R.color.grey : R.color.white));
-        workMsg3.setTextColor(getColor(indext == 3 ? R.color.grey : R.color.white));
-        workBmi.setTextColor(getColor(indext == 3 ? R.color.grey : R.color.white));
-        workMsg4.setTextColor(getColor(indext == 4 ? R.color.grey : R.color.white));
-        workMucs.setTextColor(getColor(indext == 4 ? R.color.grey : R.color.white));
-        workMsg5.setTextColor(getColor(indext == 5 ? R.color.grey : R.color.white));
-        workFat.setTextColor(getColor(indext == 5 ? R.color.grey : R.color.white));
+        workMsg2.setTextColor(getColor(indext == 1 ? R.color.grey : R.color.white));
+        workHeight.setTextColor(getColor(indext == 1 ? R.color.grey : R.color.white));
+
     }
 
     @SuppressLint("NewApi")

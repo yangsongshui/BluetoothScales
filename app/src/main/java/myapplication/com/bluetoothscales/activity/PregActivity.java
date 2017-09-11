@@ -2,6 +2,7 @@ package myapplication.com.bluetoothscales.activity;
 
 import android.annotation.SuppressLint;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -79,11 +80,17 @@ public class PregActivity extends BaseActivity {
     int indext = 0;
 
     @SuppressLint("NewApi")
-    @OnClick({R.id.preg_back, R.id.preg_next, R.id.preg_edit, R.id.preg_pregancy, R.id.preg_expecting, R.id.preg_weight})
+    @OnClick({R.id.preg_back, R.id.preg_next, R.id.preg_measure, R.id.preg_edit, R.id.preg_pregancy, R.id.preg_expecting, R.id.preg_weight})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.preg_back:
                 finish();
+                break;
+            case R.id.preg_measure:
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setTitle("Hint");
+                dialog.setMessage("Please stand on the electronic scale");
+                dialog.show();
                 break;
             case R.id.preg_edit:
                 indext = 1;
@@ -223,7 +230,7 @@ public class PregActivity extends BaseActivity {
                     break;
                 case 3:
                     if (msg.trim().length() <= 3 && Integer.parseInt(msg) <= 250) {
-                        weightTv.setText(msg + " kg");
+                        weightTv.setText(msg + " lbs");
                         preg_et.setText("");
                         setData();
                     } else

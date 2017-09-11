@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="myapplication.com.bluetoothscales.activity.BabyActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -27,6 +28,7 @@
             android:text="Baby Mode"
             android:textColor="@color/white" />
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -108,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="4 kg"
+                    android:text="4 lbs"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -220,8 +222,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="45 kg"
+                    android:text="45 lbs"
                     android:textColor="@color/white" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/baby_measure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/preg_bg"
+                        android:paddingBottom="5dp"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:text="Measure"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -241,8 +262,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="51 kg"
+                    android:text="51  lbs"
                     android:textColor="@color/white" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/baby_measure2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/preg_bg"
+                        android:paddingBottom="5dp"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:text="Measure"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -262,7 +302,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="51 kg"
+                    android:text="51  lbs"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -291,8 +331,6 @@
         </LinearLayout>
 
     </ScrollView>
-
-
 
 
 </LinearLayout>

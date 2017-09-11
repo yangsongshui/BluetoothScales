@@ -8,7 +8,6 @@
     android:background="@drawable/main_home"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-
     tools:context="myapplication.com.bluetoothscales.activity.WorkoutActivity">
 
     <RelativeLayout
@@ -39,8 +38,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="true"
             android:fitsSystemWindows="true"
+            android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
@@ -92,8 +91,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="60 kg"
+                    android:text="60 lbs"
                     android:textColor="@color/white" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/work_measure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/preg_bg"
+                        android:paddingBottom="5dp"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:text="Measure"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -285,7 +302,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="\?? kg"
+                    android:text="\?? lbs"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -359,9 +376,9 @@
                 android:id="@+id/work_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
                 android:button="@null"
                 android:drawableEnd="@drawable/down2"
                 android:drawablePadding="10dp"
@@ -373,8 +390,8 @@
                 android:id="@+id/work_recommended"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:button="@null"
                 android:drawableEnd="@drawable/down2"
@@ -437,11 +454,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="08:00"
-                android:visibility="gone"
                 android:layout_marginStart="10dp"
+                android:text="08:00"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/edit_ll3"
@@ -489,5 +506,6 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 
 </LinearLayout>

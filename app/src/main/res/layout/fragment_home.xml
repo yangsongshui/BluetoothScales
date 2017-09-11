@@ -21,17 +21,7 @@
             android:textColor="@color/white"
             android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/home_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:drawableEnd="@drawable/down"
-            android:drawablePadding="5dp"
-            android:text="Select Mode"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
+
 
         <RelativeLayout
             android:id="@+id/home_main"
@@ -74,7 +64,7 @@
                     android:id="@+id/home_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="58.58"
+                    android:text="- -"
                     android:textColor="@color/white"
                     android:textSize="40sp" />
 
@@ -98,6 +88,17 @@
             android:layout_marginTop="15dp"
             android:text="Detection time：16:00 01/01/2017"
             android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/home_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:drawableEnd="@drawable/down"
+            android:drawablePadding="5dp"
+            android:text="Select Mode"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -131,7 +132,7 @@
                 style="@style/HomeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kg/M^2" />
+                android:text="%" />
 
             <TextView
                 android:id="@+id/home_bmi"
@@ -139,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="10dp"
-                android:text="19.99"
+                android:text="- -"
                 android:textColor="@color/blue"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -176,7 +177,7 @@
                 style="@style/HomeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kg/M^2" />
+                android:text="%" />
 
             <TextView
                 android:id="@+id/home_rou"
@@ -184,7 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="10dp"
-                android:text="19.99"
+                android:text="- -"
                 android:textColor="@color/blue"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -222,7 +223,7 @@
                 style="@style/HomeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kg/M^2" />
+                android:text="%" />
 
             <TextView
                 android:id="@+id/home_jirou"
@@ -230,7 +231,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="10dp"
-                android:text="19.99"
+                android:text="- -"
                 android:textColor="@color/blue"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -269,7 +270,7 @@
                 style="@style/HomeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kg/M^2" />
+                android:text="%" />
 
             <TextView
                 android:id="@+id/home_guge"
@@ -277,7 +278,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="10dp"
-                android:text="19.99"
+                android:text="- -"
                 android:textColor="@color/blue"
                 android:textSize="20sp" />
         </LinearLayout>

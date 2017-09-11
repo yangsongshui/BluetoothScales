@@ -2,6 +2,7 @@ package myapplication.com.bluetoothscales.activity;
 
 import android.annotation.SuppressLint;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
@@ -85,11 +86,19 @@ public class BabyActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.baby_back, R.id.baby_edit, R.id.preg_next, R.id.baby_birth, R.id.baby_weight_ll, R.id.baby_sex_ll})
+    @OnClick({R.id.baby_back, R.id.baby_edit, R.id.baby_measure,R.id.baby_measure2,R.id.preg_next, R.id.baby_birth, R.id.baby_weight_ll, R.id.baby_sex_ll})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.baby_back:
                 finish();
+                break;
+            case R.id.baby_measure:
+
+            case R.id.baby_measure2:
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setTitle("Hint");
+                dialog.setMessage("Please stand on the electronic scale");
+                dialog.show();
                 break;
             case R.id.baby_edit:
                 indext = 1;
@@ -160,7 +169,7 @@ public class BabyActivity extends BaseActivity {
                     } else if (indext == 2) {
                         if (msg.trim().length() <= 3 && Integer.parseInt(msg) <= 250) {
                             postion = 2;
-                            babyWeight.setText(msg + " kg");
+                            babyWeight.setText(msg + " lbs");
                             babyEt.setText("");
                             setData();
                         }

@@ -2,6 +2,9 @@ package myapplication.com.bluetoothscales.app;
 
 import android.app.Activity;
 
+import com.kitnew.ble.QNApiManager;
+import com.kitnew.ble.QNResultCallback;
+
 import org.litepal.LitePal;
 import org.litepal.LitePalApplication;
 
@@ -37,6 +40,12 @@ public class MyApplication extends LitePalApplication {
 
         LitePal.initialize(this);
         SpUtils.init(this);
+        QNApiManager.getApi(getApplicationContext()).initSDK("123456789", false, new QNResultCallback() {
+            @Override
+            public void onCompete(int errorCode) {
+                //执行结果，为0则成功，其它则参考api文档的种的错误码
+            }
+        });
 
 
     }

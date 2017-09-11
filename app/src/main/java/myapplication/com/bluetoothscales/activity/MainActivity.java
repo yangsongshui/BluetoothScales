@@ -5,11 +5,20 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.RadioGroup;
 
+import com.kitnew.ble.QNApiManager;
+import com.kitnew.ble.QNBleApi;
+import com.kitnew.ble.QNBleCallback;
+import com.kitnew.ble.QNBleDevice;
+import com.kitnew.ble.QNBleScanCallback;
+import com.kitnew.ble.QNData;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
+
+import java.util.List;
 
 import butterknife.BindView;
 import myapplication.com.bluetoothscales.R;
@@ -19,6 +28,9 @@ import myapplication.com.bluetoothscales.fragment.DiscoverFragment;
 import myapplication.com.bluetoothscales.fragment.HomeFragment;
 import myapplication.com.bluetoothscales.fragment.TrendFragment;
 
+import static myapplication.com.bluetoothscales.utils.DateUtil.LONG_DATE_FORMAT;
+import static myapplication.com.bluetoothscales.utils.DateUtil.stringtoDate;
+
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
     private final static int REQUECT_CODE_COARSE = 1;
     @BindView(R.id.main_rgrpNavigation)
@@ -26,6 +38,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private Fragment[] frags = new Fragment[3];
     protected BaseFragment currentFragment;
     private HomeFragment homeFragment;
+    QNBleApi qnBleApi;
+    QNBleDevice device;
 
     @Override
     protected int getContentView() {
@@ -38,6 +52,19 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         initData();
         mainRgrpNavigation.setOnCheckedChangeListener(this);
         mainRgrpNavigation.check(R.id.main_home);
+        qnBleApi = QNApiManager.getApi(this);
+        qnBleApi.startLeScan(null, null, new QNBleScanCallback() {
+            //如果失败，会在这个方法中返回错误码
+            public void onCompete(int errorCode) {
+            }
+
+            //如果扫描到设备，会在这个方法返回这个设备的相关信息
+            public void onScan(QNBleDevice bleDevice) {
+                device = bleDevice;
+                qnBleApi.stopScan();
+                qnBleApi.connectDevice(device, "362927657", 176, 1, stringtoDate("1991-06-24",LONG_DATE_FORMAT), qnBleCallback);
+            }
+        });
     }
 
     @Override
@@ -115,10 +142,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void onDestroy() {
         super.onDestroy();
     }
-    private void initPermission(){
+
+    private void initPermission() {
         MPermissions.requestPermissions(MainActivity.this, REQUECT_CODE_COARSE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         MPermissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
@@ -134,4 +163,85 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         MPermissions.requestPermissions(MainActivity.this, REQUECT_CODE_COARSE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
     }
+
+    QNBleCallback qnBleCallback = new QNBleCallback() {
+        /**
+         * 开始连接 在主线程中回调
+         *
+         * @param qnBleDevice 轻牛蓝牙设备
+         */
+        @Override
+        public void onConnectStart(QNBleDevice qnBleDevice) {
+            Log.e("Main", "开始链接");
+        }
+
+        /**
+         * 已经连接上了 在主线程中回调
+         *
+         * @param qnBleDevice 轻牛蓝牙设备
+         */
+        @Override
+        public void onConnected(QNBleDevice qnBleDevice) {
+            Log.e("Main", "连接成功");
+        }
+
+        /**
+         * 断开了蓝牙连接 在主线程中回调
+         *
+         * @param qnBleDevice 轻牛蓝牙设备
+         */
+        @Override
+        public void onDisconnected(QNBleDevice qnBleDevice) {
+            Log.e("Main", "断开连接");
+        }
+
+        /**
+         * 收到了不稳定的体重数据，在称重前期会不断被调用 在主线程中回调
+         *
+         * @param qnBleDevice 轻牛蓝牙设备
+         * @param weight    不稳定的体重
+         */
+        @Override
+        public void onUnsteadyWeight(QNBleDevice qnBleDevice, float weight) {
+            Log.e("Main", "不稳定的体重" + weight);
+
+        }
+
+        /**
+         * 收到了稳定的测量数据 在主线程中回调
+         *
+         * @param qnBleDevice 轻牛蓝牙设备
+         * @param qnData      轻牛测量数据
+         */
+        @Override
+        public void onReceivedData(QNBleDevice qnBleDevice, QNData qnData) {
+            Log.e("Main", "轻牛测量数据" + qnData.getWeight());
+        }
+
+        /**
+         * 收到了存储数据 在主线程中回调
+         *
+         * @param qnBleDevice 轻牛蓝牙设备
+         * @param list     存储数据数组（包含多个），可用{@link QNData#getUserId()}判断是哪个用户的数据
+         */
+        @Override
+        public void onReceivedStoreData(QNBleDevice qnBleDevice, List<QNData> list) {
+            Log.e("Main", "收到了存储数据" + list.size());
+        }
+
+        @Override
+        public void onDeviceModelUpdate(QNBleDevice qnBleDevice) {
+            Log.e("Main", "onDeviceModelUpdate" + qnBleDevice.getDeviceName());
+        }
+
+        /**
+         * 连接中 在主线程中回调
+         *
+         * @param i 轻牛蓝牙设备
+         */
+        @Override
+        public void onCompete(int i) {
+            Log.e("Main", "onCompete" + i);
+        }
+    };
 }
