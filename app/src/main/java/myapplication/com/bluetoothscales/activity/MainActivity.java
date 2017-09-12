@@ -220,6 +220,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
          */
         @Override
         public void onReceivedData(QNBleDevice qnBleDevice, QNData qnData) {
+            MyApplication.newInstance().setQnData(qnData);
             Log.e("Main", "轻牛测量数据" + qnData.getWeight());
             Intent intent = new Intent();
             intent.setAction(ACTION_BLE_NOTIFY_DATA);

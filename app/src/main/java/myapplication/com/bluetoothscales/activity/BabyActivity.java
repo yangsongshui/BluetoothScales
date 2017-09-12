@@ -303,7 +303,7 @@ public class BabyActivity extends BaseActivity {
                     babyMomWeight.setText(String.valueOf(qnData.getWeight() + unit));
                     isMom = false;
                     double weight = Double.parseDouble(momWeight.getText().toString().replace(unit, ""));
-                    currentWeight.setText(String.valueOf((qnData.getWeight() - weight) + unit));
+                    currentWeight.setText(String .format("%.2f",qnData.getWeight() - weight) + unit);
                     MyApplication.newInstance().isMeasure = true;
                 }
 
