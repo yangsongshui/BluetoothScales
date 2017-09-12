@@ -1,6 +1,10 @@
 package myapplication.com.bluetoothscales.activity;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
@@ -9,13 +13,19 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kitnew.ble.QNData;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import myapplication.com.bluetoothscales.R;
+import myapplication.com.bluetoothscales.app.MyApplication;
 import myapplication.com.bluetoothscales.base.BaseActivity;
 import myapplication.com.bluetoothscales.utils.DateUtil;
 import myapplication.com.bluetoothscales.utils.SpUtils;
 import myapplication.com.bluetoothscales.utils.Toastor;
+
+import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
+import static myapplication.com.bluetoothscales.utils.DateUtil.dayDiffCurr;
 
 public class BabyActivity extends BaseActivity {
 
@@ -54,6 +64,8 @@ public class BabyActivity extends BaseActivity {
     Toastor toastor;
     int postion = 0;
     int indext = 0;
+    String unit = "";
+    String weight = "";
 
     @Override
     protected int getContentView() {
@@ -62,7 +74,12 @@ public class BabyActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        unit = SpUtils.getString("unit", "LBS");
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
+        registerReceiver(notifyReceiver, intentFilter);
         toastor = new Toastor(this);
+        babySex.setText(SpUtils.getString("sex", "boy"));
         tabLayout.addTab(tabLayout.newTab().setText("Year"));
         tabLayout.addTab(tabLayout.newTab().setText("Month"));
         tabLayout.addTab(tabLayout.newTab().setText("Day"));
@@ -83,22 +100,30 @@ public class BabyActivity extends BaseActivity {
 
             }
         });
+        babyTime.setText(SpUtils.getString("BabyData", "2017-01-01"));
+        babyWeight.setText(SpUtils.getString("BabyWeight", "--"));
+        babySex.setText(SpUtils.getString("sex", "boy"));
+        if (!babyWeight.getText().equals("--"))
+            currentTime.setText(String.valueOf((dayDiffCurr(babyTime.getText().toString())  /7) + " Weeks"));
     }
 
 
-    @OnClick({R.id.baby_back, R.id.baby_edit, R.id.baby_measure,R.id.baby_measure2,R.id.preg_next, R.id.baby_birth, R.id.baby_weight_ll, R.id.baby_sex_ll})
+    @OnClick({R.id.baby_back, R.id.baby_edit, R.id.baby_measure, R.id.baby_measure2, R.id.preg_next, R.id.baby_birth, R.id.baby_weight_ll, R.id.baby_sex_ll})
     public void onViewClicked(View view) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Hint");
+        dialog.setMessage("Please stand on the electronic scale");
         switch (view.getId()) {
             case R.id.baby_back:
                 finish();
                 break;
             case R.id.baby_measure:
-
-            case R.id.baby_measure2:
-                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                dialog.setTitle("Hint");
-                dialog.setMessage("Please stand on the electronic scale");
                 dialog.show();
+                isMom = true;
+                break;
+            case R.id.baby_measure2:
+                dialog.show();
+                isBaby = true;
                 break;
             case R.id.baby_edit:
                 indext = 1;
@@ -169,7 +194,8 @@ public class BabyActivity extends BaseActivity {
                     } else if (indext == 2) {
                         if (msg.trim().length() <= 3 && Integer.parseInt(msg) <= 250) {
                             postion = 2;
-                            babyWeight.setText(msg + " lbs");
+                            weight = msg;
+                            babyWeight.setText(msg + unit);
                             babyEt.setText("");
                             setData();
                         }
@@ -204,7 +230,7 @@ public class BabyActivity extends BaseActivity {
                         babySex.setText(msg);
                         babyEt.setText("");
                         setData();
-                        SpUtils.putString("sex",msg.trim().toLowerCase());
+
                     } else
                         toastor.showSingletonToast("请输入正确性别");
                     break;
@@ -241,7 +267,10 @@ public class BabyActivity extends BaseActivity {
             indext = 0;
             initTab();
             setText();
-
+            SpUtils.putString("BabyData", babyTime.getText().toString());
+            SpUtils.putString("BabyWeight", weight);
+            SpUtils.putString("sex", babySex.getText().toString());
+            currentTime.setText(String.valueOf((dayDiffCurr(babyTime.getText().toString()) / 7) + " Weeks"));
         } else {
             postion++;
             tabLayout.getTabAt(postion).select();
@@ -255,5 +284,36 @@ public class BabyActivity extends BaseActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Month"));
         tabLayout.addTab(tabLayout.newTab().setText("Day"));
 
+    }
+
+    boolean isMom = false;
+    boolean isBaby = false;
+    private BroadcastReceiver notifyReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Log.e("BLEService收到设备信息广播", intent.getAction());
+            if (ACTION_BLE_NOTIFY_DATA.equals(intent.getAction())) {
+                if (isMom) {
+                    QNData qnData = MyApplication.newInstance().getQnData();
+                    momWeight.setText(String.valueOf(qnData.getWeight() + unit));
+                    isMom = false;
+                }
+                if (isBaby) {
+                    QNData qnData = MyApplication.newInstance().getQnData();
+                    babyMomWeight.setText(String.valueOf(qnData.getWeight() + unit));
+                    isMom = false;
+                    double weight = Double.parseDouble(momWeight.getText().toString().replace(unit, ""));
+                    currentWeight.setText(String.valueOf((qnData.getWeight() - weight) + unit));
+                    MyApplication.newInstance().isMeasure = true;
+                }
+
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(notifyReceiver);
     }
 }

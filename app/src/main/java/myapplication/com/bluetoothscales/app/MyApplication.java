@@ -3,6 +3,7 @@ package myapplication.com.bluetoothscales.app;
 import android.app.Activity;
 
 import com.kitnew.ble.QNApiManager;
+import com.kitnew.ble.QNData;
 import com.kitnew.ble.QNResultCallback;
 
 import org.litepal.LitePal;
@@ -22,7 +23,9 @@ public class MyApplication extends LitePalApplication {
 
     private static MyApplication instance;
     public static List<Activity> activitiesList = new ArrayList<Activity>(); // 活动管理集合
+    private QNData qnData;
 
+    public  boolean isMeasure = false;
 
     /**
      * 获取单例
@@ -81,4 +84,11 @@ public class MyApplication extends LitePalApplication {
 
     }
 
+    public QNData getQnData() {
+        return qnData;
+    }
+
+    public void setQnData(QNData qnData) {
+        this.qnData = qnData;
+    }
 }

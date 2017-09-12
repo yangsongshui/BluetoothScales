@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="2017/08/28"
+                    android:text="2017-01-01"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="2018/06/25"
+                    android:text="2017-01-01"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -132,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="51 lbs"
+                    android:text="--"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -214,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="51 lbs"
+                    android:text="--"
                     android:textColor="@color/white" />
 
                 <RelativeLayout
@@ -271,6 +271,21 @@
                 android:text="Daily reminder"
                 android:textColor="@color/grey"
                 android:textSize="16sp" />
+            <LinearLayout
+                android:id="@+id/daily_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/msg"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

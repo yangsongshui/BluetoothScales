@@ -1,7 +1,12 @@
 package myapplication.com.bluetoothscales.activity;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Handler;
+import android.support.annotation.IdRes;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -9,14 +14,21 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.kitnew.ble.QNData;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import myapplication.com.bluetoothscales.R;
+import myapplication.com.bluetoothscales.app.MyApplication;
 import myapplication.com.bluetoothscales.base.BaseActivity;
+import myapplication.com.bluetoothscales.utils.SpUtils;
 import myapplication.com.bluetoothscales.utils.Toastor;
+
+import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
 
 public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -104,11 +116,15 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
     TextView workTiem;
     @BindView(R.id.scrollView)
     ScrollView scrollView;
+    @BindView(R.id.work_rg)
+    RadioGroup WorkRg;
     Toastor toastor;
     int postion = 0;
     int indext = 0;
     int place = 0;
-
+    String unit = "";
+int[] id={R.id.work_xingzou,R.id.work_qixing,R.id.work_paobu,R.id.work_youyong,R.id.work_yangwoqizuo,
+        R.id.work_jvzhong,R.id.work_fuwocheng,R.id.work_shendun,R.id.work_pashan,R.id.work_ticoa};
     @Override
     protected int getContentView() {
         return R.layout.activity_workout;
@@ -116,7 +132,16 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
 
     @Override
     protected void init() {
+        unit = SpUtils.getString("unit", "LBS");
         toastor = new Toastor(this);
+        workHeight.setText(SpUtils.getString("workHeight", "--") + "cm");
+        workTarget.setText(SpUtils.getString("workTarget", "--") + unit);
+        workDuration.setText(SpUtils.getString("workDuration", "--") + "weeks");
+        workTiem.setText(SpUtils.getString("workTiem", "00:00"));
+        WorkRg.check( id[SpUtils.getInt("workType",0)]);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
+        registerReceiver(notifyReceiver, intentFilter);
         tabLayout.addTab(tabLayout.newTab().setText("Height"));
         tabLayout2.addTab(tabLayout2.newTab().setText("Weight"));
 
@@ -142,8 +167,46 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
         });
         workActivity.setOnCheckedChangeListener(this);
         workRecommended.setOnCheckedChangeListener(this);
+        WorkRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId){
+                    case R.id.work_xingzou:
+                        SpUtils.putInt("workType",0);
+                        break;
+                    case R.id.work_qixing:
+                        SpUtils.putInt("workType",1);
+                        break;
+                    case R.id.work_paobu:
+                        SpUtils.putInt("workType",2);
+                        break;
+                    case R.id.work_youyong:
+                        SpUtils.putInt("workType",3);
+                        break;
+                    case R.id.work_yangwoqizuo:
+                        SpUtils.putInt("workType",4);
+                        break;
+                    case R.id.work_jvzhong:
+                        SpUtils.putInt("workType",5);
+                        break;
+                    case R.id.work_fuwocheng:
+                        SpUtils.putInt("workType",6);
+                        break;
+                    case R.id.work_shendun:
+                        SpUtils.putInt("workType",7);
+                        break;
+                    case R.id.work_pashan:
+                        SpUtils.putInt("workType",8);
+                        break;
+                    case R.id.work_ticoa:
+                        SpUtils.putInt("workType",9);
+                        break;
+                }
+            }
+        });
     }
 
+    boolean isData = false;
 
     @OnClick({R.id.baby_back, R.id.work_edit, R.id.work_next,
             R.id.goal_edit, R.id.work_target_ll, R.id.work_duration_ll,
@@ -167,10 +230,12 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
 
                 break;
             case R.id.work_measure:
+
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this);
                 dialog.setTitle("Hint");
                 dialog.setMessage("Please stand on the electronic scale");
                 dialog.show();
+                isData = true;
                 break;
 
             case R.id.goal_edit:
@@ -201,13 +266,15 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
                 if (!msg.equals("")) {
                     if (Integer.parseInt(msg) <= 250) {
                         if (postion == 1) {
-                            workTarget.setText(msg + "lbs");
+                            workTarget.setText(msg + unit);
                             postion++;
                             setText2();
+                            SpUtils.putString("workTarget", msg);
                             workNext2.setText("Commit");
                         } else {
                             postion = 0;
-                            workDuration.setText(msg + "Weeks");
+                            workDuration.setText(msg + "weeks");
+                            SpUtils.putString("workDuration", msg);
                             setText2();
                             editLl2.setVisibility(View.GONE);
                             goalEdit.setVisibility(View.VISIBLE);
@@ -241,6 +308,7 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
                             settingEdit.setVisibility(View.VISIBLE);
                             workTiem.setVisibility(View.GONE);
                             workEt3.setText("");
+                            SpUtils.putString("workTiem", workTiem.getText().toString());
                         } else {
                             toastor.showSingletonToast("请输入正确分钟");
                         }
@@ -278,6 +346,7 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
                 workHeight.setText(msg + "cm");
                 indext = 0;
                 setText();
+                SpUtils.putString("workHeight", msg);
             } else {
                 toastor.showSingletonToast("请输入正确身高");
                 return;
@@ -296,7 +365,7 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
                 discoverList2.setVisibility(b ? View.VISIBLE : View.GONE);
                 break;
             case R.id.work_activity:
-
+                WorkRg.setVisibility(b?View.VISIBLE:View.GONE);
                 break;
         }
     }
@@ -315,5 +384,29 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
         workMsg7.setTextColor(getColor(postion == 2 ? R.color.grey : R.color.white));
         workDuration.setTextColor(getColor(postion == 2 ? R.color.grey : R.color.white));
 
+    }
+
+    private BroadcastReceiver notifyReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Log.e("BLEService收到设备信息广播", intent.getAction());
+            if (ACTION_BLE_NOTIFY_DATA.equals(intent.getAction())) {
+                if (isData) {
+                    QNData qnData = MyApplication.newInstance().getQnData();
+                    workWeight.setText(String.valueOf(qnData.getWeight() + unit));
+                    workBmi.setText(String.valueOf(qnData.getFloatValue(QNData.TYPE_BMI)));
+                    workMucs.setText(String.valueOf(qnData.getFloatValue(QNData.TYPE_SKELETAL_MUSCLE)));
+                    workFat.setText(String.valueOf(qnData.getFloatValue(QNData.TYPE_BODYFAT)));
+                    isData = false;
+                    MyApplication.newInstance().isMeasure = true;
+                }
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(notifyReceiver);
     }
 }

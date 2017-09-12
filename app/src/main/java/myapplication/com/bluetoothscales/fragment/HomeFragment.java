@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.kitnew.ble.QNData;
+
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
@@ -16,9 +18,15 @@ import myapplication.com.bluetoothscales.R;
 import myapplication.com.bluetoothscales.activity.BabyActivity;
 import myapplication.com.bluetoothscales.activity.PregActivity;
 import myapplication.com.bluetoothscales.activity.WorkoutActivity;
+import myapplication.com.bluetoothscales.app.MyApplication;
 import myapplication.com.bluetoothscales.base.BaseFragment;
 import myapplication.com.bluetoothscales.utils.FragmentEvent;
 import myapplication.com.bluetoothscales.utils.SpUtils;
+
+import static com.kitnew.ble.QNData.TYPE_BMI;
+import static com.kitnew.ble.QNData.TYPE_BODYFAT;
+import static com.kitnew.ble.QNData.TYPE_BONE;
+import static com.kitnew.ble.QNData.TYPE_SKELETAL_MUSCLE;
 
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
@@ -38,18 +46,29 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @BindView(R.id.home_mode)
     TextView homeMode;
     PopupWindow window;
+    PopupWindow window2;
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
         View popupView = getActivity().getLayoutInflater().inflate(R.layout.popupwindow, null);
+        View popupView2 = getActivity().getLayoutInflater().inflate(R.layout.popupwindow2, null);
         popupView.findViewById(R.id.preg_pop).setOnClickListener(this);
         popupView.findViewById(R.id.baby_pop).setOnClickListener(this);
         popupView.findViewById(R.id.work_pop).setOnClickListener(this);
+        popupView2.findViewById(R.id.preg_lbs).setOnClickListener(this);
+        popupView2.findViewById(R.id.preg_kg).setOnClickListener(this);
+        popupView2.findViewById(R.id.preg_st).setOnClickListener(this);
         window = new PopupWindow(popupView, 300, 350);
+        window2 = new PopupWindow(popupView2, 200, 350);
         window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E199782")));
         window.setFocusable(true);
         window.setOutsideTouchable(true);
         window.update();
+        window2.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E199782")));
+        window2.setFocusable(true);
+        window2.setOutsideTouchable(true);
+        window2.update();
+        homeLbs.setText(SpUtils.getString("unit", "LBS"));
         if (SpUtils.getInt("type", 1) == 1)
             homeMode.setText("Workout Mode");
         else if (SpUtils.getInt("type", 1) == 2)
@@ -64,19 +83,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
 
-    @OnClick(value = {R.id.home_mode, R.id.home_main})
+    @OnClick(value = {R.id.home_mode, R.id.home_lbs})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.home_mode:
                 window.showAsDropDown(homeMode, 0, 20);
                 break;
-            case R.id.home_main:
-                if (SpUtils.getInt("type", 1) == 1)
-                    startActivity(new Intent(getActivity(), WorkoutActivity.class));
-                else if (SpUtils.getInt("type", 1) == 2)
-                    startActivity(new Intent(getActivity(), PregActivity.class));
-                else if (SpUtils.getInt("type", 1) == 3)
-                    startActivity(new Intent(getActivity(), BabyActivity.class));
+            case R.id.home_lbs:
+                window2.showAsDropDown(homeLbs, 0, 20);
                 break;
         }
 
@@ -90,18 +104,47 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 homeMode.setText("Baby Mode");
                 EventBus.getDefault().post(new FragmentEvent(3));
                 SpUtils.putInt("type", 3);
+                startActivity(new Intent(getActivity(), BabyActivity.class));
                 break;
             case R.id.work_pop:
                 homeMode.setText("Workout Mode");
                 EventBus.getDefault().post(new FragmentEvent(1));
                 SpUtils.putInt("type", 1);
+                startActivity(new Intent(getActivity(), WorkoutActivity.class));
                 break;
             case R.id.preg_pop:
                 homeMode.setText("Pregnancy Mode");
                 EventBus.getDefault().post(new FragmentEvent(2));
                 SpUtils.putInt("type", 2);
+                startActivity(new Intent(getActivity(), PregActivity.class));
+                break;
+            case R.id.preg_lbs:
+                homeLbs.setText("LBS");
+                SpUtils.putString("unit", "LBS");
+                break;
+            case R.id.preg_kg:
+                homeLbs.setText("Kg");
+                SpUtils.putString("unit", "Kg");
+                break;
+            case R.id.preg_st:
+                homeLbs.setText("ST");
+                SpUtils.putString("unit", "ST");
                 break;
         }
         window.dismiss();
+        window2.dismiss();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (MyApplication.newInstance().isMeasure) {
+            QNData qnData = MyApplication.newInstance().getQnData();
+            homeWeight.setText(String.valueOf(qnData.getWeight()));
+            homeBmi.setText(String.valueOf(qnData.getFloatValue(TYPE_BMI)));
+            homeRou.setText(String.valueOf(qnData.getFloatValue(TYPE_BODYFAT)));
+            homeJirou.setText(String.valueOf(qnData.getFloatValue(TYPE_SKELETAL_MUSCLE)));
+            homeGuge.setText(String.valueOf(qnData.getFloatValue(TYPE_BONE)));
+        }
     }
 }

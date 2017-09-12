@@ -1,19 +1,32 @@
 package myapplication.com.bluetoothscales.activity;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kitnew.ble.QNData;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import myapplication.com.bluetoothscales.R;
+import myapplication.com.bluetoothscales.app.MyApplication;
 import myapplication.com.bluetoothscales.base.BaseActivity;
 import myapplication.com.bluetoothscales.utils.DateUtil;
+import myapplication.com.bluetoothscales.utils.SpUtils;
 import myapplication.com.bluetoothscales.utils.Toastor;
+
+import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
+import static myapplication.com.bluetoothscales.utils.DateUtil.dayDiffCurr;
 
 public class PregActivity extends BaseActivity {
 
@@ -45,7 +58,12 @@ public class PregActivity extends BaseActivity {
     TextView currentWeight;
     @BindView(R.id.current_time)
     TextView currentTime;
+    @BindView(R.id.daily_msg)
+    LinearLayout daily_msg;
+    @BindView(R.id.preg_daily)
+    CheckBox pregDaily;
     Toastor toastor;
+    String unit = "";
 
     @Override
     protected int getContentView() {
@@ -54,6 +72,13 @@ public class PregActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        unit = SpUtils.getString("unit", "LBS");
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
+        registerReceiver(notifyReceiver, intentFilter);
+        expectingTime.setText(SpUtils.getString("expectingTime", "2017-01-01"));
+        pregancyTime.setText(SpUtils.getString("pregancyTime", "2017-01-01"));
+        weightTv.setText(SpUtils.getString("pregWeight", "--") + unit);
         toastor = new Toastor(this);
         tabLayout.addTab(tabLayout.newTab().setText("Year"));
         tabLayout.addTab(tabLayout.newTab().setText("Month"));
@@ -75,6 +100,14 @@ public class PregActivity extends BaseActivity {
 
             }
         });
+        pregDaily.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                daily_msg.setVisibility(isChecked?View.VISIBLE:View.GONE);
+            }
+        });
+        if (!expectingTime.getText().equals("--"))
+            currentTime.setText(String.valueOf((-dayDiffCurr(expectingTime.getText().toString()) / 7) + " Weeks"));
     }
 
     int indext = 0;
@@ -91,6 +124,7 @@ public class PregActivity extends BaseActivity {
                 dialog.setTitle("Hint");
                 dialog.setMessage("Please stand on the electronic scale");
                 dialog.show();
+                isData = true;
                 break;
             case R.id.preg_edit:
                 indext = 1;
@@ -126,10 +160,10 @@ public class PregActivity extends BaseActivity {
                     setText();
                     tabLayout.removeAllTabs();
                     tabLayout.addTab(tabLayout.newTab().setText("Weight"));
+
                 }
                 break;
-            case R.id.preg_daily:
-                break;
+
         }
     }
 
@@ -230,9 +264,12 @@ public class PregActivity extends BaseActivity {
                     break;
                 case 3:
                     if (msg.trim().length() <= 3 && Integer.parseInt(msg) <= 250) {
-                        weightTv.setText(msg + " lbs");
+                        weightTv.setText(msg + unit);
                         preg_et.setText("");
                         setData();
+                        SpUtils.putString("expectingTime", expectingTime.getText().toString());
+                        SpUtils.putString("pregancyTime", pregancyTime.getText().toString());
+                        SpUtils.putString("pregWeight", msg);
                     } else
                         toastor.showSingletonToast("请输入正确体重");
                     break;
@@ -242,5 +279,28 @@ public class PregActivity extends BaseActivity {
         } else {
             toastor.showSingletonToast("输入内容不能为空");
         }
+    }
+
+    boolean isData = false;
+    private BroadcastReceiver notifyReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Log.e("BLEService收到设备信息广播", intent.getAction());
+            if (ACTION_BLE_NOTIFY_DATA.equals(intent.getAction())) {
+                if (isData) {
+                    QNData qnData = MyApplication.newInstance().getQnData();
+                    currentWeight.setText(String.valueOf(qnData.getWeight() + unit));
+                    isData = false;
+                    MyApplication.newInstance().isMeasure = true;
+                }
+
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(notifyReceiver);
     }
 }

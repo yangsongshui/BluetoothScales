@@ -64,7 +64,7 @@
                     android:id="@+id/home_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="- -"
+                    android:text="--"
                     android:textColor="@color/white"
                     android:textSize="40sp" />
 
@@ -76,6 +76,7 @@
                     android:layout_above="@+id/home_weight"
                     android:layout_alignEnd="@+id/home_weight"
                     android:text="LBS"
+                    android:drawableEnd="@drawable/down"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -140,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="10dp"
-                android:text="- -"
+                android:text="--"
                 android:textColor="@color/blue"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -185,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="10dp"
-                android:text="- -"
+                android:text="--"
                 android:textColor="@color/blue"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -231,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="10dp"
-                android:text="- -"
+                android:text="--"
                 android:textColor="@color/blue"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -278,7 +279,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="10dp"
-                android:text="- -"
+                android:text="--"
                 android:textColor="@color/blue"
                 android:textSize="20sp" />
         </LinearLayout>

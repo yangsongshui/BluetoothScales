@@ -1,6 +1,7 @@
 package myapplication.com.bluetoothscales.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,17 +23,20 @@ import java.util.List;
 
 import butterknife.BindView;
 import myapplication.com.bluetoothscales.R;
+import myapplication.com.bluetoothscales.app.MyApplication;
 import myapplication.com.bluetoothscales.base.BaseActivity;
 import myapplication.com.bluetoothscales.base.BaseFragment;
 import myapplication.com.bluetoothscales.fragment.DiscoverFragment;
 import myapplication.com.bluetoothscales.fragment.HomeFragment;
 import myapplication.com.bluetoothscales.fragment.TrendFragment;
 
+import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
 import static myapplication.com.bluetoothscales.utils.DateUtil.LONG_DATE_FORMAT;
 import static myapplication.com.bluetoothscales.utils.DateUtil.stringtoDate;
 
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
     private final static int REQUECT_CODE_COARSE = 1;
+
     @BindView(R.id.main_rgrpNavigation)
     RadioGroup mainRgrpNavigation;
     private Fragment[] frags = new Fragment[3];
@@ -62,7 +66,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             public void onScan(QNBleDevice bleDevice) {
                 device = bleDevice;
                 qnBleApi.stopScan();
-                qnBleApi.connectDevice(device, "362927657", 176, 1, stringtoDate("1991-06-24",LONG_DATE_FORMAT), qnBleCallback);
+                qnBleApi.connectDevice(device, "362927657", 176, 1, stringtoDate("1991-06-24", LONG_DATE_FORMAT), qnBleCallback);
             }
         });
     }
@@ -118,6 +122,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 return null;
         }
     }
+
 
     /**
      * 添加或者显示 fragment
@@ -216,6 +221,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         @Override
         public void onReceivedData(QNBleDevice qnBleDevice, QNData qnData) {
             Log.e("Main", "轻牛测量数据" + qnData.getWeight());
+            Intent intent = new Intent();
+            intent.setAction(ACTION_BLE_NOTIFY_DATA);
+            sendBroadcast(intent);
         }
 
         /**
@@ -227,6 +235,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         @Override
         public void onReceivedStoreData(QNBleDevice qnBleDevice, List<QNData> list) {
             Log.e("Main", "收到了存储数据" + list.size());
+
         }
 
         @Override

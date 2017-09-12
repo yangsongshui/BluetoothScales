@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="2017/08/28"
+                    android:text="2017-01-01"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="4 lbs"
+                    android:text="--"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -222,7 +222,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="45 lbs"
+                    android:text="--"
                     android:textColor="@color/white" />
 
                 <RelativeLayout
@@ -262,7 +262,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="51  lbs"
+                    android:text="--"
                     android:textColor="@color/white" />
 
                 <RelativeLayout
@@ -302,7 +302,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="51  lbs"
+                    android:text="--"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -324,7 +324,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="Two weeks"
+                    android:text="--"
                     android:textColor="@color/white" />
             </LinearLayout>
 
