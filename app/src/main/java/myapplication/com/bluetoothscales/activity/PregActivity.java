@@ -1,6 +1,5 @@
 package myapplication.com.bluetoothscales.activity;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -112,7 +111,6 @@ public class PregActivity extends BaseActivity {
 
     int indext = 0;
 
-    @SuppressLint("NewApi")
     @OnClick({R.id.preg_back, R.id.preg_next, R.id.preg_measure, R.id.preg_edit, R.id.preg_pregancy, R.id.preg_expecting, R.id.preg_weight})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -176,14 +174,13 @@ public class PregActivity extends BaseActivity {
 
     }
 
-    @SuppressLint("NewApi")
     private void setText() {
-        pregMsg.setTextColor(getColor(indext == 1 ? R.color.grey : R.color.white));
-        pregancyTime.setTextColor(getColor(indext == 1 ? R.color.grey : R.color.white));
-        pregMsg2.setTextColor(getColor(indext == 2 ? R.color.grey : R.color.white));
-        expectingTime.setTextColor(getColor(indext == 2 ? R.color.grey : R.color.white));
-        pregMsg3.setTextColor(getColor(indext == 3 ? R.color.grey : R.color.white));
-        weightTv.setTextColor(getColor(indext == 3 ? R.color.grey : R.color.white));
+        pregMsg.setTextColor(getResources().getColor(indext == 1 ? R.color.grey : R.color.white));
+        pregancyTime.setTextColor(getResources().getColor(indext == 1 ? R.color.grey : R.color.white));
+        pregMsg2.setTextColor(getResources().getColor(indext == 2 ? R.color.grey : R.color.white));
+        expectingTime.setTextColor(getResources().getColor(indext == 2 ? R.color.grey : R.color.white));
+        pregMsg3.setTextColor(getResources().getColor(indext == 3 ? R.color.grey : R.color.white));
+        weightTv.setTextColor(getResources().getColor(indext == 3 ? R.color.grey : R.color.white));
     }
 
     private void setData() {

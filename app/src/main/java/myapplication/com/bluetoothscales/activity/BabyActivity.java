@@ -1,6 +1,5 @@
 package myapplication.com.bluetoothscales.activity;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -167,14 +166,13 @@ public class BabyActivity extends BaseActivity {
         }
     }
 
-    @SuppressLint("NewApi")
     private void setText() {
-        babyMsg.setTextColor(getColor(indext == 1 ? R.color.grey : R.color.white));
-        babyTime.setTextColor(getColor(indext == 1 ? R.color.grey : R.color.white));
-        babyMsg2.setTextColor(getColor(indext == 2 ? R.color.grey : R.color.white));
-        babyWeight.setTextColor(getColor(indext == 2 ? R.color.grey : R.color.white));
-        babyMsg3.setTextColor(getColor(indext == 3 ? R.color.grey : R.color.white));
-        babySex.setTextColor(getColor(indext == 3 ? R.color.grey : R.color.white));
+        babyMsg.setTextColor(getResources().getColor(indext == 1 ? R.color.grey : R.color.white));
+        babyTime.setTextColor(getResources().getColor(indext == 1 ? R.color.grey : R.color.white));
+        babyMsg2.setTextColor(getResources().getColor(indext == 2 ? R.color.grey : R.color.white));
+        babyWeight.setTextColor(getResources().getColor(indext == 2 ? R.color.grey : R.color.white));
+        babyMsg3.setTextColor(getResources().getColor(indext == 3 ? R.color.grey : R.color.white));
+        babySex.setTextColor(getResources().getColor(indext == 3 ? R.color.grey : R.color.white));
         babyEt.setInputType(indext == 3 ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_NUMBER);
     }
 
@@ -270,7 +268,7 @@ public class BabyActivity extends BaseActivity {
             SpUtils.putString("BabyData", babyTime.getText().toString());
             SpUtils.putString("BabyWeight", weight);
             SpUtils.putString("sex", babySex.getText().toString());
-            currentTime.setText(String.valueOf((dayDiffCurr(babyTime.getText().toString()) / 7) + " Weeks"));
+            currentTime.setText(String.valueOf(-(dayDiffCurr(babyTime.getText().toString()) / 7) + " Weeks"));
         } else {
             postion++;
             tabLayout.getTabAt(postion).select();

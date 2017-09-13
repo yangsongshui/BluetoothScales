@@ -1,6 +1,5 @@
 package myapplication.com.bluetoothscales.activity;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -370,19 +369,17 @@ int[] id={R.id.work_xingzou,R.id.work_qixing,R.id.work_paobu,R.id.work_youyong,R
         }
     }
 
-    @SuppressLint("NewApi")
     private void setText() {
-        workMsg2.setTextColor(getColor(indext == 1 ? R.color.grey : R.color.white));
-        workHeight.setTextColor(getColor(indext == 1 ? R.color.grey : R.color.white));
+        workMsg2.setTextColor(getResources().getColor(indext == 1 ? R.color.grey : R.color.white));
+        workHeight.setTextColor(getResources().getColor(indext == 1 ? R.color.grey : R.color.white));
 
     }
 
-    @SuppressLint("NewApi")
     private void setText2() {
-        workMsg6.setTextColor(getColor(postion == 1 ? R.color.grey : R.color.white));
-        workTarget.setTextColor(getColor(postion == 1 ? R.color.grey : R.color.white));
-        workMsg7.setTextColor(getColor(postion == 2 ? R.color.grey : R.color.white));
-        workDuration.setTextColor(getColor(postion == 2 ? R.color.grey : R.color.white));
+        workMsg6.setTextColor(getResources().getColor(postion == 1 ? R.color.grey : R.color.white));
+        workTarget.setTextColor(getResources().getColor(postion == 1 ? R.color.grey : R.color.white));
+        workMsg7.setTextColor(getResources().getColor(postion == 2 ? R.color.grey : R.color.white));
+        workDuration.setTextColor(getResources().getColor(postion == 2 ? R.color.grey : R.color.white));
 
     }
 
