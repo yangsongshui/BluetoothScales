@@ -4,12 +4,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,10 +28,6 @@ import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY
 import static myapplication.com.bluetoothscales.utils.DateUtil.dayDiffCurr;
 
 public class PregActivity extends BaseActivity {
-
-
-    @BindView(R.id.tab_layout)
-    TabLayout tabLayout;
     @BindView(R.id.preg_next)
     TextView pregNext;
     int postion = 0;
@@ -39,8 +35,7 @@ public class PregActivity extends BaseActivity {
     TextView pregEdit;
     @BindView(R.id.edit_ll)
     LinearLayout editLl;
-    @BindView(R.id.preg_et)
-    EditText preg_et;
+
     @BindView(R.id.preg_msg)
     TextView pregMsg;
     @BindView(R.id.pregancy_time)
@@ -63,6 +58,20 @@ public class PregActivity extends BaseActivity {
     CheckBox pregDaily;
     Toastor toastor;
     String unit = "";
+    @BindView(R.id.preg_year)
+    EditText pregYear;
+    @BindView(R.id.preg_month)
+    EditText pregMonth;
+    @BindView(R.id.preg_day)
+    EditText pregDay;
+    @BindView(R.id.preg_year_tv)
+    TextView pregYearTv;
+    @BindView(R.id.preg_month_tv)
+    TextView pregMonthTv;
+    @BindView(R.id.preg_day_tv)
+    TextView pregDayTv;
+    @BindView(R.id.preg_yunfu)
+    ImageView pregYunfu;
 
     @Override
     protected int getContentView() {
@@ -79,34 +88,17 @@ public class PregActivity extends BaseActivity {
         pregancyTime.setText(SpUtils.getString("pregancyTime", "2017-01-01"));
         weightTv.setText(SpUtils.getString("pregWeight", "--") + unit);
         toastor = new Toastor(this);
-        tabLayout.addTab(tabLayout.newTab().setText("Year"));
-        tabLayout.addTab(tabLayout.newTab().setText("Month"));
-        tabLayout.addTab(tabLayout.newTab().setText("Day"));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (postion < 3)
-                    postion = tab.getPosition();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
         pregDaily.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                daily_msg.setVisibility(isChecked?View.VISIBLE:View.GONE);
+                daily_msg.setVisibility(isChecked ? View.VISIBLE : View.GONE);
             }
         });
-        if (!expectingTime.getText().equals("--"))
-            currentTime.setText(String.valueOf((-dayDiffCurr(expectingTime.getText().toString()) / 7) + " Weeks"));
+        if (!expectingTime.getText().equals("--")) {
+            currentTime.setText(String.valueOf((dayDiffCurr(pregancyTime.getText().toString()) / 7) + " Weeks"));
+            setyunfu((int) (dayDiffCurr(pregancyTime.getText().toString()) / 7));
+        }
+
     }
 
     int indext = 0;
@@ -137,8 +129,6 @@ public class PregActivity extends BaseActivity {
             case R.id.preg_pregancy:
                 if (indext != 0) {
                     indext = 1;
-                    preg_et.setText("");
-                    initTab();
                     setText();
                 }
                 break;
@@ -146,18 +136,14 @@ public class PregActivity extends BaseActivity {
                 if (indext != 0) {
                     indext = 2;
                     setText();
-                    preg_et.setText("");
-                    initTab();
                 }
                 break;
             case R.id.preg_weight:
                 if (indext != 0) {
                     indext = 3;
                     postion = 3;
-                    preg_et.setText("");
                     setText();
-                    tabLayout.removeAllTabs();
-                    tabLayout.addTab(tabLayout.newTab().setText("Weight"));
+
 
                 }
                 break;
@@ -165,14 +151,6 @@ public class PregActivity extends BaseActivity {
         }
     }
 
-    private void initTab() {
-        postion = 0;
-        tabLayout.removeAllTabs();
-        tabLayout.addTab(tabLayout.newTab().setText("Year"));
-        tabLayout.addTab(tabLayout.newTab().setText("Month"));
-        tabLayout.addTab(tabLayout.newTab().setText("Day"));
-
-    }
 
     private void setText() {
         pregMsg.setTextColor(getResources().getColor(indext == 1 ? R.color.grey : R.color.white));
@@ -181,101 +159,79 @@ public class PregActivity extends BaseActivity {
         expectingTime.setTextColor(getResources().getColor(indext == 2 ? R.color.grey : R.color.white));
         pregMsg3.setTextColor(getResources().getColor(indext == 3 ? R.color.grey : R.color.white));
         weightTv.setTextColor(getResources().getColor(indext == 3 ? R.color.grey : R.color.white));
+        pregYear.setText("");
+        pregMonth.setText("");
+        pregDay.setText("");
+
+        pregYear.setVisibility(indext == 3 ? View.GONE : View.VISIBLE);
+        pregYearTv.setVisibility(indext == 3 ? View.GONE : View.VISIBLE);
+        pregDay.setVisibility(indext == 3 ? View.GONE : View.VISIBLE);
+        pregDayTv.setVisibility(indext == 3 ? View.GONE : View.VISIBLE);
+        pregMonthTv.setText(indext == 3 ? "Weight" : "month");
     }
 
-    private void setData() {
-        if (postion == 2) {
-            if (indext == 1) {
-                initTab();
-                indext = 2;
-                setText();
-            } else if (indext == 2) {
-                indext = 3;
-                setText();
-                tabLayout.removeAllTabs();
-                tabLayout.addTab(tabLayout.newTab().setText("Weight"));
-                pregNext.setText("Commit");
-                postion = 3;
-            }
-        } else if (postion == 3) {
-            //保存用户数据
-            pregEdit.setVisibility(View.VISIBLE);
-            pregNext.setText("Next");
-            editLl.setVisibility(View.GONE);
-            postion = 0;
-            indext = 0;
-            initTab();
-            setText();
-
-        } else {
-            postion++;
-            tabLayout.getTabAt(postion).select();
-        }
-    }
 
     private void setView() {
-        String msg = preg_et.getText().toString();
-        StringBuilder time = new StringBuilder(pregancyTime.getText().toString().trim());
-        StringBuilder time2 = new StringBuilder(expectingTime.getText().toString().trim());
-        if (!msg.trim().equals("")) {
-            switch (postion) {
-                case 0:
-                    if (msg.trim().length() == 4 && Integer.parseInt(msg) <= 2100) {
-                        if (indext == 1) {
-                            pregancyTime.setText(time.replace(0, 4, msg));
-                        } else if (indext == 2) {
-                            expectingTime.setText(time2.replace(0, 4, msg));
-                        }
-                        preg_et.setText("");
-                        setData();
-                    } else
-                        toastor.showSingletonToast("请输入合法年份");
-
-                    break;
-                case 1:
-                    if (msg.trim().length() < 3 && Integer.parseInt(msg) <= 12) {
-                        if (indext == 1) {
-                            pregancyTime.setText(time.replace(5, 7, msg.length() == 2 ? msg : "0" + msg));
-                        } else if (indext == 2) {
-                            expectingTime.setText(time2.replace(5, 7, msg.length() == 2 ? msg : "0" + msg));
-                        }
-                        preg_et.setText("");
-                        setData();
-                    } else
-                        toastor.showSingletonToast("请输入合法月份");
-                    break;
-                case 2:
-                    if (msg.trim().length() < 3 &&
-                            Integer.parseInt(msg) <= DateUtil.getDaysOfMonth(indext == 1 ? time.substring(0, 4) : time2.substring(0, 4),
-                                    indext == 1 ? time.substring(5, 7) : time2.substring(5, 7))) {
-                        if (indext == 1) {
-
-                            pregancyTime.setText(time.replace(8, 10, msg.length() == 2 ? msg : "0" + msg));
-                        } else if (indext == 2) {
-                            expectingTime.setText(time2.replace(8, 10, msg.length() == 2 ? msg : "0" + msg));
-                        }
-                        preg_et.setText("");
-                        setData();
-                    } else
-                        toastor.showSingletonToast("请输入合法日期");
-                    break;
-                case 3:
-                    if (msg.trim().length() <= 3 && Integer.parseInt(msg) <= 250) {
-                        weightTv.setText(msg + unit);
-                        preg_et.setText("");
-                        setData();
-                        SpUtils.putString("expectingTime", expectingTime.getText().toString());
+        String year = pregYear.getText().toString().trim();
+        String month = pregMonth.getText().toString().trim();
+        String day = pregDay.getText().toString().trim();
+        if (indext == 1) {
+            if (year.length() == 4 && Integer.parseInt(year) <= 2100 && Integer.parseInt(year) >= 2016) {
+                if (Integer.parseInt(month) <= 12 && Integer.parseInt(month) > 0) {
+                    if (Integer.parseInt(day) <= DateUtil.getDaysOfMonth(Integer.parseInt(year), Integer.parseInt(month))) {
+                        month = month.length() == 1 ? "0" + month : month;
+                        day = day.length() == 1 ? "0" + day : month;
+                        pregancyTime.setText(year + "-" + month + "-" + day);
+                        indext = 2;
                         SpUtils.putString("pregancyTime", pregancyTime.getText().toString());
-                        SpUtils.putString("pregWeight", msg);
-                    } else
-                        toastor.showSingletonToast("请输入正确体重");
-                    break;
+                        currentTime.setText(String.valueOf((dayDiffCurr(pregancyTime.getText().toString()) / 7) + " Weeks"));
+                        setyunfu((int) (dayDiffCurr(pregancyTime.getText().toString()) / 7));
+                    } else {
+                        toastor.showSingletonToast("请输入正确日期");
+                        return;
+                    }
+                } else {
+                    toastor.showSingletonToast("请输入正确月份");
+                    return;
+                }
+            } else {
+                toastor.showSingletonToast("请输入正确年份");
+                return;
             }
-
-
-        } else {
-            toastor.showSingletonToast("输入内容不能为空");
+        } else if (indext == 2) {
+            if (year.length() == 4 && Integer.parseInt(year) <= 2100 && Integer.parseInt(year) >= 2016) {
+                if (Integer.parseInt(month) <= 12 && Integer.parseInt(month) > 0) {
+                    if (Integer.parseInt(day) <= DateUtil.getDaysOfMonth(Integer.parseInt(year), Integer.parseInt(month))) {
+                        month = month.length() == 1 ? "0" + month : month;
+                        day = day.length() == 1 ? "0" + day : month;
+                        expectingTime.setText(year + "-" + month + "-" + day);
+                        indext = 3;
+                        SpUtils.putString("expectingTime", expectingTime.getText().toString());
+                    } else {
+                        toastor.showSingletonToast("请输入正确日期");
+                        return;
+                    }
+                } else {
+                    toastor.showSingletonToast("请输入正确月份");
+                    return;
+                }
+            } else {
+                toastor.showSingletonToast("请输入正确年份");
+                return;
+            }
+        } else if (indext == 3) {
+            if (Integer.parseInt(month) <= 200) {
+                weightTv.setText(month + unit);
+                indext = 0;
+                SpUtils.putString("pregWeight", month);
+                editLl.setVisibility(View.GONE);
+            } else {
+                toastor.showSingletonToast("输入正常体重");
+                return;
+            }
         }
+        setText();
+
     }
 
     boolean isData = false;
@@ -299,5 +255,29 @@ public class PregActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(notifyReceiver);
+    }
+
+    private void setyunfu(int week) {
+        if (week <= 3) {
+            pregYunfu.setImageResource(R.drawable.yunfu1);
+        } else if (week <= 12) {
+            pregYunfu.setImageResource(R.drawable.yunfu2);
+        } else if (week <= 13) {
+            pregYunfu.setImageResource(R.drawable.yunfu3);
+        } else if (week <= 14) {
+            pregYunfu.setImageResource(R.drawable.yunfu4);
+        } else if (week <= 19) {
+            pregYunfu.setImageResource(R.drawable.yunfu5);
+        } else if (week <= 27) {
+            pregYunfu.setImageResource(R.drawable.yunfu6);
+        } else if (week <= 28) {
+            pregYunfu.setImageResource(R.drawable.yunfu7);
+        } else if (week <= 30) {
+            pregYunfu.setImageResource(R.drawable.yunfu8);
+        } else if (week <= 39) {
+            pregYunfu.setImageResource(R.drawable.yunfu9);
+        } else {
+            pregYunfu.setImageResource(R.drawable.yunfu9);
+        }
     }
 }
