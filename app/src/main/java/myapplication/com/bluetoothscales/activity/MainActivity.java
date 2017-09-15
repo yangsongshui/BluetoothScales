@@ -52,23 +52,13 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     protected void init() {
+        qnBleApi = QNApiManager.getApi(this);
         initPermission();
         initData();
         mainRgrpNavigation.setOnCheckedChangeListener(this);
         mainRgrpNavigation.check(R.id.main_home);
-        qnBleApi = QNApiManager.getApi(this);
-        qnBleApi.startLeScan(null, null, new QNBleScanCallback() {
-            //如果失败，会在这个方法中返回错误码
-            public void onCompete(int errorCode) {
-            }
 
-            //如果扫描到设备，会在这个方法返回这个设备的相关信息
-            public void onScan(QNBleDevice bleDevice) {
-                device = bleDevice;
-                qnBleApi.stopScan();
-                qnBleApi.connectDevice(device, "362927657", 176, 1, stringtoDate("1991-06-24", LONG_DATE_FORMAT), qnBleCallback);
-            }
-        });
+
     }
 
     @Override
@@ -161,6 +151,18 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @PermissionGrant(REQUECT_CODE_COARSE)
     public void requestSdcardSuccess() {
+        qnBleApi.startLeScan(null, null, new QNBleScanCallback() {
+            //如果失败，会在这个方法中返回错误码
+            public void onCompete(int errorCode) {
+            }
+
+            //如果扫描到设备，会在这个方法返回这个设备的相关信息
+            public void onScan(QNBleDevice bleDevice) {
+                device = bleDevice;
+                qnBleApi.stopScan();
+                qnBleApi.connectDevice(device, "362927657", 176, 1, stringtoDate("1991-06-24", LONG_DATE_FORMAT), qnBleCallback);
+            }
+        });
     }
 
     @PermissionDenied(REQUECT_CODE_COARSE)
@@ -197,6 +199,18 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
          */
         @Override
         public void onDisconnected(QNBleDevice qnBleDevice) {
+            qnBleApi.startLeScan(null, null, new QNBleScanCallback() {
+                //如果失败，会在这个方法中返回错误码
+                public void onCompete(int errorCode) {
+                }
+
+                //如果扫描到设备，会在这个方法返回这个设备的相关信息
+                public void onScan(QNBleDevice bleDevice) {
+                    device = bleDevice;
+                    qnBleApi.stopScan();
+                    qnBleApi.connectDevice(device, "362927657", 176, 1, stringtoDate("1991-06-24", LONG_DATE_FORMAT), qnBleCallback);
+                }
+            });
             Log.e("Main", "断开连接");
         }
 

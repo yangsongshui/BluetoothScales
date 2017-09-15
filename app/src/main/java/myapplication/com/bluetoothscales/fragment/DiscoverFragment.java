@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import myapplication.com.bluetoothscales.R;
 import myapplication.com.bluetoothscales.base.BaseFragment;
 import myapplication.com.bluetoothscales.utils.FragmentEvent;
@@ -21,50 +23,36 @@ import myapplication.com.bluetoothscales.utils.SpUtils;
 
 public class DiscoverFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
 
-    @BindView(R.id.novice_bt)
-    CheckBox noviceBt;
-    @BindView(R.id.novice_msg)
-    LinearLayout noviceMsg;
-    @BindView(R.id.muscle_bt)
-    CheckBox muscleBt;
-    @BindView(R.id.muscle_msg)
-    LinearLayout muscleMsg;
-    @BindView(R.id.exercise_bt)
-    CheckBox exerciseBt;
-    @BindView(R.id.exercise_msg)
-    LinearLayout exerciseMsg;
-    @BindView(R.id.tips_bt)
-    CheckBox tipsBt;
-    @BindView(R.id.discover_tips)
-    LinearLayout discoverTips;
-    @BindView(R.id.discover_tips2)
-    LinearLayout discoverTips2;
-    @BindView(R.id.discover_tips3)
-    LinearLayout discoverTips3;
-    @BindView(R.id.list_bt)
-    CheckBox listBt;
-    @BindView(R.id.discover_list)
-    LinearLayout discoverList;
-    @BindView(R.id.discover_list2)
-    LinearLayout discoverList2;
+
     @BindView(R.id.discover_ll)
     LinearLayout discoverLl;
     @BindView(R.id.discover_title)
     TextView discoverTitle;
     int mode = 0;
     boolean sex = false;
+    @BindView(R.id.preg_check)
+    CheckBox pregCheck;
+    @BindView(R.id.shangyige)
+    ImageView shangyige;
+    @BindView(R.id.xiayige)
+    ImageView xiayige;
+    @BindView(R.id.preg_ll)
+    LinearLayout pregLl;
+    @BindView(R.id.preg_check2)
+    CheckBox pregCheck2;
+    @BindView(R.id.preg_tv)
+    TextView pregTv;
+    @BindView(R.id.preg_ll2)
+    TextView pregLl2;
+    int[] id = {R.string.discover_msg1, R.string.discover_msg3, R.string.discover_msg4, R.string.discover_msg5, R.string.discover_msg6, R.string.discover_msg7};
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
         mode = SpUtils.getInt("type", 1);
         EventBus.getDefault().register(this);
-        noviceBt.setOnCheckedChangeListener(this);
-        listBt.setOnCheckedChangeListener(this);
-        tipsBt.setOnCheckedChangeListener(this);
-        exerciseBt.setOnCheckedChangeListener(this);
-        muscleBt.setOnCheckedChangeListener(this);
         initView();
-
+        pregCheck.setOnCheckedChangeListener(this);
+        pregCheck2.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -73,52 +61,15 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
     }
 
 
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        switch (compoundButton.getId()) {
-            case R.id.exercise_bt:
-                exerciseMsg.setVisibility(b ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.muscle_bt:
-                muscleMsg.setVisibility(b ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.novice_bt:
-                noviceMsg.setVisibility(b ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.tips_bt:
-                if (mode == 2) {
-                    discoverTips.setVisibility(b ? View.VISIBLE : View.GONE);
-                } else if (mode == 3) {
-                    discoverTips2.setVisibility(b ? View.VISIBLE : View.GONE);
-                } else if (mode == 1) {
-                    discoverTips3.setVisibility(b ? View.VISIBLE : View.GONE);
-                }
-                break;
-            case R.id.list_bt:
-                if (mode == 2) {
-                    discoverList.setVisibility(b ? View.VISIBLE : View.GONE);
-                } else if (mode == 3) {
-                    discoverList2.setVisibility(b ? View.VISIBLE : View.GONE);
-                }
-                break;
-        }
-    }
-
     private void initView() {
 
-        noviceBt.setVisibility(mode == 1 ? View.VISIBLE : View.GONE);
-        muscleBt.setVisibility(mode == 1 ? View.VISIBLE : View.GONE);
-        exerciseBt.setVisibility(mode == 1 ? View.VISIBLE : View.GONE);
-        listBt.setVisibility(mode == 1 ? View.GONE : View.VISIBLE);
         if (mode == 3) {
-            tipsBt.setText("Diet tips（for baby）");
-            listBt.setText("Parenting tips");
+
             discoverTitle.setText("Baby Discover");
         } else if (mode == 2) {
-            tipsBt.setText("Diet tips");
-            listBt.setText("Preparation list ");
+
             discoverTitle.setText("Pregnancy Discover");
-        }else if (mode == 1){
+        } else if (mode == 1) {
             discoverTitle.setText("Workout Discover");
         }
         discoverLl.setBackground(SpUtils.getString("sex", "boy").equals("girl") ? getResources().getDrawable(R.drawable.main_home2) : getResources().getDrawable(R.drawable.main_home));
@@ -127,7 +78,7 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
     @SuppressLint("StringFormatMatches")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(FragmentEvent event) {
-        mode =event.getDistance();
+        mode = event.getDistance();
         initView();
     }
 
@@ -135,5 +86,39 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);//反注册EventBus
+    }
+
+
+    int indext = 0;
+
+    @OnClick({R.id.shangyige, R.id.xiayige})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.shangyige:
+                indext--;
+                shangyige.setVisibility(indext == 0 ? View.INVISIBLE : View.VISIBLE);
+                xiayige.setVisibility(View.VISIBLE);
+                pregTv.setText(id[indext]);
+
+                break;
+            case R.id.xiayige:
+                indext++;
+                shangyige.setVisibility(View.VISIBLE);
+                xiayige.setVisibility(indext == 5 ? View.INVISIBLE : View.VISIBLE);
+                pregTv.setText(id[indext]);
+                break;
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        switch (compoundButton.getId()) {
+            case R.id.preg_check:
+                pregLl.setVisibility(b?View.VISIBLE:View.GONE);
+                break;
+            case R.id.preg_check2:
+                pregLl2.setVisibility(b?View.VISIBLE:View.GONE);
+                break;
+        }
     }
 }

@@ -2,10 +2,9 @@ package myapplication.com.bluetoothscales.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,14 +14,12 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import myapplication.com.bluetoothscales.R;
 import myapplication.com.bluetoothscales.base.BaseFragment;
 import myapplication.com.bluetoothscales.utils.FragmentEvent;
 import myapplication.com.bluetoothscales.utils.SpUtils;
 
-public class TrendFragment extends BaseFragment {
+public class TrendFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
 
     @BindView(R.id.title)
     TextView title;
@@ -32,9 +29,10 @@ public class TrendFragment extends BaseFragment {
     CheckBox pregCb;
     @BindView(R.id.trend_preg_ll)
     LinearLayout trendPregLl;
+    @BindView(R.id.trend_preg_ll2)
+    LinearLayout trendPregLl2;
     @BindView(R.id.trend_ll)
     LinearLayout trendLl;
-
 
 
     @Override
@@ -61,7 +59,8 @@ public class TrendFragment extends BaseFragment {
             }
 
         }
-        trendPregLl.setVisibility(SpUtils.getInt("type", 1) == 2?View.VISIBLE:View.GONE);
+        trendLl.setVisibility(SpUtils.getInt("type", 1) == 2 ? View.VISIBLE : View.GONE);
+        pregCb.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -117,4 +116,12 @@ public class TrendFragment extends BaseFragment {
     }
 
 
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        switch (compoundButton.getId()) {
+            case R.id.preg_cb:
+                trendPregLl2.setVisibility(b ? View.VISIBLE : View.GONE);
+                break;
+        }
+    }
 }

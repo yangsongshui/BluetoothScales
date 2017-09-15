@@ -65,7 +65,7 @@ public class BabyActivity extends BaseActivity {
     int indext = 0;
     String unit = "";
     String weight = "";
-
+    AlertDialog dialog;
     @Override
     protected int getContentView() {
         return R.layout.activity_baby;
@@ -77,6 +77,10 @@ public class BabyActivity extends BaseActivity {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         registerReceiver(notifyReceiver, intentFilter);
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        builder.setTitle("Hint");
+        builder.setMessage("Please stand on the electronic scale");
+        dialog=builder.create();
         toastor = new Toastor(this);
         babySex.setText(SpUtils.getString("sex", "boy"));
         tabLayout.addTab(tabLayout.newTab().setText("Year"));
@@ -109,9 +113,7 @@ public class BabyActivity extends BaseActivity {
 
     @OnClick({R.id.baby_back, R.id.baby_edit, R.id.baby_measure, R.id.baby_measure2, R.id.preg_next, R.id.baby_birth, R.id.baby_weight_ll, R.id.baby_sex_ll})
     public void onViewClicked(View view) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Hint");
-        dialog.setMessage("Please stand on the electronic scale");
+
         switch (view.getId()) {
             case R.id.baby_back:
                 finish();
@@ -295,6 +297,7 @@ public class BabyActivity extends BaseActivity {
                     QNData qnData = MyApplication.newInstance().getQnData();
                     momWeight.setText(String.valueOf(qnData.getWeight() + unit));
                     isMom = false;
+                    dialog.dismiss();
                 }
                 if (isBaby) {
                     QNData qnData = MyApplication.newInstance().getQnData();
@@ -303,6 +306,7 @@ public class BabyActivity extends BaseActivity {
                     double weight = Double.parseDouble(momWeight.getText().toString().replace(unit, ""));
                     currentWeight.setText(String .format("%.2f",qnData.getWeight() - weight) + unit);
                     MyApplication.newInstance().isMeasure = true;
+                    dialog.dismiss();
                 }
 
             }

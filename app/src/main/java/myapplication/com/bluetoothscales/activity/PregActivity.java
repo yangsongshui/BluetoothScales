@@ -72,6 +72,7 @@ public class PregActivity extends BaseActivity {
     TextView pregDayTv;
     @BindView(R.id.preg_yunfu)
     ImageView pregYunfu;
+    AlertDialog dialog;
 
     @Override
     protected int getContentView() {
@@ -98,7 +99,10 @@ public class PregActivity extends BaseActivity {
             currentTime.setText(String.valueOf((dayDiffCurr(pregancyTime.getText().toString()) / 7) + " Weeks"));
             setyunfu((int) (dayDiffCurr(pregancyTime.getText().toString()) / 7));
         }
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Hint");
+        builder.setMessage("Please stand on the electronic scale");
+        dialog = builder.create();
     }
 
     int indext = 0;
@@ -110,9 +114,6 @@ public class PregActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.preg_measure:
-                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                dialog.setTitle("Hint");
-                dialog.setMessage("Please stand on the electronic scale");
                 dialog.show();
                 isData = true;
                 break;
@@ -159,9 +160,22 @@ public class PregActivity extends BaseActivity {
         expectingTime.setTextColor(getResources().getColor(indext == 2 ? R.color.grey : R.color.white));
         pregMsg3.setTextColor(getResources().getColor(indext == 3 ? R.color.grey : R.color.white));
         weightTv.setTextColor(getResources().getColor(indext == 3 ? R.color.grey : R.color.white));
-        pregYear.setText("");
-        pregMonth.setText("");
-        pregDay.setText("");
+        if (indext == 1) {
+            pregYear.setText(pregancyTime.getText().toString().substring(0, 5));
+            pregMonth.setText(pregancyTime.getText().toString().substring(5, 7));
+            pregDay.setText(pregancyTime.getText().toString().substring(8, 10));
+        } else if (indext == 2) {
+            pregYear.setText(expectingTime.getText().toString().substring(0, 5));
+            pregMonth.setText(expectingTime.getText().toString().substring(5, 7));
+            pregDay.setText(expectingTime.getText().toString().substring(8, 10));
+        } else if (indext == 3) {
+            pregMonth.setText(SpUtils.getString("pregWeight", ""));
+
+        } else {
+            pregYear.setText("");
+            pregMonth.setText("");
+            pregDay.setText("");
+        }
 
         pregYear.setVisibility(indext == 3 ? View.GONE : View.VISIBLE);
         pregYearTv.setVisibility(indext == 3 ? View.GONE : View.VISIBLE);
@@ -241,6 +255,7 @@ public class PregActivity extends BaseActivity {
             //Log.e("BLEService收到设备信息广播", intent.getAction());
             if (ACTION_BLE_NOTIFY_DATA.equals(intent.getAction())) {
                 if (isData) {
+                    dialog.dismiss();
                     QNData qnData = MyApplication.newInstance().getQnData();
                     currentWeight.setText(String.valueOf(qnData.getWeight() + unit));
                     isData = false;

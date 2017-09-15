@@ -122,8 +122,10 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
     int indext = 0;
     int place = 0;
     String unit = "";
-int[] id={R.id.work_xingzou,R.id.work_qixing,R.id.work_paobu,R.id.work_youyong,R.id.work_yangwoqizuo,
-        R.id.work_jvzhong,R.id.work_fuwocheng,R.id.work_shendun,R.id.work_pashan,R.id.work_ticoa};
+    AlertDialog dialog;
+    int[] id = {R.id.work_xingzou, R.id.work_qixing, R.id.work_paobu, R.id.work_youyong, R.id.work_yangwoqizuo,
+            R.id.work_jvzhong, R.id.work_fuwocheng, R.id.work_shendun, R.id.work_pashan, R.id.work_ticoa};
+
     @Override
     protected int getContentView() {
         return R.layout.activity_workout;
@@ -137,7 +139,7 @@ int[] id={R.id.work_xingzou,R.id.work_qixing,R.id.work_paobu,R.id.work_youyong,R
         workTarget.setText(SpUtils.getString("workTarget", "--") + unit);
         workDuration.setText(SpUtils.getString("workDuration", "--") + "weeks");
         workTiem.setText(SpUtils.getString("workTiem", "00:00"));
-        WorkRg.check( id[SpUtils.getInt("workType",0)]);
+        WorkRg.check(id[SpUtils.getInt("workType", 0)]);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         registerReceiver(notifyReceiver, intentFilter);
@@ -169,40 +171,44 @@ int[] id={R.id.work_xingzou,R.id.work_qixing,R.id.work_paobu,R.id.work_youyong,R
         WorkRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.work_xingzou:
-                        SpUtils.putInt("workType",0);
+                        SpUtils.putInt("workType", 0);
                         break;
                     case R.id.work_qixing:
-                        SpUtils.putInt("workType",1);
+                        SpUtils.putInt("workType", 1);
                         break;
                     case R.id.work_paobu:
-                        SpUtils.putInt("workType",2);
+                        SpUtils.putInt("workType", 2);
                         break;
                     case R.id.work_youyong:
-                        SpUtils.putInt("workType",3);
+                        SpUtils.putInt("workType", 3);
                         break;
                     case R.id.work_yangwoqizuo:
-                        SpUtils.putInt("workType",4);
+                        SpUtils.putInt("workType", 4);
                         break;
                     case R.id.work_jvzhong:
-                        SpUtils.putInt("workType",5);
+                        SpUtils.putInt("workType", 5);
                         break;
                     case R.id.work_fuwocheng:
-                        SpUtils.putInt("workType",6);
+                        SpUtils.putInt("workType", 6);
                         break;
                     case R.id.work_shendun:
-                        SpUtils.putInt("workType",7);
+                        SpUtils.putInt("workType", 7);
                         break;
                     case R.id.work_pashan:
-                        SpUtils.putInt("workType",8);
+                        SpUtils.putInt("workType", 8);
                         break;
                     case R.id.work_ticoa:
-                        SpUtils.putInt("workType",9);
+                        SpUtils.putInt("workType", 9);
                         break;
                 }
             }
         });
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        builder.setTitle("Hint");
+        builder.setMessage("Please stand on the electronic scale");
+        dialog=builder.create();
     }
 
     boolean isData = false;
@@ -364,7 +370,7 @@ int[] id={R.id.work_xingzou,R.id.work_qixing,R.id.work_paobu,R.id.work_youyong,R
                 discoverList2.setVisibility(b ? View.VISIBLE : View.GONE);
                 break;
             case R.id.work_activity:
-                WorkRg.setVisibility(b?View.VISIBLE:View.GONE);
+                WorkRg.setVisibility(b ? View.VISIBLE : View.GONE);
                 break;
         }
     }
@@ -389,6 +395,7 @@ int[] id={R.id.work_xingzou,R.id.work_qixing,R.id.work_paobu,R.id.work_youyong,R
             //Log.e("BLEService收到设备信息广播", intent.getAction());
             if (ACTION_BLE_NOTIFY_DATA.equals(intent.getAction())) {
                 if (isData) {
+                    dialog.dismiss();
                     QNData qnData = MyApplication.newInstance().getQnData();
                     workWeight.setText(String.valueOf(qnData.getWeight() + unit));
                     workBmi.setText(String.valueOf(qnData.getFloatValue(QNData.TYPE_BMI)));
