@@ -239,6 +239,7 @@ public class PregActivity extends BaseActivity {
                 indext = 0;
                 SpUtils.putString("pregWeight", month);
                 editLl.setVisibility(View.GONE);
+                pregEdit.setVisibility(View.VISIBLE);
             } else {
                 toastor.showSingletonToast("输入正常体重");
                 return;

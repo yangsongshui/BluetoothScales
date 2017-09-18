@@ -67,8 +67,6 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
     EditText workEt;
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
-    @BindView(R.id.work_next)
-    TextView workNext;
     @BindView(R.id.edit_ll)
     LinearLayout editLl;
     @BindView(R.id.goal_edit)
@@ -89,24 +87,15 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
     EditText workEt2;
     @BindView(R.id.tab_layout2)
     TabLayout tabLayout2;
-    @BindView(R.id.work_next2)
-    TextView workNext2;
+
     @BindView(R.id.edit_ll2)
     LinearLayout editLl2;
     @BindView(R.id.work_activity)
     CheckBox workActivity;
-    @BindView(R.id.work_recommended)
-    CheckBox workRecommended;
     @BindView(R.id.discover_list2)
-    LinearLayout discoverList2;
+    TextView discoverList2;
     @BindView(R.id.setting_edit)
     TextView settingEdit;
-    @BindView(R.id.work_et3)
-    EditText workEt3;
-    @BindView(R.id.tab_layout3)
-    TabLayout tabLayout3;
-    @BindView(R.id.work_next3)
-    TextView workNext3;
     @BindView(R.id.edit_ll3)
     LinearLayout editLl3;
     @BindView(R.id.activity_workout)
@@ -117,15 +106,20 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
     ScrollView scrollView;
     @BindView(R.id.work_rg)
     RadioGroup WorkRg;
+    @BindView(R.id.work_year)
+    EditText workYear;
+    @BindView(R.id.work_month)
+    EditText workMonth;
     Toastor toastor;
     int postion = 0;
     int indext = 0;
-    int place = 0;
     String unit = "";
     AlertDialog dialog;
     int[] id = {R.id.work_xingzou, R.id.work_qixing, R.id.work_paobu, R.id.work_youyong, R.id.work_yangwoqizuo,
             R.id.work_jvzhong, R.id.work_fuwocheng, R.id.work_shendun, R.id.work_pashan, R.id.work_ticoa};
 
+    int[] sid = {R.string.work_msg1,R.string.work_msg2,R.string.work_msg3,R.string.work_msg4,R.string.work_msg5,
+            R.string.work_msg6,R.string.work_msg6,R.string.work_msg7,R.string.work_msg8,R.string.work_msg9,};
     @Override
     protected int getContentView() {
         return R.layout.activity_workout;
@@ -140,75 +134,64 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
         workDuration.setText(SpUtils.getString("workDuration", "--") + "weeks");
         workTiem.setText(SpUtils.getString("workTiem", "00:00"));
         WorkRg.check(id[SpUtils.getInt("workType", 0)]);
+        discoverList2.setText(sid[SpUtils.getInt("workType", 0)]);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         registerReceiver(notifyReceiver, intentFilter);
         tabLayout.addTab(tabLayout.newTab().setText("Height"));
         tabLayout2.addTab(tabLayout2.newTab().setText("Weight"));
-
-        tabLayout3.addTab(tabLayout3.newTab().setText("hour"));
-        tabLayout3.addTab(tabLayout3.newTab().setText("min"));
-        workNext.setText("Commit");
-        tabLayout3.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                place = tab.getPosition();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
         workActivity.setOnCheckedChangeListener(this);
-        workRecommended.setOnCheckedChangeListener(this);
+
         WorkRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
                     case R.id.work_xingzou:
                         SpUtils.putInt("workType", 0);
+                        discoverList2.setText(getString(R.string.work_msg1));
                         break;
                     case R.id.work_qixing:
                         SpUtils.putInt("workType", 1);
+                        discoverList2.setText(getString(R.string.work_msg2));
                         break;
                     case R.id.work_paobu:
                         SpUtils.putInt("workType", 2);
+                        discoverList2.setText(getString(R.string.work_msg3));
                         break;
                     case R.id.work_youyong:
                         SpUtils.putInt("workType", 3);
+                        discoverList2.setText(getString(R.string.work_msg4));
                         break;
                     case R.id.work_yangwoqizuo:
                         SpUtils.putInt("workType", 4);
+                        discoverList2.setText(getString(R.string.work_msg5));
                         break;
                     case R.id.work_jvzhong:
                         SpUtils.putInt("workType", 5);
                         break;
                     case R.id.work_fuwocheng:
                         SpUtils.putInt("workType", 6);
+                        discoverList2.setText(getString(R.string.work_msg6));
                         break;
                     case R.id.work_shendun:
                         SpUtils.putInt("workType", 7);
+                        discoverList2.setText(getString(R.string.work_msg7));
                         break;
                     case R.id.work_pashan:
                         SpUtils.putInt("workType", 8);
+                        discoverList2.setText(getString(R.string.work_msg8));
                         break;
                     case R.id.work_ticoa:
                         SpUtils.putInt("workType", 9);
+                        discoverList2.setText(getString(R.string.work_msg9));
                         break;
                 }
             }
         });
-        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Hint");
         builder.setMessage("Please stand on the electronic scale");
-        dialog=builder.create();
+        dialog = builder.create();
     }
 
     boolean isData = false;
@@ -225,12 +208,11 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
                 indext = 1;
                 editLl.setVisibility(View.VISIBLE);
                 workEdit.setVisibility(View.GONE);
+                workEt.setText(SpUtils.getString("workHeight", ""));
                 setText();
-
                 break;
 
             case R.id.work_next:
-
                 setView();
 
                 break;
@@ -248,22 +230,25 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
                 editLl2.setVisibility(View.VISIBLE);
                 goalEdit.setVisibility(View.GONE);
                 setText2();
-                workNext2.setText("Next");
+                workEt2.setText(SpUtils.getString("workTarget", ""));
                 break;
             case R.id.work_target_ll:
                 if (postion != 0) {
                     postion = 1;
                     setText2();
-                    workNext2.setText("Next");
                     workEt2.setText("");
+                    tabLayout2.removeAllTabs();
+                    tabLayout2.addTab(tabLayout2.newTab().setText("Weight"));
+                    workEt2.setText(SpUtils.getString("workTarget", ""));
                 }
                 break;
             case R.id.work_duration_ll:
                 if (postion != 0) {
                     postion = 2;
                     setText2();
-                    workNext2.setText("Commit");
-                    workEt2.setText("");
+                    workEt2.setText(SpUtils.getString("workDuration", ""));
+                    tabLayout2.removeAllTabs();
+                    tabLayout2.addTab(tabLayout2.newTab().setText("Weeks"));
                 }
                 break;
             case R.id.work_next2:
@@ -275,7 +260,8 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
                             postion++;
                             setText2();
                             SpUtils.putString("workTarget", msg);
-                            workNext2.setText("Commit");
+                            tabLayout2.removeAllTabs();
+                            tabLayout2.addTab(tabLayout2.newTab().setText("Weeks"));
                         } else {
                             postion = 0;
                             workDuration.setText(msg + "weeks");
@@ -283,6 +269,8 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
                             setText2();
                             editLl2.setVisibility(View.GONE);
                             goalEdit.setVisibility(View.VISIBLE);
+                            tabLayout2.removeAllTabs();
+                            tabLayout2.addTab(tabLayout2.newTab().setText("Weight"));
                         }
 
                         workEt2.setText("");
@@ -293,31 +281,19 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
                 break;
 
             case R.id.work_next3:
-                String msg2 = workEt3.getText().toString().trim();
-                StringBuilder time = new StringBuilder(workTiem.getText().toString().trim());
-                if (!msg2.equals("")) {
-                    if (place == 0) {
-                        if (Integer.parseInt(msg2) <= 24) {
-                            place++;
-                            tabLayout3.getTabAt(place).select();
-                            workTiem.setText(time.replace(0, 2, msg2));
-                            workEt3.setText("");
-                        } else {
-                            toastor.showSingletonToast("请输入正确小时");
-                        }
-                    } else if (place == 1) {
-                        if (Integer.parseInt(msg2) <= 60) {
-                            place = 0;
-                            workTiem.setText(time.replace(3, 5, msg2));
-                            editLl3.setVisibility(View.GONE);
-                            settingEdit.setVisibility(View.VISIBLE);
-                            workTiem.setVisibility(View.GONE);
-                            workEt3.setText("");
-                            SpUtils.putString("workTiem", workTiem.getText().toString());
-                        } else {
-                            toastor.showSingletonToast("请输入正确分钟");
-                        }
+                String hour = workYear.getText().toString().trim();
+                String min = workMonth.getText().toString().trim();
+                if (!hour.equals("") && !min.equals("")) {
+                    if (Integer.parseInt(hour) <= 24 && Integer.parseInt(min) <= 60) {
+                        workTiem.setText(hour + ":" + min);
+                        editLl3.setVisibility(View.GONE);
+                        settingEdit.setVisibility(View.VISIBLE);
+                        workTiem.setVisibility(View.GONE);
+                        SpUtils.putString("workTiem", workTiem.getText().toString());
+                    } else {
+                        toastor.showSingletonToast("请输入合法时间");
                     }
+
                 } else {
                     toastor.showSingletonToast("输入内容不能为空");
                 }
@@ -325,7 +301,10 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
 
                 break;
             case R.id.setting_edit:
-                place = 0;
+               String  time=SpUtils.getString("workTiem","00:00");
+              workYear.setText(time.substring(0,2));
+                workMonth.setText(time.substring(3,5));
+
                 editLl3.setVisibility(View.VISIBLE);
                 settingEdit.setVisibility(View.GONE);
                 workTiem.setVisibility(View.VISIBLE);
@@ -366,11 +345,9 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         switch (compoundButton.getId()) {
-            case R.id.work_recommended:
-                discoverList2.setVisibility(b ? View.VISIBLE : View.GONE);
-                break;
             case R.id.work_activity:
                 WorkRg.setVisibility(b ? View.VISIBLE : View.GONE);
+                discoverList2.setVisibility(b ? View.VISIBLE : View.GONE);
                 break;
         }
     }
@@ -386,6 +363,7 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
         workTarget.setTextColor(getResources().getColor(postion == 1 ? R.color.grey : R.color.white));
         workMsg7.setTextColor(getResources().getColor(postion == 2 ? R.color.grey : R.color.white));
         workDuration.setTextColor(getResources().getColor(postion == 2 ? R.color.grey : R.color.white));
+
 
     }
 
@@ -413,4 +391,6 @@ public class WorkoutActivity extends BaseActivity implements CompoundButton.OnCh
         super.onDestroy();
         unregisterReceiver(notifyReceiver);
     }
+
+
 }

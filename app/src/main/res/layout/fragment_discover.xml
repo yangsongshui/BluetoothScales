@@ -26,7 +26,8 @@
             android:orientation="vertical">
 
             <include layout="@layout/discover_preg" />
-
+            <include layout="@layout/discover_baby"/>
+            <include layout="@layout/discover_work"/>
 
         </LinearLayout>
     </ScrollView>

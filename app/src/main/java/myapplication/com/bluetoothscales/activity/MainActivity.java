@@ -1,7 +1,11 @@
 package myapplication.com.bluetoothscales.activity;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,6 +33,7 @@ import myapplication.com.bluetoothscales.base.BaseFragment;
 import myapplication.com.bluetoothscales.fragment.DiscoverFragment;
 import myapplication.com.bluetoothscales.fragment.HomeFragment;
 import myapplication.com.bluetoothscales.fragment.TrendFragment;
+import myapplication.com.bluetoothscales.utils.Toastor;
 
 import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
 import static myapplication.com.bluetoothscales.utils.DateUtil.LONG_DATE_FORMAT;
@@ -44,6 +49,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private HomeFragment homeFragment;
     QNBleApi qnBleApi;
     QNBleDevice device;
+    private BluetoothAdapter mBluetoothAdapter;
+    Toastor toastor;
 
     @Override
     protected int getContentView() {
@@ -53,8 +60,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void init() {
         qnBleApi = QNApiManager.getApi(this);
+        toastor = new Toastor(this);
+        initBLE();
         initPermission();
         initData();
+
         mainRgrpNavigation.setOnCheckedChangeListener(this);
         mainRgrpNavigation.check(R.id.main_home);
 
@@ -81,7 +91,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         if (homeFragment == null) {
             homeFragment = new HomeFragment();
         }
-
         if (!homeFragment.isAdded()) {
 
             getSupportFragmentManager().beginTransaction().add(R.id.main_frame, homeFragment).commit();
@@ -199,6 +208,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
          */
         @Override
         public void onDisconnected(QNBleDevice qnBleDevice) {
+            if (!mBluetoothAdapter.isEnabled())
+                mBluetoothAdapter.enable();
             qnBleApi.startLeScan(null, null, new QNBleScanCallback() {
                 //如果失败，会在这个方法中返回错误码
                 public void onCompete(int errorCode) {
@@ -268,4 +279,20 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             Log.e("Main", "onCompete" + i);
         }
     };
+
+    private void initBLE() {
+        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+            toastor.showSingletonToast("手机蓝牙异常");
+            finish();
+        }
+        final BluetoothManager bluetoothManager =
+                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter = bluetoothManager.getAdapter();
+
+        if (mBluetoothAdapter == null) {
+            toastor.showSingletonToast("手机蓝牙异常");
+            mBluetoothAdapter.enable();
+            return;
+        }
+    }
 }

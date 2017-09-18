@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.view.View;
@@ -38,18 +37,10 @@ public class BabyActivity extends BaseActivity {
     TextView babyMsg2;
     @BindView(R.id.baby_weight)
     TextView babyWeight;
-
     @BindView(R.id.baby_msg3)
     TextView babyMsg3;
     @BindView(R.id.baby_sex)
     TextView babySex;
-
-    @BindView(R.id.baby_et)
-    EditText babyEt;
-    @BindView(R.id.tab_layout)
-    TabLayout tabLayout;
-    @BindView(R.id.preg_next)
-    TextView pregNext;
     @BindView(R.id.edit_ll)
     LinearLayout editLl;
     @BindView(R.id.mom_weight)
@@ -60,12 +51,27 @@ public class BabyActivity extends BaseActivity {
     TextView currentWeight;
     @BindView(R.id.current_time)
     TextView currentTime;
+    @BindView(R.id.baby_year)
+    EditText babyYear;
+    @BindView(R.id.baby_month)
+    EditText babyMonth;
+    @BindView(R.id.baby_day)
+    EditText babyDay;
+    @BindView(R.id.baby_year_tv)
+    TextView babyYearTv;
+    @BindView(R.id.baby_month_tv)
+    TextView babyMonthTv;
+    @BindView(R.id.baby_day_tv)
+    TextView babyDayTv;
+
     Toastor toastor;
-    int postion = 0;
+
     int indext = 0;
     String unit = "";
     String weight = "";
     AlertDialog dialog;
+
+
     @Override
     protected int getContentView() {
         return R.layout.activity_baby;
@@ -77,41 +83,21 @@ public class BabyActivity extends BaseActivity {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         registerReceiver(notifyReceiver, intentFilter);
-        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Hint");
         builder.setMessage("Please stand on the electronic scale");
-        dialog=builder.create();
+        dialog = builder.create();
         toastor = new Toastor(this);
         babySex.setText(SpUtils.getString("sex", "boy"));
-        tabLayout.addTab(tabLayout.newTab().setText("Year"));
-        tabLayout.addTab(tabLayout.newTab().setText("Month"));
-        tabLayout.addTab(tabLayout.newTab().setText("Day"));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (postion < 3)
-                    postion = tab.getPosition();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
         babyTime.setText(SpUtils.getString("BabyData", "2017-01-01"));
-        babyWeight.setText(SpUtils.getString("BabyWeight", "--"));
+        babyWeight.setText(SpUtils.getString("BabyWeight", "--")+unit);
         babySex.setText(SpUtils.getString("sex", "boy"));
         if (!babyWeight.getText().equals("--"))
-            currentTime.setText(String.valueOf((dayDiffCurr(babyTime.getText().toString())  /7) + " Weeks"));
+            currentTime.setText(String.valueOf((dayDiffCurr(babyTime.getText().toString()) / 7) + " Weeks"));
     }
 
 
-    @OnClick({R.id.baby_back, R.id.baby_edit, R.id.baby_measure, R.id.baby_measure2, R.id.preg_next, R.id.baby_birth, R.id.baby_weight_ll, R.id.baby_sex_ll})
+    @OnClick({R.id.baby_back, R.id.baby_edit, R.id.baby_measure, R.id.baby_measure2, R.id.baby_next, R.id.baby_birth, R.id.baby_weight_ll, R.id.baby_sex_ll})
     public void onViewClicked(View view) {
 
         switch (view.getId()) {
@@ -132,37 +118,25 @@ public class BabyActivity extends BaseActivity {
                 editLl.setVisibility(View.VISIBLE);
                 setText();
                 break;
-            case R.id.preg_next:
+            case R.id.baby_next:
                 setView();
                 break;
             case R.id.baby_birth:
                 if (indext != 0) {
                     indext = 1;
                     setText();
-                    pregNext.setText("Next");
-                    babyEt.setText("");
-                    initTab();
                 }
                 break;
             case R.id.baby_weight_ll:
                 if (indext != 0) {
                     indext = 2;
-                    postion = 2;
-                    babyEt.setText("");
                     setText();
-                    pregNext.setText("Next");
-                    tabLayout.removeAllTabs();
-                    tabLayout.addTab(tabLayout.newTab().setText("Weight"));
                 }
                 break;
             case R.id.baby_sex_ll:
                 if (indext != 0) {
                     indext = 3;
                     setText();
-                    tabLayout.removeAllTabs();
-                    tabLayout.addTab(tabLayout.newTab().setText("Sex"));
-                    pregNext.setText("Commit");
-                    postion = 3;
                 }
                 break;
         }
@@ -175,115 +149,84 @@ public class BabyActivity extends BaseActivity {
         babyWeight.setTextColor(getResources().getColor(indext == 2 ? R.color.grey : R.color.white));
         babyMsg3.setTextColor(getResources().getColor(indext == 3 ? R.color.grey : R.color.white));
         babySex.setTextColor(getResources().getColor(indext == 3 ? R.color.grey : R.color.white));
-        babyEt.setInputType(indext == 3 ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_NUMBER);
+        babyMonth.setInputType(indext == 3 ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_CLASS_NUMBER);
+
+        if (indext == 1) {
+            babyYear.setText(babyTime.getText().toString().substring(0, 5));
+            babyMonth.setText(babyTime.getText().toString().substring(5, 7));
+            babyDay.setText(babyTime.getText().toString().substring(8, 10));
+        } else if (indext == 2) {
+            babyMonth.setText(SpUtils.getString("BabyWeight", ""));
+            babyMonthTv.setText("Weight");
+        } else if (indext == 3) {
+            babyMonthTv.setText("sex");
+            babyMonth.setText(SpUtils.getString("sex", "boy"));
+        } else {
+            babyYear.setText("");
+            babyMonth.setText("");
+            babyDay.setText("");
+        }
+        babyYear.setVisibility(indext == 1 ? View.VISIBLE : View.GONE);
+        babyYearTv.setVisibility(indext == 1 ? View.VISIBLE : View.GONE);
+        babyDay.setVisibility(indext == 1 ? View.VISIBLE : View.GONE);
+        babyDayTv.setVisibility(indext == 1 ? View.VISIBLE : View.GONE);
+
     }
 
     private void setView() {
-        String msg = babyEt.getText().toString();
-        StringBuilder time = new StringBuilder(babyTime.getText().toString().trim());
-        if (!msg.trim().equals("")) {
-            switch (postion) {
-                case 0:
-                    if (indext == 1) {
-                        if (msg.trim().length() == 4 && Integer.parseInt(msg) <= 2100) {
-                            babyTime.setText(time.replace(0, 4, msg));
-                            babyEt.setText("");
-                            setData();
-                        } else
-                            toastor.showSingletonToast("请输入合法年份");
-                    } else if (indext == 2) {
-                        if (msg.trim().length() <= 3 && Integer.parseInt(msg) <= 250) {
-                            postion = 2;
-                            weight = msg;
-                            babyWeight.setText(msg + unit);
-                            babyEt.setText("");
-                            setData();
+        String year = babyYear.getText().toString().trim();
+        String month = babyMonth.getText().toString().trim();
+        String day = babyDay.getText().toString().trim();
+        if (!year.trim().equals("") && !month.trim().equals("") && !day.trim().equals("")) {
+            if (indext == 1) {
+                if (year.length() == 4 && Integer.parseInt(year) <= 2100 && Integer.parseInt(year) >= 2016) {
+                    if (Integer.parseInt(month) <= 12 && Integer.parseInt(month) > 0) {
+                        if (Integer.parseInt(day) <= DateUtil.getDaysOfMonth(Integer.parseInt(year), Integer.parseInt(month))) {
+                            month = month.length() == 1 ? "0" + month : month;
+                            day = day.length() == 1 ? "0" + day : month;
+                            babyTime.setText(year + "-" + month + "-" + day);
+                            indext = 2;
+                            SpUtils.putString("BabyData", babyTime.getText().toString());
+                            currentTime.setText(String.valueOf((dayDiffCurr(babyTime.getText().toString()) / 7) + " Weeks"));
+
+                        } else {
+                            toastor.showSingletonToast("请输入正确日期");
+                            return;
                         }
+                    } else {
+                        toastor.showSingletonToast("请输入正确月份");
+                        return;
                     }
-                    break;
-                case 1:
-                    if (indext == 1) {
-                        if (msg.trim().length() < 3 && Integer.parseInt(msg) <= 12) {
-                            babyTime.setText(time.replace(5, 7, msg.length() == 2 ? msg : "0" + msg));
-                            babyEt.setText("");
-                            setData();
-                        } else
-                            toastor.showSingletonToast("请输入合法月份");
-                    } else if (indext == 2) {
+                } else {
+                    toastor.showSingletonToast("请输入正确年份");
+                    return;
+                }
+            } else if (indext == 2) {
+                if (Integer.parseInt(month) <= 250&&Integer.parseInt(month)>= 5) {
+                    babyWeight.setText(month + unit);
+                    indext = 3;
+                    SpUtils.putString("BabyWeight", month);
+                } else {
+                    toastor.showSingletonToast("输入正常体重");
+                    return;
+                }
+            } else if (indext == 3) {
+                if (month.trim().toLowerCase().equals("boy") || month.trim().toLowerCase().equals("girl")) {
+                    babySex.setText(month);
+                    indext = 0;
+                    editLl.setVisibility(View.GONE);
+                    babyEdit.setVisibility(View.VISIBLE);
+                    SpUtils.putString("sex", babySex.getText().toString());
+                } else {
+                    toastor.showSingletonToast("请输入正确性别");
+                    return;
+                }
 
-                    }
-                    break;
-                case 2:
-                    if (msg.trim().length() < 3 &&
-                            Integer.parseInt(msg) <= DateUtil.getDaysOfMonth(time.substring(0, 4), time.substring(5, 7))) {
-                        if (indext == 1) {
-
-                            babyTime.setText(time.replace(8, 10, msg.length() == 2 ? msg : "0" + msg));
-                        }
-                        babyEt.setText("");
-                        setData();
-                    } else
-                        toastor.showSingletonToast("请输入合法日期");
-                    break;
-                case 3:
-                    if (msg.trim().toLowerCase().equals("boy") || msg.trim().toLowerCase().equals("girl")) {
-                        babySex.setText(msg);
-                        babyEt.setText("");
-                        setData();
-
-                    } else
-                        toastor.showSingletonToast("请输入正确性别");
-                    break;
             }
-
-
+            setText();
         } else {
             toastor.showSingletonToast("输入内容不能为空");
         }
-    }
-
-    private void setData() {
-        if (postion == 2) {
-            if (indext == 1) {
-                tabLayout.removeAllTabs();
-                tabLayout.addTab(tabLayout.newTab().setText("Weight"));
-                indext = 2;
-                setText();
-
-            } else if (indext == 2) {
-                indext = 3;
-                setText();
-                tabLayout.removeAllTabs();
-                tabLayout.addTab(tabLayout.newTab().setText("Sex"));
-                pregNext.setText("Commit");
-                postion = 3;
-            }
-        } else if (postion == 3) {
-            //保存用户数据
-            babyEdit.setVisibility(View.VISIBLE);
-            pregNext.setText("Next");
-            editLl.setVisibility(View.GONE);
-            postion = 0;
-            indext = 0;
-            initTab();
-            setText();
-            SpUtils.putString("BabyData", babyTime.getText().toString());
-            SpUtils.putString("BabyWeight", weight);
-            SpUtils.putString("sex", babySex.getText().toString());
-            currentTime.setText(String.valueOf(-(dayDiffCurr(babyTime.getText().toString()) / 7) + " Weeks"));
-        } else {
-            postion++;
-            tabLayout.getTabAt(postion).select();
-        }
-    }
-
-    private void initTab() {
-        postion = 0;
-        tabLayout.removeAllTabs();
-        tabLayout.addTab(tabLayout.newTab().setText("Year"));
-        tabLayout.addTab(tabLayout.newTab().setText("Month"));
-        tabLayout.addTab(tabLayout.newTab().setText("Day"));
-
     }
 
     boolean isMom = false;
@@ -304,7 +247,7 @@ public class BabyActivity extends BaseActivity {
                     babyMomWeight.setText(String.valueOf(qnData.getWeight() + unit));
                     isMom = false;
                     double weight = Double.parseDouble(momWeight.getText().toString().replace(unit, ""));
-                    currentWeight.setText(String .format("%.2f",qnData.getWeight() - weight) + unit);
+                    currentWeight.setText(String.format("%.2f", qnData.getWeight() - weight) + unit);
                     MyApplication.newInstance().isMeasure = true;
                     dialog.dismiss();
                 }
@@ -318,4 +261,5 @@ public class BabyActivity extends BaseActivity {
         super.onDestroy();
         unregisterReceiver(notifyReceiver);
     }
+
 }

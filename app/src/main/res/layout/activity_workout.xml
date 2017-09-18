@@ -240,7 +240,7 @@
                     android:paddingEnd="35dp"
                     android:paddingStart="35dp"
                     android:paddingTop="5dp"
-                    android:text="Next"
+                    android:text="Complete"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -367,7 +367,7 @@
                     android:paddingEnd="35dp"
                     android:paddingStart="35dp"
                     android:paddingTop="5dp"
-                    android:text="Next"
+                    android:text="Complete"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -391,8 +391,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:visibility="gone"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <RadioButton
                     android:id="@+id/work_xingzou"
@@ -427,7 +427,7 @@
                     android:drawablePadding="5dp"
                     android:drawableStart="@drawable/paobu"
                     android:padding="8dp"
-                    android:text="Running / Jogging  "
+                    android:text="Running / Jogging "
                     android:textColor="@color/work_rb"
                     android:textSize="12sp" />
 
@@ -463,6 +463,7 @@
                     android:drawablePadding="5dp"
                     android:drawableStart="@drawable/jvzhong"
                     android:padding="8dp"
+                    android:visibility="gone"
                     android:text="Weight lifting "
                     android:textColor="@color/work_rb"
                     android:textSize="12sp" />
@@ -517,35 +518,29 @@
             </RadioGroup>
 
             <CheckBox
-                android:id="@+id/work_recommended"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:button="@null"
-                android:drawableEnd="@drawable/down2"
                 android:drawablePadding="10dp"
                 android:text="Recommended intensity"
                 android:textColor="@color/grey"
                 android:textSize="16sp" />
 
-            <LinearLayout
-                android:id="@+id/discover_list2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:orientation="vertical"
-                android:visibility="gone">
+
 
                 <TextView
+                    android:id="@+id/discover_list2"
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/work_msg"
+                    android:layout_margin="15dp"
+                    android:textSize="12sp"
+                    android:text="@string/work_msg1"
                     android:textColor="@color/white" />
 
-            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -598,25 +593,59 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <EditText
-                    android:id="@+id/work_et3"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:background="@color/blue2"
                     android:gravity="center"
-                    android:inputType="number"
-                    android:maxLength="4"
-                    android:padding="13dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:orientation="horizontal">
 
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tab_layout3"
-                    style="@style/SearchTabLayout"
-                    android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/work_year"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:padding="13dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/work_month"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:padding="13dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:tabMode="scrollable" />
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="hour"
+                        android:textColor="@color/white" />
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="min"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/work_next3"
@@ -630,7 +659,7 @@
                     android:paddingEnd="35dp"
                     android:paddingStart="35dp"
                     android:paddingTop="5dp"
-                    android:text="Next"
+                    android:text="Complete"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
