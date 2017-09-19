@@ -158,6 +158,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mBluetoothAdapter.enable();
+    }
+
     @PermissionGrant(REQUECT_CODE_COARSE)
     public void requestSdcardSuccess() {
         qnBleApi.startLeScan(null, null, new QNBleScanCallback() {
@@ -291,8 +297,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
         if (mBluetoothAdapter == null) {
             toastor.showSingletonToast("手机蓝牙异常");
-            mBluetoothAdapter.enable();
             return;
         }
+        mBluetoothAdapter.enable();
     }
 }
