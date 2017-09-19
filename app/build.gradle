@@ -37,4 +37,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'com.zhy:mpermission-compiler:1.0.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'me.codeboy.android:align-text-view:2.3.0'
+    compile 'org.sufficientlysecure:html-textview:3.4'
 }
