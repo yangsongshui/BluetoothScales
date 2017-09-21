@@ -108,6 +108,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
             } else {
                 trendIv.setBackgroundResource(R.drawable.baby);
                 trendLl.setBackgroundResource(R.drawable.main_home2);
+                trendLl.setBackgroundResource(R.drawable.main_home2);
             }
 
         }
