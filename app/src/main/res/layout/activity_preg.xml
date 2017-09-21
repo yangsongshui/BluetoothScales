@@ -349,7 +349,7 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <myapplication.com.bluetoothscales.BreakTextView
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/msg"

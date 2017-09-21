@@ -50,31 +50,43 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
-        View popupView = getActivity().getLayoutInflater().inflate(R.layout.popupwindow, null);
-        View popupView2 = getActivity().getLayoutInflater().inflate(R.layout.popupwindow2, null);
+        final View popupView = getActivity().getLayoutInflater().inflate(R.layout.popupwindow, null);
+        final View popupView2 = getActivity().getLayoutInflater().inflate(R.layout.popupwindow2, null);
         popupView.findViewById(R.id.preg_pop).setOnClickListener(this);
         popupView.findViewById(R.id.baby_pop).setOnClickListener(this);
         popupView.findViewById(R.id.work_pop).setOnClickListener(this);
         popupView2.findViewById(R.id.preg_lbs).setOnClickListener(this);
         popupView2.findViewById(R.id.preg_kg).setOnClickListener(this);
         popupView2.findViewById(R.id.preg_st).setOnClickListener(this);
-        window = new PopupWindow(popupView, 300, 350);
-        window2 = new PopupWindow(popupView2, 200, 350);
-        window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E199782")));
-        window.setFocusable(true);
-        window.setOutsideTouchable(true);
-        window.update();
-        window2.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E199782")));
-        window2.setFocusable(true);
-        window2.setOutsideTouchable(true);
-        window2.update();
-        homeLbs.setText(SpUtils.getString("unit", "LBS"));
         if (SpUtils.getInt("type", 1) == 1)
             homeMode.setText("Workout Mode");
         else if (SpUtils.getInt("type", 1) == 2)
             homeMode.setText("Pregnancy Mode");
         else if (SpUtils.getInt("type", 1) == 3)
             homeMode.setText("Baby Mode");
+        homeLbs.setText(SpUtils.getString("unit", "LBS"));
+        homeMode.post(new Runnable() {
+            @Override
+            public void run() {
+                window = new PopupWindow(popupView, homeMode.getWidth(), 350);
+                window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E199782")));
+                window.setFocusable(true);
+                window.setOutsideTouchable(true);
+                window.update();
+            }
+        });
+        homeLbs.post(new Runnable() {
+            @Override
+            public void run() {
+                window2 = new PopupWindow(popupView2, homeLbs.getWidth(), 350);
+                window2.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E199782")));
+                window2.setFocusable(true);
+                window2.setOutsideTouchable(true);
+                window2.update();
+            }
+        });
+
+
     }
 
     @Override

@@ -1,6 +1,10 @@
 package myapplication.com.bluetoothscales.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -9,15 +13,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kitnew.ble.QNData;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import myapplication.com.bluetoothscales.R;
+import myapplication.com.bluetoothscales.app.MyApplication;
 import myapplication.com.bluetoothscales.base.BaseFragment;
 import myapplication.com.bluetoothscales.utils.FragmentEvent;
 import myapplication.com.bluetoothscales.utils.SpUtils;
+
+import static com.kitnew.ble.QNData.TYPE_BMI;
+import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
 
 public class TrendFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
 
@@ -39,21 +49,26 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
     LinearLayout trendLl;
     @BindView(R.id.baby_tv)
     TextView babyTv;
+    @BindView(R.id.msg)
+    TextView msg;
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
+        getActivity().registerReceiver(notifyReceiver, intentFilter);
         if (SpUtils.getInt("type", 1) == 1) {
             title.setText("Workout Trend");
             trendIv.setBackgroundResource(R.drawable.work);
 
         } else if (SpUtils.getInt("type", 1) == 2) {
             title.setText("Pregnancy Mode");
-            trendIv.setBackgroundResource(R.drawable.preg);
-            trendPregLl.setVisibility( View.VISIBLE);
+            setView(MyApplication.newInstance().getQnData());
+            trendPregLl.setVisibility(View.VISIBLE);
         } else if (SpUtils.getInt("type", 1) == 3) {
             title.setText("Baby Trend");
-            trendBabyLl.setVisibility( View.VISIBLE);
+            trendBabyLl.setVisibility(View.VISIBLE);
             if (SpUtils.getString("sex", "boy").equals("boy")) {
                 trendLl.setBackgroundResource(R.drawable.main_home);
                 trendIv.setBackgroundResource(R.drawable.baby_boy);
@@ -83,7 +98,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
         } else if (event.getDistance() == 2) {
             title.setText("Pregnancy Mode");
             trendLl.setBackgroundResource(R.drawable.main_home);
-            trendIv.setBackgroundResource(R.drawable.preg);
+            setView(MyApplication.newInstance().getQnData());
         } else if (event.getDistance() == 3) {
             title.setText("Baby Trend");
             if (SpUtils.getString("sex", "boy").equals("boy")) {
@@ -94,8 +109,8 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
                 trendIv.setBackgroundResource(R.drawable.baby);
             }
         }
-        trendPregLl.setVisibility(event.getDistance() == 2? View.VISIBLE:View.GONE);
-        trendBabyLl.setVisibility(event.getDistance() == 3? View.VISIBLE:View.GONE);
+        trendPregLl.setVisibility(event.getDistance() == 2 ? View.VISIBLE : View.GONE);
+        trendBabyLl.setVisibility(event.getDistance() == 3 ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -108,9 +123,10 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
             } else {
                 trendIv.setBackgroundResource(R.drawable.baby);
                 trendLl.setBackgroundResource(R.drawable.main_home2);
-                trendLl.setBackgroundResource(R.drawable.main_home2);
             }
 
+        } else if (SpUtils.getInt("type", 1) == 2) {
+            setView(MyApplication.newInstance().getQnData());
         }
     }
 
@@ -118,7 +134,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);//反注册EventBus
-
+        getActivity().unregisterReceiver(notifyReceiver);
 
     }
 
@@ -134,4 +150,30 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
                 break;
         }
     }
+
+    private void setView(QNData qnData) {
+        if (qnData != null) {
+            if (qnData.getFloatValue(TYPE_BMI) < 18.5) {
+                trendIv.setBackgroundResource(R.drawable.bmi1);
+                msg.setText(R.string.preg1);
+            } else if (qnData.getFloatValue(TYPE_BMI) < 25) {
+                trendIv.setBackgroundResource(R.drawable.bmi2);
+                msg.setText(R.string.preg2);
+            } else if (qnData.getFloatValue(TYPE_BMI) >= 25) {
+                trendIv.setBackgroundResource(R.drawable.bmi3);
+                msg.setText(R.string.preg3);
+            }
+        }
+    }
+
+    private BroadcastReceiver notifyReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Log.e("BLEService收到设备信息广播", intent.getAction());
+            if (ACTION_BLE_NOTIFY_DATA.equals(intent.getAction())) {
+                QNData qnData = MyApplication.newInstance().getQnData();
+                setView(qnData);
+            }
+        }
+    };
 }

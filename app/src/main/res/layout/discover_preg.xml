@@ -35,7 +35,7 @@
 
             android:visibility="invisible" />
 
-        <myapplication.com.bluetoothscales.BreakTextView
+        <TextView
             android:id="@+id/preg_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
         android:textColor="@color/grey"
         android:textSize="15sp" />
 
-    <myapplication.com.bluetoothscales.BreakTextView
+    <TextView
         android:id="@+id/preg_ll2"
         android:layout_width="match_parent"
         android:visibility="gone"
