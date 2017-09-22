@@ -154,13 +154,13 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
     private void setView(QNData qnData) {
         if (qnData != null) {
             if (qnData.getFloatValue(TYPE_BMI) < 18.5) {
-                trendIv.setBackgroundResource(R.drawable.bmi1);
+                trendIv.setBackgroundResource(R.drawable.work);
                 msg.setText(R.string.preg1);
             } else if (qnData.getFloatValue(TYPE_BMI) < 25) {
-                trendIv.setBackgroundResource(R.drawable.bmi2);
+                trendIv.setBackgroundResource(R.drawable.work);
                 msg.setText(R.string.preg2);
             } else if (qnData.getFloatValue(TYPE_BMI) >= 25) {
-                trendIv.setBackgroundResource(R.drawable.bmi3);
+                trendIv.setBackgroundResource(R.drawable.work);
                 msg.setText(R.string.preg3);
             }
         }

@@ -3,9 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="blue">#00CCFF</color>
+    <color name="blue">#05aed9</color>
     <color name="blue2">#7200bdff</color>
-    <color name="green">#32FECC</color>
+    <color name="green">#03ca99</color>
     <color name="black">#222222</color>
     <color name="green2">#199782</color>
     <color name="white">#FFFFFF</color>
@@ -15,7 +15,7 @@
     <color name="maya_blue2">#82E8FA</color>
     <color name="maya">#00FFFF</color>
     <color name="grey">#666666</color>
+    <color name="grey2">#bab9b9</color>
     <color name="blue3">#001DF5</color>
-
     <color name="viola">#D884B1</color>
 </resources>

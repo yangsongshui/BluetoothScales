@@ -1,397 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_home"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
     tools:context="myapplication.com.bluetoothscales.activity.BabyActivity">
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/main_frame"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <ImageView
-            android:id="@+id/baby_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:src="@drawable/back" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="Baby Mode"
-            android:textColor="@color/white" />
-    </RelativeLayout>
-
-    <ScrollView
+        android:layout_height="match_parent"
+        android:layout_above="@+id/iv" />
+    <ImageView
+        android:id="@+id/iv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:background="@color/gray"
+        android:layout_above="@+id/main_rgrpNavigation"
+        android:layout_height="1dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <RadioGroup
+        android:id="@+id/main_rgrpNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+        <RadioButton
+            android:id="@+id/main_home"
+            style="@style/MainRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/main_home_check"
+            android:text="@string/main_home" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/main_trend"
+            style="@style/MainRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/main_zhexiantu_check"
+            android:text="@string/main_trend" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="5dp"
-                    android:text="Baby data"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/baby_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="15dp"
-                    android:background="@drawable/preg_bg"
-                    android:paddingBottom="3dp"
-                    android:paddingEnd="23dp"
-                    android:paddingStart="23dp"
-                    android:paddingTop="3dp"
-                    android:text="edit"
-                    android:textColor="@color/white" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/baby_birth"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp">
-
-                <TextView
-                    android:id="@+id/baby_msg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Birth Date:"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/baby_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="2017-01-01"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/baby_weight_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp">
-
-                <TextView
-
-                    android:id="@+id/baby_msg2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Birth Weight:"
-                    android:textColor="@color/white" />
-
-                <TextView
-
-                    android:id="@+id/baby_weight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="--"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/baby_sex_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp">
-
-                <TextView
-                    android:id="@+id/baby_msg3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gender:"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/baby_sex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="boy／girl"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+        <RadioButton
+            android:id="@+id/main_discover"
+            style="@style/MainRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/main_luopan_check"
+            android:text="@string/main_discover" />
+    </RadioGroup>
 
 
-            <LinearLayout
-                android:id="@+id/edit_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@color/blue2"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-
-                    <EditText
-                        android:id="@+id/baby_year"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:gravity="center"
-                        android:inputType="number"
-                        android:maxLength="4"
-                        android:padding="13dp"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-
-
-                    <EditText
-                        android:id="@+id/baby_month"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:gravity="center"
-                        android:inputType="number"
-                        android:maxLength="4"
-                        android:padding="13dp"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/baby_day"
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:gravity="center"
-                        android:inputType="number"
-                        android:maxLength="2"
-                        android:padding="13dp"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/baby_year_tv"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Year"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/baby_month_tv"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Month"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/baby_day_tv"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Day"
-                        android:textColor="@color/white" />
-
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/baby_next"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/preg_bg"
-                    android:paddingBottom="8dp"
-                    android:paddingEnd="30dp"
-                    android:paddingStart="30dp"
-                    android:paddingTop="8dp"
-                    android:text="Complete"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
-                android:text="Measurement"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:text="Instruction on step on scale"
-                android:textColor="@color/white" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1) Mom Step on scale:"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/mom_weight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="--"
-                    android:textColor="@color/white" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/baby_measure"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/preg_bg"
-                        android:paddingBottom="5dp"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:paddingTop="5dp"
-                        android:text="Measure"
-                        android:textColor="@color/white" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2) Mom + Baby Step on scale: "
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/baby_mom_weight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="--"
-                    android:textColor="@color/white" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/baby_measure2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/preg_bg"
-                        android:paddingBottom="5dp"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:paddingTop="5dp"
-                        android:text="Measure"
-                        android:textColor="@color/white" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Current Weight:"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/current_weight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="--"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Current Week:"
-                    android:textColor="@color/white" />
-
-                <TextView
-
-                    android:id="@+id/current_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="--"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-
-</LinearLayout>
+</RelativeLayout>
 
