@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -21,6 +22,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.qqtheme.framework.picker.DatePicker;
+import cn.qqtheme.framework.util.ConvertUtils;
 import myapplication.com.bluetoothscales.R;
 import myapplication.com.bluetoothscales.adapter.MyPagerAdapter;
 import myapplication.com.bluetoothscales.app.MyApplication;
@@ -60,26 +63,30 @@ public class PregFragment extends BaseFragment {
     CheckBox pregDaily;
     @BindView(R.id.preg_yunfu)
     ImageView pregYunfu;
-
+    @BindView(R.id.wheelview_container)
+    LinearLayout wheelview_container;
+    @BindView(R.id.edit_ll)
+    LinearLayout editLl;
     AlertDialog dialog;
     MyPagerAdapter adapter;
     List<String> title;
     List<String> msg;
     Toastor toastor;
     String unit = "";
+
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
         unit = SpUtils.getString("unit", "LBS");
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         getActivity().registerReceiver(notifyReceiver, intentFilter);
-        msg=new ArrayList<>();
-        title=new ArrayList<>();
+        msg = new ArrayList<>();
+        title = new ArrayList<>();
         title.add("1");
         title.add("1");
         title.add("1");
         title.add("1");
-        adapter=new MyPagerAdapter(title,msg,getActivity());
+        adapter = new MyPagerAdapter(title, msg, getActivity());
         pager.setAdapter(adapter);
         expectingTime.setText(SpUtils.getString("expectingTime", "2017-01-01"));
         pregancyTime.setText(SpUtils.getString("pregancyTime", "2017-01-01"));
@@ -99,6 +106,7 @@ public class PregFragment extends BaseFragment {
         builder.setTitle("Hint");
         builder.setMessage("Please stand on the electronic scale");
         dialog = builder.create();
+        initWheel();
     }
 
     @Override
@@ -112,7 +120,7 @@ public class PregFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.preg_back:
-               getActivity().finish();
+                getActivity().finish();
                 break;
             case R.id.preg_measure:
                 dialog.show();
@@ -121,7 +129,7 @@ public class PregFragment extends BaseFragment {
             case R.id.preg_edit:
                 indext = 1;
                 pregEdit.setVisibility(View.GONE);
-               // editLl.setVisibility(View.VISIBLE);
+                // editLl.setVisibility(View.VISIBLE);
                 setText();
                 break;
 
@@ -158,6 +166,7 @@ public class PregFragment extends BaseFragment {
         pregMsg3.setTextColor(getResources().getColor(indext == 3 ? R.color.grey : R.color.white));
         weightTv.setTextColor(getResources().getColor(indext == 3 ? R.color.grey : R.color.white));
     }
+
     boolean isData = false;
     private BroadcastReceiver notifyReceiver = new BroadcastReceiver() {
         @Override
@@ -179,7 +188,7 @@ public class PregFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-       getActivity().unregisterReceiver(notifyReceiver);
+        getActivity().unregisterReceiver(notifyReceiver);
     }
 
     private void setyunfu(int week) {
@@ -206,67 +215,103 @@ public class PregFragment extends BaseFragment {
         }
     }
 
-   /* private void setView() {
-        String year = pregYear.getText().toString().trim();
-        String month = pregMonth.getText().toString().trim();
-        String day = pregDay.getText().toString().trim();
-        if (indext == 1) {
-            if (year.length() == 4 && Integer.parseInt(year) <= 2100 && Integer.parseInt(year) >= 2016) {
-                if (Integer.parseInt(month) <= 12 && Integer.parseInt(month) > 0) {
-                    if (Integer.parseInt(day) <= DateUtil.getDaysOfMonth(Integer.parseInt(year), Integer.parseInt(month))) {
-                        month = month.length() == 1 ? "0" + month : month;
-                        day = day.length() == 1 ? "0" + day : month;
-                        pregancyTime.setText(year + "-" + month + "-" + day);
-                        indext = 2;
-                        SpUtils.putString("pregancyTime", pregancyTime.getText().toString());
-                        currentTime.setText(String.valueOf((dayDiffCurr(pregancyTime.getText().toString()) / 7) + " Weeks"));
-                        setyunfu((int) (dayDiffCurr(pregancyTime.getText().toString()) / 7));
-                    } else {
-                        toastor.showSingletonToast("请输入正确日期");
-                        return;
-                    }
-                } else {
-                    toastor.showSingletonToast("请输入正确月份");
-                    return;
-                }
-            } else {
-                toastor.showSingletonToast("请输入正确年份");
-                return;
-            }
-        } else if (indext == 2) {
-            if (year.length() == 4 && Integer.parseInt(year) <= 2100 && Integer.parseInt(year) >= 2016) {
-                if (Integer.parseInt(month) <= 12 && Integer.parseInt(month) > 0) {
-                    if (Integer.parseInt(day) <= DateUtil.getDaysOfMonth(Integer.parseInt(year), Integer.parseInt(month))) {
-                        month = month.length() == 1 ? "0" + month : month;
-                        day = day.length() == 1 ? "0" + day : month;
-                        expectingTime.setText(year + "-" + month + "-" + day);
-                        indext = 3;
-                        SpUtils.putString("expectingTime", expectingTime.getText().toString());
-                    } else {
-                        toastor.showSingletonToast("请输入正确日期");
-                        return;
-                    }
-                } else {
-                    toastor.showSingletonToast("请输入正确月份");
-                    return;
-                }
-            } else {
-                toastor.showSingletonToast("请输入正确年份");
-                return;
-            }
-        } else if (indext == 3) {
-            if (Integer.parseInt(month) <= 200) {
-                weightTv.setText(month + unit);
-                indext = 0;
-                SpUtils.putString("pregWeight", month);
-                editLl.setVisibility(View.GONE);
-                pregEdit.setVisibility(View.VISIBLE);
-            } else {
-                toastor.showSingletonToast("输入正常体重");
-                return;
-            }
-        }
-        setText();
+    /* private void setView() {
+         String year = pregYear.getText().toString().trim();
+         String month = pregMonth.getText().toString().trim();
+         String day = pregDay.getText().toString().trim();
+         if (indext == 1) {
+             if (year.length() == 4 && Integer.parseInt(year) <= 2100 && Integer.parseInt(year) >= 2016) {
+                 if (Integer.parseInt(month) <= 12 && Integer.parseInt(month) > 0) {
+                     if (Integer.parseInt(day) <= DateUtil.getDaysOfMonth(Integer.parseInt(year), Integer.parseInt(month))) {
+                         month = month.length() == 1 ? "0" + month : month;
+                         day = day.length() == 1 ? "0" + day : month;
+                         pregancyTime.setText(year + "-" + month + "-" + day);
+                         indext = 2;
+                         SpUtils.putString("pregancyTime", pregancyTime.getText().toString());
+                         currentTime.setText(String.valueOf((dayDiffCurr(pregancyTime.getText().toString()) / 7) + " Weeks"));
+                         setyunfu((int) (dayDiffCurr(pregancyTime.getText().toString()) / 7));
+                     } else {
+                         toastor.showSingletonToast("请输入正确日期");
+                         return;
+                     }
+                 } else {
+                     toastor.showSingletonToast("请输入正确月份");
+                     return;
+                 }
+             } else {
+                 toastor.showSingletonToast("请输入正确年份");
+                 return;
+             }
+         } else if (indext == 2) {
+             if (year.length() == 4 && Integer.parseInt(year) <= 2100 && Integer.parseInt(year) >= 2016) {
+                 if (Integer.parseInt(month) <= 12 && Integer.parseInt(month) > 0) {
+                     if (Integer.parseInt(day) <= DateUtil.getDaysOfMonth(Integer.parseInt(year), Integer.parseInt(month))) {
+                         month = month.length() == 1 ? "0" + month : month;
+                         day = day.length() == 1 ? "0" + day : month;
+                         expectingTime.setText(year + "-" + month + "-" + day);
+                         indext = 3;
+                         SpUtils.putString("expectingTime", expectingTime.getText().toString());
+                     } else {
+                         toastor.showSingletonToast("请输入正确日期");
+                         return;
+                     }
+                 } else {
+                     toastor.showSingletonToast("请输入正确月份");
+                     return;
+                 }
+             } else {
+                 toastor.showSingletonToast("请输入正确年份");
+                 return;
+             }
+         } else if (indext == 3) {
+             if (Integer.parseInt(month) <= 200) {
+                 weightTv.setText(month + unit);
+                 indext = 0;
+                 SpUtils.putString("pregWeight", month);
+                 editLl.setVisibility(View.GONE);
+                 pregEdit.setVisibility(View.VISIBLE);
+             } else {
+                 toastor.showSingletonToast("输入正常体重");
+                 return;
+             }
+         }
+         setText();
 
-    }*/
+     }*/
+    private void initWheel() {
+        final DatePicker picker = new DatePicker(getActivity());
+        picker.setCanceledOnTouchOutside(true);
+        picker.setUseWeight(true);
+        picker.setOffset(1);
+        picker.setTopPadding(ConvertUtils.toPx(getActivity(), 10));
+        picker.setRangeEnd(2111, 1, 11);
+
+        picker.setSelectedItem(2017, 1, 1);
+        picker.setTextColor(Color.rgb(255, 255, 255));
+        picker.setResetWhileWheel(false);
+        picker.setLabel("", "", "");
+        picker.setDividerVisible(false);
+
+        picker.setOnWheelListener(new DatePicker.OnWheelListener() {
+            @Override
+            public void onYearWheeled(int index, String year) {
+                picker.setTitleText(year + "-" + picker.getSelectedMonth() + "-" + picker.getSelectedDay());
+            }
+
+            @Override
+            public void onMonthWheeled(int index, String month) {
+                picker.setTitleText(picker.getSelectedYear() + "-" + month + "-" + picker.getSelectedDay());
+            }
+
+            @Override
+            public void onDayWheeled(int index, String day) {
+                picker.setTitleText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + day);
+            }
+        });
+
+        View pickerContentView = picker.getContentView();
+        wheelview_container.addView(pickerContentView);
+
+
+    }
 }

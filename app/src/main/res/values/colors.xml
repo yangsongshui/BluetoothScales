@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="blue">#05aed9</color>
+    <color name="blue">#58C9F9</color>
     <color name="blue2">#7200bdff</color>
     <color name="green">#03ca99</color>
     <color name="black">#222222</color>
@@ -18,4 +18,7 @@
     <color name="grey2">#bab9b9</color>
     <color name="blue3">#001DF5</color>
     <color name="viola">#D884B1</color>
+    <color name="concrete">#F2F2F2</color>
+    <color name="iron">#D7D7D7</color>
+    <color name="picton_blue">#51BBF9</color>
 </resources>
