@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#001DF5</color>
     <color name="blue">#58C9F9</color>
     <color name="blue2">#7200bdff</color>
     <color name="green">#03ca99</color>
@@ -26,4 +26,6 @@
     <color name="picton_blue">#51BBF9</color>
     <color name="lv">#00CCCC</color>
     <color name="tv">#817C79</color>
+    <color name="celestial_blue">#4097C7</color>
+    <color name="tropical_blue">#BDD7F3</color>
 </resources>

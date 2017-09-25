@@ -102,6 +102,7 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
         msg.add(getString(R.string.msg4));
         adapter = new MyPagerAdapter(title, msg, getActivity());
         pager.setAdapter(adapter);
+        pager.setOffscreenPageLimit(3);
         expectingTime.setText(SpUtils.getString("expectingTime", "2017-01-01"));
         pregancyTime.setText(SpUtils.getString("pregancyTime", "2017-01-01"));
         weightTv.setText(SpUtils.getString("pregWeight", "--") + unit);

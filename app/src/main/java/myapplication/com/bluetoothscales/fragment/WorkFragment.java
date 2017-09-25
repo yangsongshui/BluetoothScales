@@ -68,16 +68,14 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
     @BindView(R.id.work_msg6)
     TextView workMsg6;
     @BindView(R.id.work_target)
-    TextView workTarget;;
+    TextView workTarget;
+    ;
     @BindView(R.id.work_msg7)
     TextView workMsg7;
     @BindView(R.id.work_duration)
     TextView workDuration;
-
     @BindView(R.id.work_activity)
     CheckBox workActivity;
-    @BindView(R.id.discover_list2)
-    TextView discoverList2;
     @BindView(R.id.setting_edit)
     TextView settingEdit;
     @BindView(R.id.edit_ll3)
@@ -92,16 +90,32 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
     EditText workYear;
     @BindView(R.id.work_month)
     EditText workMonth;
+    @BindView(R.id.msg1)
+    TextView msg1;
+    @BindView(R.id.msg2)
+    TextView msg2;
+    @BindView(R.id.msg3)
+    TextView msg3;
+    @BindView(R.id.msg4)
+    TextView msg4;
+    @BindView(R.id.msg5)
+    TextView msg5;
+    @BindView(R.id.msg6)
+    TextView msg6;
+    @BindView(R.id.msg7)
+    TextView msg7;
+    @BindView(R.id.msg8)
+    TextView msg8;
+    @BindView(R.id.msg9)
+    TextView msg9;
+
     Toastor toastor;
     int postion = 0;
     int indext = 0;
     String unit = "";
     AlertDialog dialog;
-    int[] id = {R.id.work_xingzou, R.id.work_qixing, R.id.work_paobu, R.id.work_youyong, R.id.work_yangwoqizuo,
-            R.id.work_jvzhong, R.id.work_fuwocheng, R.id.work_shendun, R.id.work_pashan, R.id.work_ticoa};
-
-    int[] sid = {R.string.work_msg1, R.string.work_msg2, R.string.work_msg3, R.string.work_msg4, R.string.work_msg5,
-            R.string.work_msg6, R.string.work_msg6, R.string.work_msg7, R.string.work_msg8, R.string.work_msg9,};
+    int[] id = {R.id.work_xingzou, R.id.work_qixing, R.id.work_paobu, R.id.work_youyong, R.id.work_yangwoqizuo
+            , R.id.work_fuwocheng, R.id.work_shendun, R.id.work_pashan, R.id.work_ticoa};
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
@@ -112,7 +126,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         workDuration.setText(SpUtils.getString("workDuration", "--") + "weeks");
         workTiem.setText(SpUtils.getString("workTiem", "00:00"));
         WorkRg.check(id[SpUtils.getInt("workType", 0)]);
-        discoverList2.setText(sid[SpUtils.getInt("workType", 0)]);
+        setTv(SpUtils.getInt("workType", -1));
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         getActivity().registerReceiver(notifyReceiver, intentFilter);
@@ -125,44 +139,33 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
                 switch (checkedId) {
                     case R.id.work_xingzou:
                         SpUtils.putInt("workType", 0);
-                        discoverList2.setText(getString(R.string.work_msg1));
                         break;
                     case R.id.work_qixing:
                         SpUtils.putInt("workType", 1);
-                        discoverList2.setText(getString(R.string.work_msg2));
                         break;
                     case R.id.work_paobu:
                         SpUtils.putInt("workType", 2);
-                        discoverList2.setText(getString(R.string.work_msg3));
                         break;
                     case R.id.work_youyong:
                         SpUtils.putInt("workType", 3);
-                        discoverList2.setText(getString(R.string.work_msg4));
                         break;
                     case R.id.work_yangwoqizuo:
                         SpUtils.putInt("workType", 4);
-                        discoverList2.setText(getString(R.string.work_msg5));
-                        break;
-                    case R.id.work_jvzhong:
-                        SpUtils.putInt("workType", 5);
                         break;
                     case R.id.work_fuwocheng:
-                        SpUtils.putInt("workType", 6);
-                        discoverList2.setText(getString(R.string.work_msg6));
+                        SpUtils.putInt("workType", 5);
                         break;
                     case R.id.work_shendun:
-                        SpUtils.putInt("workType", 7);
-                        discoverList2.setText(getString(R.string.work_msg7));
+                        SpUtils.putInt("workType", 6);
                         break;
                     case R.id.work_pashan:
-                        SpUtils.putInt("workType", 8);
-                        discoverList2.setText(getString(R.string.work_msg8));
+                        SpUtils.putInt("workType", 7);
                         break;
                     case R.id.work_ticoa:
-                        SpUtils.putInt("workType", 9);
-                        discoverList2.setText(getString(R.string.work_msg9));
+                        SpUtils.putInt("workType", 8);
                         break;
                 }
+                setTv(SpUtils.getInt("workType", -1));
             }
         });
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -180,7 +183,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
 
     @OnClick({R.id.baby_back, R.id.work_edit,
             R.id.goal_edit, R.id.work_target_ll, R.id.work_duration_ll,
-             R.id.work_next3, R.id.setting_edit, R.id.work_measure})
+            R.id.work_next3, R.id.setting_edit, R.id.work_measure})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.baby_back:
@@ -290,22 +293,22 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         switch (compoundButton.getId()) {
             case R.id.work_activity:
                 WorkRg.setVisibility(b ? View.VISIBLE : View.GONE);
-                discoverList2.setVisibility(b ? View.VISIBLE : View.GONE);
+
                 break;
         }
     }
 
     private void setText() {
-        workMsg2.setTextColor(getResources().getColor(indext == 1 ? R.color.grey : R.color.white));
-        workHeight.setTextColor(getResources().getColor(indext == 1 ? R.color.grey : R.color.white));
+        workMsg2.setTextColor(getResources().getColor(indext == 1 ? R.color.maya_blue2 : R.color.tv));
+        workHeight.setTextColor(getResources().getColor(indext == 1 ? R.color.maya_blue2 : R.color.tv));
 
     }
 
     private void setText2() {
-        workMsg6.setTextColor(getResources().getColor(postion == 1 ? R.color.grey : R.color.white));
-        workTarget.setTextColor(getResources().getColor(postion == 1 ? R.color.grey : R.color.white));
-        workMsg7.setTextColor(getResources().getColor(postion == 2 ? R.color.grey : R.color.white));
-        workDuration.setTextColor(getResources().getColor(postion == 2 ? R.color.grey : R.color.white));
+        workMsg6.setTextColor(getResources().getColor(postion == 1 ? R.color.maya_blue2 : R.color.tv));
+        workTarget.setTextColor(getResources().getColor(postion == 1 ? R.color.maya_blue2 : R.color.tv));
+        workMsg7.setTextColor(getResources().getColor(postion == 2 ? R.color.maya_blue2 : R.color.tv));
+        workDuration.setTextColor(getResources().getColor(postion == 2 ? R.color.maya_blue2 : R.color.tv));
 
 
     }
@@ -328,9 +331,22 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
             }
         }
     };
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         getActivity().unregisterReceiver(notifyReceiver);
+    }
+
+    private void setTv(int indext) {
+        msg1.setVisibility(indext == 0 ? View.VISIBLE : View.GONE);
+        msg2.setVisibility(indext == 1 ? View.VISIBLE : View.GONE);
+        msg3.setVisibility(indext == 2 ? View.VISIBLE : View.GONE);
+        msg4.setVisibility(indext == 3 ? View.VISIBLE : View.GONE);
+        msg5.setVisibility(indext == 4 ? View.VISIBLE : View.GONE);
+        msg6.setVisibility(indext == 5 ? View.VISIBLE : View.GONE);
+        msg7.setVisibility(indext == 6 ? View.VISIBLE : View.GONE);
+        msg8.setVisibility(indext == 7 ? View.VISIBLE : View.GONE);
+        msg9.setVisibility(indext == 8 ? View.VISIBLE : View.GONE);
     }
 }

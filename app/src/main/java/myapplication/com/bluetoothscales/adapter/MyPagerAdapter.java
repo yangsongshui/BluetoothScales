@@ -64,6 +64,7 @@ public class MyPagerAdapter extends PagerAdapter {
         });
         container.addView(view);
         mView.add(view);
+
         return view;
     }
 

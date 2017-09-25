@@ -161,7 +161,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void onResume() {
         super.onResume();
-        mBluetoothAdapter.enable();
+       // mBluetoothAdapter.enable();
     }
 
     @PermissionGrant(REQUECT_CODE_COARSE)
@@ -289,7 +289,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private void initBLE() {
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             toastor.showSingletonToast("手机蓝牙异常");
-            finish();
+           // finish();
         }
         final BluetoothManager bluetoothManager =
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);

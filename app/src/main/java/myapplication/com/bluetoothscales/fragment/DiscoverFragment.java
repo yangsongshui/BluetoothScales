@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import myapplication.com.bluetoothscales.OnItemViewClickListener;
 import myapplication.com.bluetoothscales.R;
 import myapplication.com.bluetoothscales.adapter.MyPagerAdapter;
 import myapplication.com.bluetoothscales.base.BaseFragment;
@@ -22,7 +25,7 @@ import myapplication.com.bluetoothscales.utils.FragmentEvent;
 import myapplication.com.bluetoothscales.utils.SpUtils;
 
 
-public class DiscoverFragment extends BaseFragment {
+public class DiscoverFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
 
 
     @BindView(R.id.discover_ll)
@@ -41,6 +44,19 @@ public class DiscoverFragment extends BaseFragment {
     ViewPager pregPager2;
     @BindView(R.id.preg_pager3)
     ViewPager pregPager3;
+    @BindView(R.id.preg_check)
+    CheckBox pregChek;
+    @BindView(R.id.preg_check2)
+    CheckBox pregChek2;
+    @BindView(R.id.preg_check3)
+    CheckBox pregChek3;
+  /*  @BindView(R.id.preg_ll)
+    LinearLayout pregLl;
+    @BindView(R.id.preg_ll2)
+    LinearLayout pregLl2;
+    @BindView(R.id.preg_ll3)
+    LinearLayout pregLl3;*/
+
     MyPagerAdapter adapter;
     MyPagerAdapter adapter2;
     MyPagerAdapter adapter3;
@@ -78,6 +94,9 @@ public class DiscoverFragment extends BaseFragment {
         discoverPregLl.setVisibility(mode == 2 ? View.VISIBLE : View.GONE);
         discoverWorkLl.setVisibility(mode == 1 ? View.VISIBLE : View.GONE);
         discoverBabyLl.setVisibility(mode == 3 ? View.VISIBLE : View.GONE);
+        pregChek.setOnCheckedChangeListener(this);
+        pregChek2.setOnCheckedChangeListener(this);
+        pregChek3.setOnCheckedChangeListener(this);
     }
 
     @SuppressLint("StringFormatMatches")
@@ -93,22 +112,34 @@ public class DiscoverFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);//反注册EventBus
 
     }
-    private void initPregList(){
-        List<String> title=new ArrayList<>();
-        List<String> msg=new ArrayList<>();
+
+    private void initPregList() {
+        List<String> title = new ArrayList<>();
+        List<String> msg = new ArrayList<>();
         title.add(getString(R.string.preg_title));
         title.add(getString(R.string.preg_title2));
         title.add(getString(R.string.preg_title3));
         msg.add(getString(R.string.preg_msg));
         msg.add(getString(R.string.preg_msg2));
         msg.add(getString(R.string.preg_msg3));
+        pregPager.setOffscreenPageLimit(3);
         adapter = new MyPagerAdapter(title, msg, getActivity());
         pregPager.setAdapter(adapter);
+        adapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+            @Override
+            public void OnItemView(int position, View view, boolean is) {
+                if (is)
+                    pregPager.setCurrentItem(position - 1);
+                else
+                    pregPager.setCurrentItem(position + 1);
+            }
+        });
 
     }
-    private void initPregList2(){
-     List<String> title=new ArrayList<>();
-     List<String> msg=new ArrayList<>();
+
+    private void initPregList2() {
+        List<String> title = new ArrayList<>();
+        List<String> msg = new ArrayList<>();
         title.add(getString(R.string.preg2_title));
         title.add(getString(R.string.preg2_title2));
         title.add(getString(R.string.preg2_title3));
@@ -121,12 +152,23 @@ public class DiscoverFragment extends BaseFragment {
         msg.add(getString(R.string.preg2_msg4));
         msg.add(getString(R.string.preg2_msg5));
         msg.add(getString(R.string.preg2_msg6));
+        pregPager3.setOffscreenPageLimit(3);
         adapter2 = new MyPagerAdapter(title, msg, getActivity());
         pregPager3.setAdapter(adapter2);
+        adapter2.setOnItemViewClickListener(new OnItemViewClickListener() {
+            @Override
+            public void OnItemView(int position, View view, boolean is) {
+                if (is)
+                    pregPager3.setCurrentItem(position - 1);
+                else
+                    pregPager3.setCurrentItem(position + 1);
+            }
+        });
     }
-    private void initPregList3(){
-        List<String> title=new ArrayList<>();
-        List<String> msg=new ArrayList<>();
+
+    private void initPregList3() {
+        List<String> title = new ArrayList<>();
+        List<String> msg = new ArrayList<>();
         title.add(getString(R.string.preg3_title));
         title.add(getString(R.string.preg3_title2));
         title.add(getString(R.string.preg3_title3));
@@ -135,7 +177,32 @@ public class DiscoverFragment extends BaseFragment {
         msg.add(getString(R.string.preg3_msg2));
         msg.add(getString(R.string.preg3_msg3));
         msg.add(getString(R.string.preg3_msg4));
+        pregPager2.setOffscreenPageLimit(3);
         adapter3 = new MyPagerAdapter(title, msg, getActivity());
         pregPager2.setAdapter(adapter3);
+        adapter3.setOnItemViewClickListener(new OnItemViewClickListener() {
+            @Override
+            public void OnItemView(int position, View view, boolean is) {
+                if (is)
+                    pregPager2.setCurrentItem(position - 1);
+                else
+                    pregPager2.setCurrentItem(position + 1);
+            }
+        });
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        switch (compoundButton.getId()) {
+            case R.id.preg_check:
+                pregPager.setVisibility(b ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.preg_check2:
+                pregPager2.setVisibility(b ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.preg_check3:
+                pregPager3.setVisibility(b ? View.VISIBLE : View.GONE);
+                break;
+        }
     }
 }

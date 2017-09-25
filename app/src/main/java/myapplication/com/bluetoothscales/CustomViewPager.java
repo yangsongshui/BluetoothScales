@@ -11,6 +11,7 @@ import android.view.View;
  */
 
 public class CustomViewPager extends ViewPager {
+
     public CustomViewPager(Context context) {
         super(context);
     }
@@ -19,19 +20,22 @@ public class CustomViewPager extends ViewPager {
         super(context, attrs);
     }
 
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
         int height = 0;
         for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
-            child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+            child.measure(widthMeasureSpec, View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
             int h = child.getMeasuredHeight();
-            if (h > height)height = h;
+            if (h > height)
+                height = h;
         }
 
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+        heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY);
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
+
 }

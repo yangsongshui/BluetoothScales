@@ -18,21 +18,17 @@
         android:textColor="@color/grey"
         android:textSize="15sp" />
 
-    <LinearLayout
-        android:id="@+id/preg_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
 
         <myapplication.com.bluetoothscales.CustomViewPager
             android:id="@+id/preg_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginTop="10dp" />
 
 
-    </LinearLayout>
+
 
     <CheckBox
         android:id="@+id/preg_check3"
@@ -47,20 +43,16 @@
         android:textColor="@color/grey"
         android:textSize="15sp" />
 
-    <LinearLayout
-        android:id="@+id/preg_ll3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+
 
         <myapplication.com.bluetoothscales.CustomViewPager
             android:id="@+id/preg_pager3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginTop="10dp" />
 
 
-    </LinearLayout>
 
     <CheckBox
         android:id="@+id/preg_check2"
@@ -75,28 +67,18 @@
         android:textColor="@color/grey"
         android:textSize="15sp" />
 
-    <LinearLayout
-        android:id="@+id/preg_ll2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+
 
 
         <myapplication.com.bluetoothscales.CustomViewPager
             android:id="@+id/preg_pager2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginTop="10dp" />
 
 
-    </LinearLayout>
 
-    <!--<TextView
-        android:id="@+id/preg_ll2"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:layout_margin="15dp"
-        android:text="@string/discover_msg2" />-->
+
+
 </LinearLayout>
