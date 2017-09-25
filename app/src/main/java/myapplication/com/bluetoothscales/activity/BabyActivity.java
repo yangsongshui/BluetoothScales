@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RadioGroup;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import myapplication.com.bluetoothscales.R;
 import myapplication.com.bluetoothscales.base.BaseActivity;
@@ -13,6 +15,7 @@ import myapplication.com.bluetoothscales.base.BaseFragment;
 import myapplication.com.bluetoothscales.fragment.BabyFragment;
 import myapplication.com.bluetoothscales.fragment.DiscoverFragment;
 import myapplication.com.bluetoothscales.fragment.TrendFragment;
+import myapplication.com.bluetoothscales.utils.FragmentEvent;
 
 public class BabyActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
     @BindView(R.id.main_rgrpNavigation)
@@ -50,6 +53,7 @@ public class BabyActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 break;
 
         }
+        EventBus.getDefault().post(new FragmentEvent(3));
     }
 
     private void initData() {

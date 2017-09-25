@@ -34,7 +34,53 @@
     <string name="preg2">Good, you gain in the recommended amount of weight.\nCongratulate yourself and keep up the good work.</string>
     <string name="preg3">Gaining more than recommended during pregnancy :\nPuts you at a higher risk for high blood pressure disorders.\nCesarean delivery\nHaving a large baby\n</string>
 
-    <string name="msg">1. Tips for a Good Pregnancy \nFetal movement is also a status indicator to track the baby\’s growth!\nIn general, you can relax if you can feel 10 fetal movements during day time. \n\n2. Is it Ok to Exercise?\nWalking, yoga, and swimming are great options, at about 30 minutes a day.\n \n3. Regularly see your doctor\nDon\’t overwork, and overstress/overtire yourself.\n\n4. As much as possible,make sure you always have company especially if you are having a difficult pregnancy.\n\n5. Pregnancy tip: soothe aching muscles\nTry gently massaging your lower back or use a heat pack, hot water bottle or warmed facecloth. \n
+    <string name="msgtitle">1. Tips for a Good Pregnancy</string>
+    <string name="msg">Fetal movement is also a status indicator to track the baby\’s growth!\nIn general, you can relax if you can feel 10 fetal movements during day time.</string>
+    <string name="msgtitle2">2. Is it Ok to Exercise?</string>
+    <string name="msg2">Yes, of course! Walking, yoga, and swimming are great options, at about 30 minutes a day.</string>
+    <string name="msgtitle3">3. Balancing Work &amp; Pregnancy</string>
+    <string name="msg3">Sometimes, being pregnant can feel as if it\'s a full-time job. And that is a problem if you\'ve already got a full-time job.\n\nDespite its discomforts, pregnancy isn\'t a ticket to slack off at work. And thankfully, there are lots of ways to curb your symptoms so they don\'t interfere with your job performance
+    </string>
+    <string name="msgtitle4">4. Soothing aching muscles</string>
+    <string name="msg4">Try gently massaging your lower back or use a heat pack, hot water bottle or warmed facecloth.</string>
+    <string name="preg_title">1. Why you need folic acid?</string>
+    <string name="preg_msg">Because it\'s very difficult to eat enough foods rich in the vitamin to supply the amount that experts recommend you take in pregnancy.\n\nIt helps make DNA (the body\'s genetic material) and is a critical component of spinal fluid.
+    </string>
+    <string name="preg_title2">2. What are the best food sources?</string>
+    <string name="preg_msg2">Vegetables of different types and color and legumes\nDrink milk and special formula for pregnant women\nTake the best prenatal vitamins recommended by your doctor\nGrain including breads, rice, pasta, noodles, polenta, oats, mostly wholegrain\nInclude lean meat, fish, poultry, nuts, legumes \nKeep away junk foods and unhealthy stuff\nDrink plenty of water\n
+    </string>
+
+    <string name="preg_title3">3. Are there any foods I shouldn\'t eat during pregnancy?</string>
+    <string name="preg_msg3">Raw seafood, such as oysters or uncooked sushi.\n\nPate, raw or undercooked meat, poultry, and eggs. All are possible sources of bacteria that can harm your unborn child.\n\nCheeses with a white, \'mouldy\' rind, such as Brie and Camembert, blue-veined cheeses like Stilton.\n\nMany women choose to avoid alcoholic drinks during pregnancy.\n\n
+    </string>
+    <string name="preg2_title">Eating well: 0–8 weeks</string>
+    <string name="preg2_msg">Focus on folic acid\nLunch: broccoli and pea soup/ Tuna nicoise salad\nSnack: orange with stem ginger and dates\nDinner: beef and black eye bean casserole\n
+    </string>
+    <string name="preg2_title2">Eating well: 9–12 weeks</string>
+    <string name="preg2_msg2">Eat little and often. Focus on B vitamins\nLunch: avocado and warm chicken salad\nSnack: Greek yogurt with ginger or honey and almonds\nDinner: creamy tuna and salmon pie\nSnack: Anzac biscuits with macadamias\n
+    </string>
+    <string name="preg2_title3">Eating well: 17–20 weeks</string>
+    <string name="preg2_msg3">Omega 3 essential fatty acids\nLunch: super salad\nSnack: oaty cranberry and orange cookies\nDinner: salmon with pine nuts and lime\nLamb, quinoa and rocket salad\n
+    </string>
+    <string name="preg2_title4">Eating well: 25–28 weeks</string>
+    <string name="preg2_msg4">Calcium and vitamin D\nLunch: ciabatta with haloumi, basil and sundried tomatoes\nSnack: hummous with pitta bread\nDinner: mushroom and celery pasta bake\n
+    </string>
+    <string name="preg2_title5">Eating well: 29–32 weeks</string>
+    <string name="preg2_msg5">Vegetarian and pregnant\nLunch: pitta bread with baby spinach, Gruyère and grapes\nSnack: strawberry milk shake\nDinner: creamy chick pea curry\n</string>
+    <string name="preg2_title6">Eating well: 37–40 weeks</string>
+    <string name="preg2_msg6">Eating and drinking in labour\nLunch: beetroot soup\nSnack: fruity flapjacks\nDinner: ragu sauce\n
+    </string>
+    <string name="preg3_title">DIAPERING</string>
+    <string name="preg3_msg">Diaper changing pads\nDiaper rash ointment\n4 waterproof pads for\nchanging table\nRattles and small toys\nDirty diaper receptacle\nWipes or cotton cloths\nSmall thermos to hold warm water (for cleaning babies younger than 6 weeks)\nPlastic wipes holder (for the diaper bag)\n2 packages newborn diapers\n
+    </string>
+    <string name="preg3_title2">CLOTHING</string>
+    <string name="preg3_msg2">1 pack T-shirts\n6 one-piece outfits that snap at the crotch (long- and shortsleeved)\n4 pajama sets\n6 pairs socks\n2 pairs soft booties\n2 pairs stretch cotton pants\n3 bibs\nCotton sweater\nKnit cap\nSun hat\nZip-up sweatshirt\n15 baby hangers\n
+    </string>
+    <string name="preg3_title3">FEEDING</string>
+    <string name="preg3_msg3">Nursing pillow\n6 burp cloths\n6 bottles equipped with newborn nipples\nBottle brush\nInsulated bottle holder for diaper bag\nNursing bras\nNursing pads for bras\nBreast pump\n
+    </string>
+    <string name="preg3_title4">LINENS</string>
+    <string name="preg3_msg4">4 receiving blankets\n2 cotton blankets\nCradle or bassinet with cotton sheets\n2 crib mattress pads\n2 waterproof liners (one for the bassinet and one for the crib)\n\nLink to the page \'BABY CENTER\' website for more detail:\n\n<a href='https://www.babycenter.com/baby-registry-checklist'>https://www.babycenter.com/baby-registry-checklist</a>
     </string>
     <string name="trend_preg1">9 weeks Pregnancy\nIn both shape and size, she resembles a peapod and weighs less than 2 grams. \n</string>
     <string name="trend_preg2">12 weeks pregnant\nYour little one\'s teeny toes can curl, her brain is growing furiously, and her kidneys are starting to excrete urine. \n</string>
@@ -45,14 +91,14 @@
     <string name="trend_preg7">28 weeks pregnant\nWelcome to your last trimester! Your developing baby\'s eyes may be able to see light filtering in through your womb. \n</string>
     <string name="trend_preg8">30 weeks pregnant\nYour baby now weighs almost 3 pounds. Meanwhile, you may be battling mood swings, clumsiness, and fatigue. \n</string>
     <string name="trend_preg9">39 weeks pregnant\nYour baby is full term this week and waiting to greet the world! If your water breaks, call your healthcare provider. \n</string>
-    <string name="discover_msg1">#1 Why you need folic acid?\n\nBecause it\'s very difficult to eat enough foods rich in the vitamin to supply the amount that experts recommend you take in pregnancy.\nIt helps make DNA (the body\'s genetic material) and is a critical component of spinal fluid.\nWhat are the best food sources?\nLeafy green vegetables are a good source, so try to have a large bowl of salad daily.\n
+    <string name="discover_msg1">1 Why you need folic acid?\n\nBecause it\'s very difficult to eat enough foods rich in the vitamin to supply the amount that experts recommend you take in pregnancy.\nIt helps make DNA (the body\'s genetic material) and is a critical component of spinal fluid.\nWhat are the best food sources?\nLeafy green vegetables are a good source, so try to have a large bowl of salad daily.\n
     </string>
-    <string name="discover_msg3">#2 Dietary Guidelines recommend that you enjoy a wide variety of nutritious foods every day from these food groups:\nVegetables of different types and colour and legumes\nFruit\nDrink milk and special formula for pregnant women\nTake the best prenatal vitamins recommended by your doctor\nGrain including breads, rice, pasta, noodles, polenta, oats, mostly wholegrain\nInclude lean meat, fish, poultry, nuts, legumes\nKeep away junk foods and unhealthy stuff\nAnd drink plenty of water\n
+    <string name="discover_msg3">2 Dietary Guidelines recommend that you enjoy a wide variety of nutritious foods every day from these food groups:\nVegetables of different types and colour and legumes\nFruit\nDrink milk and special formula for pregnant women\nTake the best prenatal vitamins recommended by your doctor\nGrain including breads, rice, pasta, noodles, polenta, oats, mostly wholegrain\nInclude lean meat, fish, poultry, nuts, legumes\nKeep away junk foods and unhealthy stuff\nAnd drink plenty of water\n
     </string>
-    <string name="discover_msg4">#3 Are there any foods I shouldn\'t eat during pregnancy?\nRaw seafood, such as oysters or uncooked sushi.\nPate, raw or undercooked meat, poultry, and eggs. All are possible sources of bacteria that can harm your unborn child.\nCheeses with a white, \'mouldy\' rind, such as Brie and Camembert, blue-veined cheeses like Stilton.\nMany women choose to avoid alcoholic drinks during pregnancy.\n
+    <string name="discover_msg4">3 Are there any foods I shouldn\'t eat during pregnancy?\nRaw seafood, such as oysters or uncooked sushi.\nPate, raw or undercooked meat, poultry, and eggs. All are possible sources of bacteria that can harm your unborn child.\nCheeses with a white, \'mouldy\' rind, such as Brie and Camembert, blue-veined cheeses like Stilton.\nMany women choose to avoid alcoholic drinks during pregnancy.\n
     </string>
-    <string name="discover_msg5">Eating well: 0-8 weeks\nFocus on folic acid\nLunch: broccoli and pea soup/ Tuna nicoise salad\nSnack: orange with stem ginger and dates\nDinner: beef and black eye bean casserole\n\nEating well: 9-12 weeks\nEat little and often. Focus on B vitamins\nLunch: avocado and warm chicken salad\nSnack: Greek yogurt with ginger or honey and almonds\nDinner: creamy tuna and salmon pie\nSnack: Anzac biscuits with macadamias\n</string>
-    <string name="discover_msg6">Eating well: 17-20 weeks\nOmega 3 essential fatty acids\nLunch: super salad\nSnack: oaty cranberry and orange cookies\nDinner: salmon with pine nuts and lime\nLamb, quinoa and rocket salad\n\nEating well: 25-28 weeks\nCalcium and vitamin D\nLunch: ciabatta with haloumi, basil and sundried tomatoes\nSnack: hummous with pitta bread\nDinner: mushroom and celery pasta bake\n </string>
+    <string name="discover_msg5">Eating well: 0–8 weeks\nFocus on folic acid\nLunch: broccoli and pea soup/ Tuna nicoise salad\nSnack: orange with stem ginger and dates\nDinner: beef and black eye bean casserole\n\nEating well: 9–12 weeks\nEat little and often. Focus on B vitamins\nLunch: avocado and warm chicken salad\nSnack: Greek yogurt with ginger or honey and almonds\nDinner: creamy tuna and salmon pie\nSnack: Anzac biscuits with macadamias\n</string>
+    <string name="discover_msg6">Eating well: 17–20 weeks\nOmega 3 essential fatty acids\nLunch: super salad\nSnack: oaty cranberry and orange cookies\nDinner: salmon with pine nuts and lime\nLamb, quinoa and rocket salad\n\nEating well: 25–28 weeks\nCalcium and vitamin D\nLunch: ciabatta with haloumi, basil and sundried tomatoes\nSnack: hummous with pitta bread\nDinner: mushroom and celery pasta bake\n </string>
     <string name="discover_msg7">Eating well: 29-32 weeks\nVegetarian and pregnant\nLunch: pitta bread with baby spinach, Gruyère and grapes\nSnack: strawberry milk shake\nDinner: creamy chick pea curry\n\nEating well: 37-40 weeks\nEating and drinking in labour\nLunch: beetroot soup\nSnack: fruity flapjacks\nDinner: ragu sauce\n
 </string>
     <string name="discover_msg2">Baby Registry Checklist\nNursery\nChanging table or pad\nCrib &amp; mattress\nBaby gear\nDiaperingBreastfeeding &amp; bottle feeding\nSolid feeding\nBathing\nClothing\nSleeping\nBaby soothers, toys &amp; entertainment\nSafety\nHealth\n\nLinking to the page \'BABY CENTER\'\nwebsite for the detail:\nhttps://www.babycenter.com/baby-registry-checklist

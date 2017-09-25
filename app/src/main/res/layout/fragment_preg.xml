@@ -40,19 +40,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/home_bg"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:background="@drawable/rim">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_margin="5dp"
+                        android:layout_margin="10dp"
                         android:text="Pregnacy data"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
@@ -77,6 +76,7 @@
                     android:id="@+id/preg_pregancy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/activity_bg2"
                     android:padding="15dp">
 
                     <TextView
@@ -84,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pregancy Date:"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/tv" />
 
                     <TextView
                         android:id="@+id/pregancy_time"
@@ -92,13 +92,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="2017-01-01"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/tv" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/preg_expecting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/activity_bg2"
                     android:padding="15dp">
 
                     <TextView
@@ -107,22 +108,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Expecting Date:"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/tv" />
 
                     <TextView
-
                         android:id="@+id/expecting_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="2017-01-01"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/tv" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/preg_weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/activity_bg2"
                     android:padding="15dp">
 
                     <TextView
@@ -130,7 +131,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Weight before prenancy:"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/tv" />
 
                     <TextView
                         android:id="@+id/weight_tv"
@@ -138,7 +139,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="--"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/tv" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -147,6 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:visibility="gone"
                 android:background="@drawable/home_bg"
                 android:orientation="vertical">
 
@@ -168,11 +170,13 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:maxLength="3"
-                    android:padding="10dp"
+                    android:visibility="gone"
+                    android:padding="13dp"
+                    android:layout_marginTop="20dp"
                     android:textColor="@color/white"
-                    android:textSize="12dp" />
-
+                    android:textSize="14dp" />
                 <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -181,7 +185,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/year"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -190,6 +194,7 @@
                         android:textColor="@color/white" />
 
                     <TextView
+                        android:id="@+id/month"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -198,6 +203,7 @@
                         android:textColor="@color/white" />
 
                     <TextView
+                        android:id="@+id/day"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -205,18 +211,20 @@
                         android:text="Day"
                         android:textColor="@color/white" />
                 </LinearLayout>
+
+
                 <TextView
                     android:id="@+id/preg_next"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/preg_bg"
-                    android:paddingBottom="8dp"
+                    android:paddingBottom="5dp"
                     android:paddingEnd="30dp"
                     android:paddingStart="30dp"
-                    android:paddingTop="8dp"
+                    android:paddingTop="5dp"
                     android:text="Complete"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
@@ -226,13 +234,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/home_bg"
+                android:background="@drawable/rim2"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/preg_yunfu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:src="@drawable/yunfu1" />
 
                 <LinearLayout
@@ -290,7 +299,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="15dp"
-                        android:background="@drawable/preg_bt"
+                        android:background="@drawable/preg_bg"
                         android:paddingBottom="5dp"
                         android:paddingEnd="10dp"
                         android:paddingStart="10dp"
@@ -303,15 +312,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/home_bg"
+                android:background="@drawable/rim"
                 android:orientation="vertical">
 
                 <CheckBox
                     android:id="@+id/preg_daily"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:button="@null"
                     android:drawableEnd="@drawable/down2"
                     android:drawablePadding="10dp"
@@ -324,14 +333,14 @@
                     android:id="@+id/daily_msg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/activity_bg2"
+                    android:background="@color/iron2"
                     android:orientation="vertical"
                     android:visibility="gone">
 
                     <android.support.v4.view.ViewPager
                         android:id="@+id/pager"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="300dp"
                         android:layout_marginBottom="20dp"
                         android:layout_marginTop="10dp" />
                 </LinearLayout>

@@ -7,6 +7,7 @@
     <color name="blue2">#7200bdff</color>
     <color name="green">#03ca99</color>
     <color name="black">#222222</color>
+
     <color name="green2">#199782</color>
     <color name="white">#FFFFFF</color>
     <color name="gray">#D4D4D4</color>
@@ -15,10 +16,14 @@
     <color name="maya_blue2">#82E8FA</color>
     <color name="maya">#00FFFF</color>
     <color name="grey">#666666</color>
-    <color name="grey2">#bab9b9</color>
+    <color name="grey2">#ED7169</color>
     <color name="blue3">#001DF5</color>
     <color name="viola">#D884B1</color>
+    <color name="viola2">#FFE0FF</color>
     <color name="concrete">#F2F2F2</color>
-    <color name="iron">#D7D7D7</color>
+    <color name="iron">#F5F5F5</color>
+    <color name="iron2">#F7D29D</color>
     <color name="picton_blue">#51BBF9</color>
+    <color name="lv">#00CCCC</color>
+    <color name="tv">#817C79</color>
 </resources>

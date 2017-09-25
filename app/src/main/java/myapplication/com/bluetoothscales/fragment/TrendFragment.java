@@ -28,6 +28,7 @@ import myapplication.com.bluetoothscales.utils.SpUtils;
 
 import static com.kitnew.ble.QNData.TYPE_BMI;
 import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
+import static myapplication.com.bluetoothscales.utils.DateUtil.dayDiffCurr;
 
 public class TrendFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
 
@@ -51,6 +52,12 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
     TextView babyTv;
     @BindView(R.id.msg)
     TextView msg;
+    @BindView(R.id.yunfu)
+    ImageView yunFu;
+    @BindView(R.id.shiwu)
+    ImageView shiWu;
+    @BindView(R.id.trend_msg)
+    TextView trendMsg;
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
@@ -61,7 +68,6 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
         if (SpUtils.getInt("type", 1) == 1) {
             title.setText("Workout Trend");
             trendIv.setBackgroundResource(R.drawable.work);
-
         } else if (SpUtils.getInt("type", 1) == 2) {
             title.setText("Pregnancy Mode");
             setView(MyApplication.newInstance().getQnData());
@@ -95,10 +101,12 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
             title.setText("Workout Trend");
             trendLl.setBackgroundResource(R.drawable.main_home);
             trendIv.setBackgroundResource(R.drawable.work);
+
         } else if (event.getDistance() == 2) {
             title.setText("Pregnancy Mode");
             trendLl.setBackgroundResource(R.drawable.main_home);
             setView(MyApplication.newInstance().getQnData());
+            setPreg();
         } else if (event.getDistance() == 3) {
             title.setText("Baby Trend");
             if (SpUtils.getString("sex", "boy").equals("boy")) {
@@ -127,6 +135,9 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
 
         } else if (SpUtils.getInt("type", 1) == 2) {
             setView(MyApplication.newInstance().getQnData());
+            setPreg();
+        }else if (SpUtils.getInt("type", 1) == 1){
+
         }
     }
 
@@ -154,15 +165,17 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
     private void setView(QNData qnData) {
         if (qnData != null) {
             if (qnData.getFloatValue(TYPE_BMI) < 18.5) {
-                trendIv.setBackgroundResource(R.drawable.work);
+                trendIv.setBackgroundResource(R.drawable.bmi1);
                 msg.setText(R.string.preg1);
             } else if (qnData.getFloatValue(TYPE_BMI) < 25) {
-                trendIv.setBackgroundResource(R.drawable.work);
+                trendIv.setBackgroundResource(R.drawable.bmi2);
                 msg.setText(R.string.preg2);
             } else if (qnData.getFloatValue(TYPE_BMI) >= 25) {
-                trendIv.setBackgroundResource(R.drawable.work);
+                trendIv.setBackgroundResource(R.drawable.bmi3);
                 msg.setText(R.string.preg3);
             }
+        } else {
+            trendIv.setBackgroundResource(R.drawable.bmi1);
         }
     }
 
@@ -176,4 +189,50 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
             }
         }
     };
+    private void setPreg(){
+        setyunfu((int) (dayDiffCurr(SpUtils.getString("pregancyTime", "2017-01-01")) / 7));
+    }
+    private void setyunfu(int week) {
+        if (week <= 3) {
+            yunFu.setImageResource(R.drawable.yunfu1);
+            shiWu.setImageResource(R.drawable.putao);
+            trendMsg.setText(R.string.trend_preg1);
+        } else if (week <= 12) {
+            yunFu.setImageResource(R.drawable.yunfu2);
+            shiWu.setImageResource(R.drawable.jvzi);
+            trendMsg.setText(R.string.trend_preg2);
+        } else if (week <= 13) {
+            yunFu.setImageResource(R.drawable.yunfu3);
+            shiWu.setImageResource(R.drawable.wandou);
+            trendMsg.setText(R.string.trend_preg3);
+        } else if (week <= 14) {
+            yunFu.setImageResource(R.drawable.yunfu4);
+            shiWu.setImageResource(R.drawable.ninmeng);
+            trendMsg.setText(R.string.trend_preg4);
+        } else if (week <= 19) {
+            yunFu.setImageResource(R.drawable.yunfu5);
+            shiWu.setImageResource(R.drawable.xihongshi);
+            trendMsg.setText(R.string.trend_preg5);
+        } else if (week <= 27) {
+            yunFu.setImageResource(R.drawable.yunfu6);
+            shiWu.setImageResource(R.drawable.mianhua);
+            trendMsg.setText(R.string.trend_preg6);
+        } else if (week <= 28) {
+            yunFu.setImageResource(R.drawable.yunfu7);
+            shiWu.setImageResource(R.drawable.qiezi);
+            trendMsg.setText(R.string.trend_preg7);
+        } else if (week <= 30) {
+            yunFu.setImageResource(R.drawable.yunfu8);
+            shiWu.setImageResource(R.drawable.baocai);
+            trendMsg.setText(R.string.trend_preg8);
+        } else if (week <= 39) {
+            yunFu.setImageResource(R.drawable.yunfu9);
+            shiWu.setImageResource(R.drawable.xigua);
+            trendMsg.setText(R.string.trend_preg9);
+        } else {
+            yunFu.setImageResource(R.drawable.yunfu9);
+            shiWu.setImageResource(R.drawable.xigua);
+            trendMsg.setText(R.string.trend_preg9);
+        }
+    }
 }

@@ -2,10 +2,8 @@ package myapplication.com.bluetoothscales.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,103 +11,52 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
-import butterknife.OnClick;
 import myapplication.com.bluetoothscales.R;
+import myapplication.com.bluetoothscales.adapter.MyPagerAdapter;
 import myapplication.com.bluetoothscales.base.BaseFragment;
 import myapplication.com.bluetoothscales.utils.FragmentEvent;
 import myapplication.com.bluetoothscales.utils.SpUtils;
 
 
-public class DiscoverFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
+public class DiscoverFragment extends BaseFragment {
 
 
     @BindView(R.id.discover_ll)
     LinearLayout discoverLl;
     @BindView(R.id.discover_title)
     TextView discoverTitle;
-    int mode = 0;
-    boolean sex = false;
-    @BindView(R.id.preg_check)
-    CheckBox pregCheck;
-    @BindView(R.id.shangyige)
-    ImageView shangyige;
-    @BindView(R.id.xiayige)
-    ImageView xiayige;
-    @BindView(R.id.preg_ll)
-    LinearLayout pregLl;
-    @BindView(R.id.preg_check2)
-    CheckBox pregCheck2;
-    @BindView(R.id.preg_tv)
-    TextView pregTv;
-    @BindView(R.id.preg_ll2)
-    TextView pregLl2;
-    @BindView(R.id.baby_check)
-    CheckBox babyCheck;
-    @BindView(R.id.baby_shangyige)
-    ImageView babyShangyige;
-    @BindView(R.id.baby_tv)
-    TextView babyTv;
-    @BindView(R.id.baby_xiayige)
-    ImageView babyXiayige;
-    @BindView(R.id.baby_ll)
-    LinearLayout babyLl;
-    @BindView(R.id.baby_check2)
-    CheckBox babyCheck2;
-    @BindView(R.id.baby_shangyige2)
-    ImageView babyShangyige2;
-    @BindView(R.id.baby_tv2)
-    TextView babyTv2;
-    @BindView(R.id.baby_xiayige2)
-    ImageView babyXiayige2;
-    @BindView(R.id.baby_ll2)
-    LinearLayout babyLl2;
     @BindView(R.id.discover_baby_ll)
     LinearLayout discoverBabyLl;
     @BindView(R.id.discover_preg_ll)
     LinearLayout discoverPregLl;
-    @BindView(R.id.work_cb1)
-    CheckBox workCb1;
-    @BindView(R.id.work_cb2)
-    CheckBox workCb2;
-    @BindView(R.id.work_cb3)
-    CheckBox workCb3;
-    @BindView(R.id.work_cb4)
-    CheckBox workCb4;
-    @BindView(R.id.shangyige3)
-    ImageView shangyige3;
-    @BindView(R.id.work_tv)
-    TextView workTv;
-    @BindView(R.id.xiayige3)
-    ImageView xiayige3;
-    @BindView(R.id.wrok_ll)
-    LinearLayout wrokLl;
     @BindView(R.id.discover_work_ll)
     LinearLayout discoverWorkLl;
-    @BindView(R.id.cb_tv1)
-    TextView cbTv1;
-    @BindView(R.id.cb_tv2)
-    TextView cbTv2;
-    @BindView(R.id.cb_tv3)
-    TextView cbTv3;
-    int[] id = {R.string.discover_msg1, R.string.discover_msg3, R.string.discover_msg4, R.string.discover_msg5, R.string.discover_msg6, R.string.discover_msg7};
-    int[] id2 = {R.string.discover_baby1, R.string.discover_baby2, R.string.discover_baby3};
-    int[] id3 = {R.string.discover_baby21, R.string.discover_baby22, R.string.discover_baby23, R.string.discover_baby24, R.string.discover_baby25, R.string.discover_baby26};
-    int[] id4 = {R.string.discover_work4, R.string.discover_work5, R.string.discover_work6, R.string.discover_work7, R.string.discover_work8};
+    @BindView(R.id.preg_pager)
+    ViewPager pregPager;
+    @BindView(R.id.preg_pager2)
+    ViewPager pregPager2;
+    @BindView(R.id.preg_pager3)
+    ViewPager pregPager3;
+    MyPagerAdapter adapter;
+    MyPagerAdapter adapter2;
+    MyPagerAdapter adapter3;
+    int mode = 0;
+    boolean sex = false;
+
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
         mode = SpUtils.getInt("type", 1);
         EventBus.getDefault().register(this);
         initView();
-        pregCheck.setOnCheckedChangeListener(this);
-        pregCheck2.setOnCheckedChangeListener(this);
-        babyCheck.setOnCheckedChangeListener(this);
-        babyCheck2.setOnCheckedChangeListener(this);
-        workCb4.setOnCheckedChangeListener(this);
-        workCb3.setOnCheckedChangeListener(this);
-        workCb2.setOnCheckedChangeListener(this);
-        workCb1.setOnCheckedChangeListener(this);
+        initPregList();
+        initPregList2();
+        initPregList3();
+
     }
 
     @Override
@@ -119,7 +66,6 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
 
 
     private void initView() {
-
         if (mode == 3) {
             discoverTitle.setText("Baby Discover");
             discoverLl.setBackground(SpUtils.getString("sex", "boy").equals("girl") ? getResources().getDrawable(R.drawable.main_home2) : getResources().getDrawable(R.drawable.main_home));
@@ -147,100 +93,49 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
         EventBus.getDefault().unregister(this);//反注册EventBus
 
     }
+    private void initPregList(){
+        List<String> title=new ArrayList<>();
+        List<String> msg=new ArrayList<>();
+        title.add(getString(R.string.preg_title));
+        title.add(getString(R.string.preg_title2));
+        title.add(getString(R.string.preg_title3));
+        msg.add(getString(R.string.preg_msg));
+        msg.add(getString(R.string.preg_msg2));
+        msg.add(getString(R.string.preg_msg3));
+        adapter = new MyPagerAdapter(title, msg, getActivity());
+        pregPager.setAdapter(adapter);
 
-    int indext = 0;
-    int indext2 = 0;
-    int indext3 = 0;
-    int indext4 = 0;
-
-    @OnClick({R.id.shangyige, R.id.xiayige, R.id.shangyige3, R.id.xiayige3, R.id.baby_shangyige, R.id.baby_xiayige, R.id.baby_shangyige2, R.id.baby_xiayige2})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.shangyige:
-                indext--;
-                shangyige.setVisibility(indext == 0 ? View.INVISIBLE : View.VISIBLE);
-                xiayige.setVisibility(View.VISIBLE);
-                pregTv.setText(id[indext]);
-
-                break;
-            case R.id.xiayige:
-                indext++;
-                shangyige.setVisibility(View.VISIBLE);
-                xiayige.setVisibility(indext == 5 ? View.INVISIBLE : View.VISIBLE);
-                pregTv.setText(id[indext]);
-                break;
-            case R.id.baby_shangyige:
-                indext2--;
-                babyShangyige.setVisibility(indext2 == 0 ? View.INVISIBLE : View.VISIBLE);
-                babyXiayige.setVisibility(View.VISIBLE);
-                babyTv.setText(id[indext2]);
-
-                break;
-            case R.id.baby_xiayige:
-                indext2++;
-                babyShangyige.setVisibility(View.VISIBLE);
-                babyXiayige.setVisibility((indext2 == 2) ? View.INVISIBLE : View.VISIBLE);
-                babyTv.setText(id2[indext2]);
-                break;
-            case R.id.baby_shangyige2:
-                indext3--;
-                babyShangyige2.setVisibility((indext3 == 0) ? View.INVISIBLE : View.VISIBLE);
-                babyXiayige2.setVisibility(View.VISIBLE);
-                babyTv2.setText(id3[indext3]);
-
-                break;
-            case R.id.baby_xiayige2:
-                indext3++;
-                babyShangyige2.setVisibility(View.VISIBLE);
-                babyXiayige2.setVisibility(indext3 == 5 ? View.INVISIBLE : View.VISIBLE);
-                babyTv2.setText(id3[indext3]);
-                break;
-            case R.id.shangyige3:
-                indext4--;
-                shangyige3.setVisibility(indext4 == 0 ? View.INVISIBLE : View.VISIBLE);
-                xiayige3.setVisibility(View.VISIBLE);
-                workTv.setText(id4[indext4]);
-
-                break;
-            case R.id.xiayige3:
-                indext4++;
-                shangyige3.setVisibility(View.VISIBLE);
-                xiayige3.setVisibility(indext4 == 4 ? View.INVISIBLE : View.VISIBLE);
-                workTv.setText(id4[indext4]);
-                break;
-
-        }
     }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        switch (compoundButton.getId()) {
-            case R.id.preg_check:
-                pregLl.setVisibility(b ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.preg_check2:
-                pregLl2.setVisibility(b ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.work_cb1:
-                cbTv1.setVisibility(b ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.work_cb2:
-                cbTv2.setVisibility(b ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.work_cb3:
-                cbTv3.setVisibility(b ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.work_cb4:
-                wrokLl.setVisibility(b ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.baby_check:
-                babyLl.setVisibility(b ? View.VISIBLE : View.GONE);
-                break;
-            case R.id.baby_check2:
-                babyLl2.setVisibility(b ? View.VISIBLE : View.GONE);
-                break;
-        }
+    private void initPregList2(){
+     List<String> title=new ArrayList<>();
+     List<String> msg=new ArrayList<>();
+        title.add(getString(R.string.preg2_title));
+        title.add(getString(R.string.preg2_title2));
+        title.add(getString(R.string.preg2_title3));
+        title.add(getString(R.string.preg2_title4));
+        title.add(getString(R.string.preg2_title5));
+        title.add(getString(R.string.preg2_title6));
+        msg.add(getString(R.string.preg2_msg));
+        msg.add(getString(R.string.preg2_msg2));
+        msg.add(getString(R.string.preg2_msg3));
+        msg.add(getString(R.string.preg2_msg4));
+        msg.add(getString(R.string.preg2_msg5));
+        msg.add(getString(R.string.preg2_msg6));
+        adapter2 = new MyPagerAdapter(title, msg, getActivity());
+        pregPager3.setAdapter(adapter2);
     }
-
-
+    private void initPregList3(){
+        List<String> title=new ArrayList<>();
+        List<String> msg=new ArrayList<>();
+        title.add(getString(R.string.preg3_title));
+        title.add(getString(R.string.preg3_title2));
+        title.add(getString(R.string.preg3_title3));
+        title.add(getString(R.string.preg3_title4));
+        msg.add(getString(R.string.preg3_msg));
+        msg.add(getString(R.string.preg3_msg2));
+        msg.add(getString(R.string.preg3_msg3));
+        msg.add(getString(R.string.preg3_msg4));
+        adapter3 = new MyPagerAdapter(title, msg, getActivity());
+        pregPager2.setAdapter(adapter3);
+    }
 }
