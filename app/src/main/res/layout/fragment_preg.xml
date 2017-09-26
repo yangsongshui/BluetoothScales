@@ -7,27 +7,6 @@
     android:orientation="vertical"
     tools:context="myapplication.com.bluetoothscales.fragment.BabyFragment">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/blue">
-
-        <ImageView
-            android:id="@+id/preg_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:src="@drawable/back" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="Pregnancy Mode"
-            android:textColor="@color/white" />
-    </RelativeLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -134,7 +113,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-
                     android:gravity="center">
 
                     <TextView
@@ -151,95 +129,113 @@
                         android:text="Edit"
                         android:textColor="@color/white" />
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/edit_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/home_bg"
-                android:orientation="vertical"
-                android:visibility="gone">
 
                 <LinearLayout
-                    android:id="@+id/wheelview_container"
+                    android:id="@+id/edit_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/picton_blue"
-                    android:gravity="center"
-                    android:orientation="horizontal" />
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                <EditText
-                    android:id="@+id/weight_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/picton_blue"
-                    android:gravity="center"
-                    android:inputType="number"
-                    android:maxLength="3"
-                    android:padding="13dp"
-                    android:textColor="@color/white"
-                    android:textSize="14dp"
-                    android:visibility="gone" />
+                    <LinearLayout
+                        android:id="@+id/wheelview_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/picton_blue"
+                        android:gravity="center"
+                        android:orientation="horizontal" />
 
-                <LinearLayout
+                    <LinearLayout
+                        android:id="@+id/weight_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/picton_blue"
+                        android:gravity="center">
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/wheelview_container2"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="horizontal" />
+                    </LinearLayout>
+
+
+                    <!--       <EditText
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/picton_blue"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:padding="13dp"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        android:visibility="gone" />-->
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/year"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Year"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/month"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Month"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/day"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Day"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
 
                     <TextView
-                        android:id="@+id/year"
-                        android:layout_width="0dp"
+                        android:id="@+id/preg_next"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Year"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/month"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Month"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/day"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Day"
-                        android:textColor="@color/white" />
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/preg_bg"
+                        android:paddingBottom="5dp"
+                        android:paddingEnd="30dp"
+                        android:paddingStart="30dp"
+                        android:paddingTop="5dp"
+                        android:text="Complete"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
                 </LinearLayout>
-
-
-                <TextView
-                    android:id="@+id/preg_next"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/preg_bg"
-                    android:paddingBottom="5dp"
-                    android:paddingEnd="30dp"
-                    android:paddingStart="30dp"
-                    android:paddingTop="5dp"
-                    android:text="Complete"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -358,4 +354,26 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/blue">
+
+        <ImageView
+            android:id="@+id/preg_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Pregnancy Mode"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
 </LinearLayout>

@@ -213,12 +213,55 @@
                         android:text="Edit"
                         android:textColor="@color/white" />
                 </LinearLayout>
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/edit_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
+                    <LinearLayout
+                        android:id="@+id/wheelview_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/picton_blue"
+                        android:gravity="center"
+                        android:orientation="horizontal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="CM"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/work_next"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/preg_bg"
+                        android:paddingBottom="5dp"
+                        android:paddingEnd="30dp"
+                        android:paddingStart="30dp"
+                        android:paddingTop="5dp"
+                        android:text="Complete"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:background="@drawable/rim"
                 android:orientation="vertical">
 
@@ -235,7 +278,6 @@
                         android:text="Goal"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
-
 
                 </RelativeLayout>
 
@@ -284,6 +326,7 @@
                         android:text="--"
                         android:textColor="@color/tv" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -304,7 +347,60 @@
                         android:text="Edit"
                         android:textColor="@color/white" />
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/edit_ll2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/picton_blue">
+
+                        <LinearLayout
+                            android:id="@+id/wheelview_container2"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="horizontal" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/work_tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="Kg"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/work_next2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/preg_bg"
+                        android:paddingBottom="5dp"
+                        android:paddingEnd="30dp"
+                        android:paddingStart="30dp"
+                        android:paddingTop="5dp"
+                        android:text="Complete"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
             </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -346,15 +442,15 @@
                         android:text="Walking"
                         android:textColor="@color/work_rb"
                         android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/msg1"
+                        style="@style/workTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="@string/work_msg1"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
                         android:visibility="gone" />
+
                     <RadioButton
                         android:id="@+id/work_qixing"
                         android:layout_width="wrap_content"
@@ -366,15 +462,16 @@
                         android:text="Biking"
                         android:textColor="@color/work_rb"
                         android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/msg2"
+                        style="@style/workTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="@string/work_msg2"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
+
                         android:visibility="gone" />
+
                     <RadioButton
                         android:id="@+id/work_paobu"
                         android:layout_width="wrap_content"
@@ -386,15 +483,16 @@
                         android:text="Running / Jogging "
                         android:textColor="@color/work_rb"
                         android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/msg3"
+                        style="@style/workTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="@string/work_msg3"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
+
                         android:visibility="gone" />
+
                     <RadioButton
                         android:id="@+id/work_youyong"
                         android:layout_width="wrap_content"
@@ -406,15 +504,15 @@
                         android:text="Swimming"
                         android:textColor="@color/work_rb"
                         android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/msg4"
+                        style="@style/workTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="@string/work_msg4"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
                         android:visibility="gone" />
+
                     <RadioButton
                         android:id="@+id/work_yangwoqizuo"
                         android:layout_width="wrap_content"
@@ -426,14 +524,13 @@
                         android:text="Sit-up"
                         android:textColor="@color/work_rb"
                         android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/msg5"
+                        style="@style/workTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="@string/work_msg5"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
                         android:visibility="gone" />
 
 
@@ -448,14 +545,13 @@
                         android:text="Push-up"
                         android:textColor="@color/work_rb"
                         android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/msg6"
+                        style="@style/workTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="@string/work_msg6"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
                         android:visibility="gone" />
 
                     <RadioButton
@@ -469,15 +565,15 @@
                         android:text="Squats"
                         android:textColor="@color/work_rb"
                         android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/msg7"
+                        style="@style/workTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="@string/work_msg7"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
                         android:visibility="gone" />
+
                     <RadioButton
                         android:id="@+id/work_pashan"
                         android:layout_width="wrap_content"
@@ -489,14 +585,13 @@
                         android:text="Planks"
                         android:textColor="@color/work_rb"
                         android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/msg8"
+                        style="@style/workTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="@string/work_msg8"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
                         android:visibility="gone" />
 
                     <RadioButton
@@ -510,18 +605,19 @@
                         android:text="Burpees"
                         android:textColor="@color/work_rb"
                         android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/msg9"
+                        style="@style/workTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="13dp"
                         android:text="@string/work_msg9"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
                         android:visibility="gone" />
                 </RadioGroup>
 
                 <TextView
+                    android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
@@ -530,10 +626,7 @@
                     android:drawablePadding="10dp"
                     android:text="Recommended intensity"
                     android:textColor="@color/grey"
-                    android:textSize="16sp"
-                    android:id="@+id/textView2" />
-
-
+                    android:textSize="16sp" />
 
 
                 <RelativeLayout

@@ -27,6 +27,7 @@ import myapplication.com.bluetoothscales.utils.FragmentEvent;
 import myapplication.com.bluetoothscales.utils.SpUtils;
 
 import static com.kitnew.ble.QNData.TYPE_BMI;
+import static java.lang.Double.parseDouble;
 import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
 import static myapplication.com.bluetoothscales.utils.DateUtil.dayDiffCurr;
 
@@ -48,6 +49,8 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
     LinearLayout trendBabyLl;
     @BindView(R.id.trend_ll)
     LinearLayout trendLl;
+    @BindView(R.id.trend_preg_ll3)
+    LinearLayout trend_preg_ll3;
     @BindView(R.id.baby_tv)
     TextView babyTv;
     @BindView(R.id.msg)
@@ -58,6 +61,10 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
     ImageView shiWu;
     @BindView(R.id.trend_msg)
     TextView trendMsg;
+    @BindView(R.id.work_trend)
+    TextView workTrend;
+    @BindView(R.id.work_trend2)
+    TextView workTrend2;
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
@@ -68,6 +75,8 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
         if (SpUtils.getInt("type", 1) == 1) {
             title.setText("Workout Trend");
             trendIv.setBackgroundResource(R.drawable.work);
+            initWork();
+            trend_preg_ll3.setVisibility(View.VISIBLE);
         } else if (SpUtils.getInt("type", 1) == 2) {
             title.setText("Pregnancy Mode");
             setView(MyApplication.newInstance().getQnData());
@@ -101,7 +110,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
             title.setText("Workout Trend");
             trendLl.setBackgroundResource(R.drawable.main_home);
             trendIv.setBackgroundResource(R.drawable.work);
-
+            initWork();
         } else if (event.getDistance() == 2) {
             title.setText("Pregnancy Mode");
             trendLl.setBackgroundResource(R.drawable.main_home);
@@ -119,6 +128,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
         }
         trendPregLl.setVisibility(event.getDistance() == 2 ? View.VISIBLE : View.GONE);
         trendBabyLl.setVisibility(event.getDistance() == 3 ? View.VISIBLE : View.GONE);
+        trend_preg_ll3.setVisibility(event.getDistance() == 1 ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -136,7 +146,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
         } else if (SpUtils.getInt("type", 1) == 2) {
             setView(MyApplication.newInstance().getQnData());
             setPreg();
-        }else if (SpUtils.getInt("type", 1) == 1){
+        } else if (SpUtils.getInt("type", 1) == 1) {
 
         }
     }
@@ -179,6 +189,23 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
         }
     }
 
+    private void initWork() {
+        if (!SpUtils.getString("weight", "").equals("") && !SpUtils.getString("workTarget", "").equals("")) {
+            double weiht = parseDouble(SpUtils.getString("weight", ""));
+            double workTarget = Double.parseDouble(SpUtils.getString("workTarget", ""));
+            if (MyApplication.newInstance().getQnData() != null) {
+                workTrend.setText(String.format(getString(R.string.preg4), String.valueOf((weiht - MyApplication.newInstance().getQnData().getWeight()) + SpUtils.getString("unit", "LBS"))));
+                workTrend2.setText(String.format(getString(R.string.preg5), String.valueOf((workTarget - MyApplication.newInstance().getQnData().getWeight()) + SpUtils.getString("unit", "LBS"))));
+            } else {
+                workTrend.setText(String.format(getString(R.string.preg4), "--"+SpUtils.getString("unit", "LBS")));
+                workTrend2.setText(String.format(getString(R.string.preg5), String.valueOf((workTarget - weiht) + SpUtils.getString("unit", "LBS"))));
+            }
+        }else {
+            workTrend.setText(String.format(getString(R.string.preg4), "--"+SpUtils.getString("unit", "LBS")));
+            workTrend2.setText(String.format(getString(R.string.preg5), "--"+SpUtils.getString("unit", "LBS")));
+        }
+    }
+
     private BroadcastReceiver notifyReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -189,9 +216,11 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
             }
         }
     };
-    private void setPreg(){
+
+    private void setPreg() {
         setyunfu((int) (dayDiffCurr(SpUtils.getString("pregancyTime", "2017-01-01")) / 7));
     }
+
     private void setyunfu(int week) {
         if (week <= 3) {
             yunFu.setImageResource(R.drawable.yunfu1);

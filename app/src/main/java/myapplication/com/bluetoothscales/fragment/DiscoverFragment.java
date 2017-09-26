@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import myapplication.com.bluetoothscales.CustomViewPager;
 import myapplication.com.bluetoothscales.OnItemViewClickListener;
 import myapplication.com.bluetoothscales.R;
 import myapplication.com.bluetoothscales.adapter.MyPagerAdapter;
@@ -26,7 +27,6 @@ import myapplication.com.bluetoothscales.utils.SpUtils;
 
 
 public class DiscoverFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
-
 
     @BindView(R.id.discover_ll)
     LinearLayout discoverLl;
@@ -50,16 +50,23 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
     CheckBox pregChek2;
     @BindView(R.id.preg_check3)
     CheckBox pregChek3;
-  /*  @BindView(R.id.preg_ll)
-    LinearLayout pregLl;
-    @BindView(R.id.preg_ll2)
-    LinearLayout pregLl2;
-    @BindView(R.id.preg_ll3)
-    LinearLayout pregLl3;*/
+    @BindView(R.id.work_cb1)
+    CheckBox workCb1;
+    @BindView(R.id.work_cb2)
+    CheckBox workCb2;
+    @BindView(R.id.work_cb3)
+    CheckBox workCb3;
+    @BindView(R.id.work_cb4)
+    CheckBox workCb4;
+    @BindView(R.id.cb_tv3)
+    LinearLayout cbTv3;
+    @BindView(R.id.cb_tv2)
+    LinearLayout cbTv2;
+    @BindView(R.id.cb_tv1)
+    LinearLayout cbTv1;
+    @BindView(R.id.wrok_pager)
+    CustomViewPager workLl;
 
-    MyPagerAdapter adapter;
-    MyPagerAdapter adapter2;
-    MyPagerAdapter adapter3;
     int mode = 0;
     boolean sex = false;
 
@@ -69,9 +76,7 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
         mode = SpUtils.getInt("type", 1);
         EventBus.getDefault().register(this);
         initView();
-        initPregList();
-        initPregList2();
-        initPregList3();
+
 
     }
 
@@ -84,12 +89,15 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
     private void initView() {
         if (mode == 3) {
             discoverTitle.setText("Baby Discover");
-            discoverLl.setBackground(SpUtils.getString("sex", "boy").equals("girl") ? getResources().getDrawable(R.drawable.main_home2) : getResources().getDrawable(R.drawable.main_home));
+            discoverLl.setBackground(SpUtils.getString("sex", "Boy").equals("Girl") ? getResources().getDrawable(R.drawable.main_home2) : getResources().getDrawable(R.drawable.main_home));
         } else if (mode == 2) {
-
             discoverTitle.setText("Pregnancy Discover");
+            initPregList();
+            initPregList2();
+            initPregList3();
         } else if (mode == 1) {
             discoverTitle.setText("Workout Discover");
+            initWrokList();
         }
         discoverPregLl.setVisibility(mode == 2 ? View.VISIBLE : View.GONE);
         discoverWorkLl.setVisibility(mode == 1 ? View.VISIBLE : View.GONE);
@@ -97,6 +105,10 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
         pregChek.setOnCheckedChangeListener(this);
         pregChek2.setOnCheckedChangeListener(this);
         pregChek3.setOnCheckedChangeListener(this);
+        workCb1.setOnCheckedChangeListener(this);
+        workCb2.setOnCheckedChangeListener(this);
+        workCb3.setOnCheckedChangeListener(this);
+        workCb4.setOnCheckedChangeListener(this);
     }
 
     @SuppressLint("StringFormatMatches")
@@ -113,6 +125,38 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
 
     }
 
+    private void initWrokList() {
+        List<String> title = new ArrayList<>();
+        List<String> msg = new ArrayList<>();
+        title.add(getString(R.string.discover_title));
+        title.add(getString(R.string.discover_title2));
+        title.add(getString(R.string.discover_title3));
+        title.add(getString(R.string.discover_title4));
+        title.add(getString(R.string.discover_title5));
+        title.add(getString(R.string.discover_title6));
+        title.add(getString(R.string.discover_title7));
+        msg.add(getString(R.string.discover_diet_msg));
+        msg.add(getString(R.string.discover_diet_msg2));
+        msg.add(getString(R.string.discover_diet_msg3));
+        msg.add(getString(R.string.discover_diet_msg4));
+        msg.add(getString(R.string.discover_diet_msg5));
+        msg.add(getString(R.string.discover_diet_msg6));
+        msg.add(getString(R.string.discover_diet_msg7));
+        workLl.setOffscreenPageLimit(4);
+        MyPagerAdapter adapter = new MyPagerAdapter(title, msg, getActivity());
+        workLl.setAdapter(adapter);
+        adapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+            @Override
+            public void OnItemView(int position, View view, boolean is) {
+                if (is)
+                    workLl.setCurrentItem(position - 1);
+                else
+                    workLl.setCurrentItem(position + 1);
+            }
+        });
+
+    }
+
     private void initPregList() {
         List<String> title = new ArrayList<>();
         List<String> msg = new ArrayList<>();
@@ -123,7 +167,7 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
         msg.add(getString(R.string.preg_msg2));
         msg.add(getString(R.string.preg_msg3));
         pregPager.setOffscreenPageLimit(3);
-        adapter = new MyPagerAdapter(title, msg, getActivity());
+        MyPagerAdapter adapter = new MyPagerAdapter(title, msg, getActivity());
         pregPager.setAdapter(adapter);
         adapter.setOnItemViewClickListener(new OnItemViewClickListener() {
             @Override
@@ -153,7 +197,7 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
         msg.add(getString(R.string.preg2_msg5));
         msg.add(getString(R.string.preg2_msg6));
         pregPager3.setOffscreenPageLimit(3);
-        adapter2 = new MyPagerAdapter(title, msg, getActivity());
+        MyPagerAdapter adapter2 = new MyPagerAdapter(title, msg, getActivity());
         pregPager3.setAdapter(adapter2);
         adapter2.setOnItemViewClickListener(new OnItemViewClickListener() {
             @Override
@@ -178,7 +222,7 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
         msg.add(getString(R.string.preg3_msg3));
         msg.add(getString(R.string.preg3_msg4));
         pregPager2.setOffscreenPageLimit(3);
-        adapter3 = new MyPagerAdapter(title, msg, getActivity());
+        MyPagerAdapter adapter3 = new MyPagerAdapter(title, msg, getActivity());
         pregPager2.setAdapter(adapter3);
         adapter3.setOnItemViewClickListener(new OnItemViewClickListener() {
             @Override
@@ -203,6 +247,19 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
             case R.id.preg_check3:
                 pregPager3.setVisibility(b ? View.VISIBLE : View.GONE);
                 break;
+            case R.id.work_cb1:
+                cbTv1.setVisibility(b ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.work_cb2:
+                cbTv2.setVisibility(b ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.work_cb3:
+                cbTv3.setVisibility(b ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.work_cb4:
+                workLl.setVisibility(b ? View.VISIBLE : View.GONE);
+                break;
+
         }
     }
 }

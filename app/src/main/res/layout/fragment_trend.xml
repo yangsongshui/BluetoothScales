@@ -95,6 +95,29 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/trend_preg_ll3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/work_trend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="@string/preg4" />
+
+                <TextView
+                    android:id="@+id/work_trend2"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preg5" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/trend_preg_ll2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

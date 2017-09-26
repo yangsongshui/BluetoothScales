@@ -8,10 +8,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.qqtheme.framework.picker.DatePicker;
+import cn.qqtheme.framework.picker.DoublePicker;
 import cn.qqtheme.framework.util.ConvertUtils;
 import myapplication.com.bluetoothscales.OnItemViewClickListener;
 import myapplication.com.bluetoothscales.R;
@@ -70,7 +71,9 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
     @BindView(R.id.edit_ll)
     LinearLayout editLl;
     @BindView(R.id.weight_et)
-    EditText weightEt;
+    LinearLayout weightEt;
+    @BindView(R.id.wheelview_container2)
+    LinearLayout wheelview_container2;
     @BindView(R.id.year)
     TextView year;
     @BindView(R.id.month)
@@ -124,6 +127,7 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
 
         String time = pregancyTime.getText().toString();
         initWheel(Integer.parseInt(time.substring(0, 4)), Integer.parseInt(time.substring(6, 7)), Integer.parseInt(time.substring(8, 10)));
+       // initTarget();
         adapter.setOnItemViewClickListener(this);
     }
 
@@ -178,7 +182,8 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
                 if (indext != 0) {
                     indext = 3;
                     setText();
-                    weightEt.setText(SpUtils.getString("pregWeight", "0"));
+                    wheelview_container2.removeAllViews();
+                    initTarget();
                 }
                 break;
             case R.id.preg_next:
@@ -199,7 +204,7 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
         wheelview_container.setVisibility(indext == 3 ? View.GONE : View.VISIBLE);
         weightEt.setVisibility(indext == 3 ? View.VISIBLE : View.GONE);
         year.setVisibility(indext == 3 ? View.GONE : View.VISIBLE);
-        month.setText(indext == 3 ? "Kg" : "month");
+        month.setText(indext == 3 ? "Kg" : "Month");
     }
 
     boolean isData = false;
@@ -264,19 +269,17 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
             expectingTime.setText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + picker.getSelectedDay());
             indext = 3;
             SpUtils.putString("expectingTime", expectingTime.getText().toString());
-            weightEt.setText(SpUtils.getString("pregWeight", "0"));
+            wheelview_container2.removeAllViews();
+            initTarget();
         } else if (indext == 3) {
-            String weight = weightEt.getText().toString().trim();
-            if (!weight.equals("") && Integer.parseInt(weight) <= 200) {
-                weightTv.setText(weight + unit);
-                indext = 0;
-                SpUtils.putString("pregWeight", weight);
-                editLl.setVisibility(View.GONE);
-                pregEdit.setVisibility(View.VISIBLE);
-            } else {
-                toastor.showSingletonToast("输入正常体重");
-                return;
-            }
+
+            String weight = doublePicker.getSelectedFirstItem() + "." + doublePicker.getSelectedSecondItem();
+            Log.e("pregWeight", weight);
+            weightTv.setText(weight + unit);
+            indext = 0;
+            SpUtils.putString("pregWeight", weight);
+            editLl.setVisibility(View.GONE);
+            pregEdit.setVisibility(View.VISIBLE);
         }
         setText();
 
@@ -306,5 +309,36 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
             pager.setCurrentItem(position - 1);
         else
             pager.setCurrentItem(position + 1);
+    }
+
+    DoublePicker doublePicker;
+
+    private void initTarget() {
+        final ArrayList<String> firstData = new ArrayList<>();
+
+        for (int i = 5; i <= 120; i++) {
+            firstData.add(i + "");
+        }
+        final ArrayList<String> secondData = new ArrayList<>();
+        for (int i = 0; i <= 99; i++) {
+            secondData.add(i + "");
+        }
+        doublePicker = new DoublePicker(getActivity(), firstData, secondData);
+        doublePicker.setCycleDisable(true);
+        doublePicker.setDividerVisible(false);
+        doublePicker.setOffset(1);
+        doublePicker.setTextColor(Color.rgb(255, 255, 255));
+        doublePicker.setLabelTextColor(Color.rgb(255, 255, 255));
+        String msg = SpUtils.getString("pregWeight", "");
+        Log.e("pregWeight", msg);
+        if (!msg.equals("")) {
+            int indext = Integer.parseInt(msg.substring(0, msg.indexOf("."))) - 5;
+            int indext2 = Integer.parseInt(msg.substring(msg.indexOf(".") + 1, msg.length()));
+            doublePicker.setSelectedIndex(indext, indext2);
+        }
+        doublePicker.setFirstLabel(null, ".");
+
+        View pickerContentView2 = doublePicker.getContentView();
+        wheelview_container2.addView(pickerContentView2);
     }
 }

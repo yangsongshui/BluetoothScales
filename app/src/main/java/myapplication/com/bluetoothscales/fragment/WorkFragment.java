@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
@@ -19,8 +20,12 @@ import android.widget.TextView;
 
 import com.kitnew.ble.QNData;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.qqtheme.framework.picker.DoublePicker;
+import cn.qqtheme.framework.picker.NumberPicker;
 import myapplication.com.bluetoothscales.R;
 import myapplication.com.bluetoothscales.app.MyApplication;
 import myapplication.com.bluetoothscales.base.BaseFragment;
@@ -28,6 +33,8 @@ import myapplication.com.bluetoothscales.utils.SpUtils;
 import myapplication.com.bluetoothscales.utils.Toastor;
 
 import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
+import static myapplication.com.bluetoothscales.utils.DateUtil.currDay;
+import static myapplication.com.bluetoothscales.utils.DateUtil.dayDiffCurr;
 
 
 public class WorkFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
@@ -69,7 +76,10 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
     TextView workMsg6;
     @BindView(R.id.work_target)
     TextView workTarget;
-    ;
+    @BindView(R.id.edit_ll)
+    LinearLayout editLl;
+    @BindView(R.id.edit_ll2)
+    LinearLayout editLl2;
     @BindView(R.id.work_msg7)
     TextView workMsg7;
     @BindView(R.id.work_duration)
@@ -108,7 +118,12 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
     TextView msg8;
     @BindView(R.id.msg9)
     TextView msg9;
-
+    @BindView(R.id.work_tv2)
+    TextView workTv2;
+    @BindView(R.id.wheelview_container)
+    LinearLayout wheelview_container;
+    @BindView(R.id.wheelview_container2)
+    LinearLayout wheelview_container2;
     Toastor toastor;
     int postion = 0;
     int indext = 0;
@@ -125,12 +140,14 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         workTarget.setText(SpUtils.getString("workTarget", "--") + unit);
         workDuration.setText(SpUtils.getString("workDuration", "--") + "weeks");
         workTiem.setText(SpUtils.getString("workTiem", "00:00"));
-        WorkRg.check(id[SpUtils.getInt("workType", 0)]);
+        if (SpUtils.getInt("workType", -1) != -1)
+            WorkRg.check(id[SpUtils.getInt("workType", -1)]);
         setTv(SpUtils.getInt("workType", -1));
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         getActivity().registerReceiver(notifyReceiver, intentFilter);
-
+        initWheel();
+        initTarget();
         workActivity.setOnCheckedChangeListener(this);
 
         WorkRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -181,7 +198,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
 
     boolean isData = false;
 
-    @OnClick({R.id.baby_back, R.id.work_edit,
+    @OnClick({R.id.baby_back, R.id.work_edit, R.id.work_next, R.id.work_next2,
             R.id.goal_edit, R.id.work_target_ll, R.id.work_duration_ll,
             R.id.work_next3, R.id.setting_edit, R.id.work_measure})
     public void onViewClicked(View view) {
@@ -191,7 +208,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
                 break;
             case R.id.work_edit:
                 indext = 1;
-                //editLl.setVisibility(View.VISIBLE);
+                editLl.setVisibility(View.VISIBLE);
                 workEdit.setVisibility(View.GONE);
                 setText();
                 break;
@@ -206,7 +223,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
 
             case R.id.goal_edit:
                 postion = 1;
-                //editLl2.setVisibility(View.VISIBLE);
+                editLl2.setVisibility(View.VISIBLE);
                 goalEdit.setVisibility(View.GONE);
                 setText2();
 
@@ -215,17 +232,30 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
                 if (postion != 0) {
                     postion = 1;
                     setText2();
-
+                    wheelview_container2.removeAllViews();
+                    initTarget();
                 }
                 break;
             case R.id.work_duration_ll:
                 if (postion != 0) {
                     postion = 2;
                     setText2();
-
+                    wheelview_container2.removeAllViews();
+                    initWeek();
                 }
                 break;
+            case R.id.work_next:
+                indext = 0;
+                SpUtils.putString("workHeight", picker.getSelectedItem() + "");
+                workHeight.setText(picker.getSelectedItem() + "cm");
+                editLl.setVisibility(View.GONE);
+                workEdit.setVisibility(View.VISIBLE);
+                setText();
+                break;
+            case R.id.work_next2:
+                setView();
 
+                break;
             case R.id.work_next3:
                 String hour = workYear.getText().toString().trim();
                 String min = workMonth.getText().toString().trim();
@@ -265,28 +295,29 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         }
     }
 
-/*
     private void setView() {
-        String msg = workEt.getText().toString().trim();
+        if (postion == 1) {
+            String msg = doublePicker.getSelectedFirstItem() + "." + doublePicker.getSelectedSecondItem();
 
-        if (!msg.equals("")) {
-            if (Integer.parseInt(msg) <= 250) {
-                //editLl.setVisibility(View.GONE);
-                workEdit.setVisibility(View.VISIBLE);
-                workHeight.setText(msg + "cm");
-                indext = 0;
-                setText();
-                SpUtils.putString("workHeight", msg);
-            } else {
-                toastor.showSingletonToast("请输入正确身高");
-                return;
-            }
-
-        } else {
-            toastor.showSingletonToast("输入内容不能为空");
+            workTarget.setText(msg + unit);
+            SpUtils.putString("workTarget", msg);
+            postion = 2;
+            setText2();
+            wheelview_container2.removeAllViews();
+            initWeek();
+        } else if (postion == 2) {
+            String msg = picker2.getSelectedItem() + "";
+            workDuration.setText(msg + "weeks");
+            SpUtils.putString("workDuration", msg);
+            postion = 0;
+            setText2();
+            wheelview_container2.removeAllViews();
+            initTarget();
+            editLl2.setVisibility(View.GONE);
+            goalEdit.setVisibility(View.VISIBLE);
         }
-        workEt.setText("");
-    }*/
+
+    }
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -309,7 +340,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         workTarget.setTextColor(getResources().getColor(postion == 1 ? R.color.maya_blue2 : R.color.tv));
         workMsg7.setTextColor(getResources().getColor(postion == 2 ? R.color.maya_blue2 : R.color.tv));
         workDuration.setTextColor(getResources().getColor(postion == 2 ? R.color.maya_blue2 : R.color.tv));
-
+        workTv2.setText(postion == 2 ? "Weeks" : "Kg");
 
     }
 
@@ -325,6 +356,17 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
                     workBmi.setText(String.valueOf(qnData.getFloatValue(QNData.TYPE_BMI)));
                     workMucs.setText(String.valueOf(qnData.getFloatValue(QNData.TYPE_SKELETAL_MUSCLE)));
                     workFat.setText(String.valueOf(qnData.getFloatValue(QNData.TYPE_BODYFAT)));
+                    if (!SpUtils.getString("time", "").equals("")) {
+                        if (dayDiffCurr(SpUtils.getString("time", "2017-1-1")) / 7 >= 1) {
+                            SpUtils.putString("weight", qnData.getWeight() + "");
+                            SpUtils.putString("time", currDay());
+                        }
+                    } else {
+                        SpUtils.putString("weight", qnData.getWeight() + "");
+                        SpUtils.putString("time", currDay());
+                    }
+
+
                     isData = false;
                     MyApplication.newInstance().isMeasure = true;
                 }
@@ -348,5 +390,76 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         msg7.setVisibility(indext == 6 ? View.VISIBLE : View.GONE);
         msg8.setVisibility(indext == 7 ? View.VISIBLE : View.GONE);
         msg9.setVisibility(indext == 8 ? View.VISIBLE : View.GONE);
+    }
+
+    NumberPicker picker;
+
+    private void initWheel() {
+        picker = new NumberPicker(getActivity());
+        picker.setWidth(picker.getScreenWidthPixels() / 2);
+        picker.setCycleDisable(true);
+        picker.setDividerVisible(false);
+        picker.setOffset(1);
+        picker.setTextColor(Color.rgb(255, 255, 255));
+        picker.setRange(100, 230, 1);//数字范围
+        if (!SpUtils.getString("workHeight", "").equals(""))
+            picker.setSelectedItem(Integer.parseInt(SpUtils.getString("workHeight", "")));
+        picker.setLabel("");
+        picker.setDividerVisible(false);
+        View pickerContentView = picker.getContentView();
+        wheelview_container.addView(pickerContentView);
+    }
+
+    DoublePicker doublePicker;
+
+    private void initTarget() {
+        final ArrayList<String> firstData = new ArrayList<>();
+
+        for (int i = 5; i <= 120; i++) {
+            firstData.add(i + "");
+        }
+        final ArrayList<String> secondData = new ArrayList<>();
+        for (int i = 0; i <= 99; i++) {
+            secondData.add(i + "");
+        }
+        doublePicker = new DoublePicker(getActivity(), firstData, secondData);
+        doublePicker.setCycleDisable(true);
+        doublePicker.setDividerVisible(false);
+        doublePicker.setOffset(1);
+        doublePicker.setTextColor(Color.rgb(255, 255, 255));
+        doublePicker.setLabelTextColor(Color.rgb(255, 255, 255));
+        doublePicker.setWidth(50);
+        String msg = SpUtils.getString("workTarget", "");
+        if (!msg.equals("")) {
+            int indext = Integer.parseInt(msg.substring(0, msg.indexOf("."))) - 5;
+            int indext2 = Integer.parseInt(msg.substring(msg.indexOf(".") + 1, msg.length()));
+            doublePicker.setSelectedIndex(indext, indext2);
+            //doublePicker.setSelectedItem(Integer.parseInt(SpUtils.getString("workHeight", "")));
+        }
+
+        doublePicker.setFirstLabel(null, ".");
+
+        doublePicker.setDividerVisible(false);
+
+        View pickerContentView2 = doublePicker.getContentView();
+        wheelview_container2.addView(pickerContentView2);
+    }
+
+    NumberPicker picker2;
+
+    private void initWeek() {
+        picker2 = new NumberPicker(getActivity());
+        picker2.setWidth(picker2.getScreenWidthPixels() / 2);
+        picker2.setCycleDisable(true);
+        picker2.setDividerVisible(false);
+        picker2.setOffset(1);
+        picker2.setTextColor(Color.rgb(255, 255, 255));
+        picker2.setRange(1, 50, 1);//数字范围
+        if (!SpUtils.getString("workDuration", "").equals(""))
+            picker2.setSelectedItem(Integer.parseInt(SpUtils.getString("workDuration", "")));
+        picker2.setLabel("");
+        picker2.setDividerVisible(false);
+        View pickerContentView = picker2.getContentView();
+        wheelview_container2.addView(pickerContentView);
     }
 }
