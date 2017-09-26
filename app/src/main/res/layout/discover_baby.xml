@@ -3,7 +3,7 @@
     android:id="@+id/discover_baby_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="gone"
+    android:visibility="visible"
     android:orientation="vertical">
 
     <CheckBox
@@ -13,45 +13,18 @@
         android:button="@null"
         android:drawableEnd="@drawable/down2"
         android:drawablePadding="10dp"
-        android:drawableStart="@drawable/daocha"
+        android:drawableStart="@drawable/baby6"
         android:padding="15dp"
         android:text="Diet tips（for baby）"
         android:textColor="@color/grey"
         android:textSize="15sp" />
-    <LinearLayout
-        android:id="@+id/baby_ll"
+
+    <myapplication.com.bluetoothscales.CustomViewPager
+        android:id="@+id/baby_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:visibility="gone"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/baby_shangyige"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:src="@drawable/shangyige"
-
-            android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/baby_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/white"
-            android:text="@string/discover_baby1" />
-
-
-        <ImageView
-            android:id="@+id/baby_xiayige"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:src="@drawable/xiayige" />
-    </LinearLayout>
-
+        android:layout_marginTop="10dp" />
     <CheckBox
         android:id="@+id/baby_check2"
         android:layout_width="match_parent"
@@ -59,43 +32,16 @@
         android:button="@null"
         android:drawableEnd="@drawable/down2"
         android:drawablePadding="10dp"
-        android:drawableStart="@drawable/yinger"
+        android:drawableStart="@drawable/baby7"
         android:padding="15dp"
         android:text="Parenting tips"
         android:textColor="@color/grey"
         android:textSize="15sp" />
 
-    <LinearLayout
-        android:id="@+id/baby_ll2"
+    <myapplication.com.bluetoothscales.CustomViewPager
+        android:id="@+id/baby_pager2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:visibility="gone"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/baby_shangyige2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:src="@drawable/shangyige"
-
-            android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/baby_tv2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/white"
-            android:text="@string/discover_baby21" />
-
-
-        <ImageView
-            android:id="@+id/baby_xiayige2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:src="@drawable/xiayige" />
-    </LinearLayout>
+        android:layout_marginTop="10dp" />
 </LinearLayout>

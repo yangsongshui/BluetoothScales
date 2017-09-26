@@ -87,7 +87,7 @@ public class BabyFragment extends BaseFragment {
         builder.setMessage("Please stand on the electronic scale");
         dialog = builder.create();
         toastor = new Toastor(getActivity());
-        babySex.setText(SpUtils.getString("sex", "boy/girl"));
+        babySex.setText(SpUtils.getString("sex", "Boy/Girl"));
         babyTime.setText(SpUtils.getString("BabyData", "2017-01-01"));
         babyWeight.setText(SpUtils.getString("BabyWeight", "--") + unit);
         if (!babyWeight.getText().equals("--"))
@@ -214,7 +214,7 @@ public class BabyFragment extends BaseFragment {
             SpUtils.putString("BabyWeight", weight);
             initSex();
         } else if (indext == 3) {
-            babySex.setText(wheelView.getSelectedIndex()==0?"boy":"girl");
+            babySex.setText(wheelView.getSelectedIndex() == 0 ? "Boy" : "Girl");
             indext = 0;
             edit_ll.setVisibility(View.GONE);
             babyEdit.setVisibility(View.VISIBLE);
@@ -244,6 +244,7 @@ public class BabyFragment extends BaseFragment {
         picker.setTextColor(Color.rgb(255, 255, 255));
         picker.setResetWhileWheel(false);
         picker.setLabel("", "", "");
+        picker.setTextSize(12);
         picker.setDividerVisible(false);
         View pickerContentView = picker.getContentView();
         wheelview_container.addView(pickerContentView);
@@ -268,6 +269,7 @@ public class BabyFragment extends BaseFragment {
         doublePicker.setOffset(1);
         doublePicker.setTextColor(Color.rgb(255, 255, 255));
         doublePicker.setLabelTextColor(Color.rgb(255, 255, 255));
+        doublePicker.setTextSize(12);
         String msg = SpUtils.getString("BabyWeight", "");
         if (!msg.equals("")) {
             int indext = Integer.parseInt(msg.substring(0, msg.indexOf("."))) - 5;
@@ -283,14 +285,14 @@ public class BabyFragment extends BaseFragment {
 
     private void initSex() {
         wheelview_container3.removeAllViews();
-        wheelView = new OptionPicker(getActivity(),new String[]{"boy", "girl"});
+        wheelView = new OptionPicker(getActivity(), new String[]{"Boy", "Girl"});
         wheelView.setOffset(1);
         wheelView.setCycleDisable(true);
         wheelView.setDividerVisible(false);
         wheelView.setTextColor(Color.rgb(255, 255, 255));
-        wheelView.setContentPadding(5,10);
+        wheelView.setTextSize(12);
         if (!SpUtils.getString("sex", "").equals("")) {
-            wheelView.setSelectedIndex(SpUtils.getString("sex", "boy").equals("boy") ? 0 : 1);
+            wheelView.setSelectedIndex(SpUtils.getString("sex", "Boy").equals("Boy") ? 0 : 1);
         }
         View pickerContentView = wheelView.getContentView();
         wheelview_container3.addView(pickerContentView);

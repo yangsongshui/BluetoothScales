@@ -99,22 +99,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/work_trend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="@string/preg4" />
+                    android:text="@string/preg4"
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/work_trend2"
                     android:layout_width="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_height="wrap_content"
-                    android:text="@string/preg5" />
+                    android:text="@string/preg5"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -122,12 +122,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
+                    android:drawablePadding="5dp"
+                    android:drawableStart="@drawable/baby_cute"
                     android:text="Congratulation! Your baby growth trend is good."
                     android:textColor="@color/white" />
 
@@ -137,19 +139,19 @@
                     android:layout_height="wrap_content"
                     android:button="@null"
                     android:drawableEnd="@drawable/down2"
+                    android:drawableStart="@drawable/baby1"
+                    android:drawablePadding="5dp"
                     android:padding="10dp"
                     android:text="Baby growth Symptoms"
                     android:textColor="@color/grey"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/baby_tv"
+                <myapplication.com.bluetoothscales.CustomViewPager
+                    android:id="@+id/baby_pager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:text="@string/trend_work"
-                    android:textColor="@color/white"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp" />
             </LinearLayout>
 
         </LinearLayout>

@@ -5,6 +5,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import myapplication.com.bluetoothscales.R;
 public class MyPagerAdapter extends PagerAdapter {
     List<String> titles;
     List<String> msg;
+    int[] id;
     Context context;
     private List<View> mView = new ArrayList<View>();
     private OnItemViewClickListener onItemViewClickListener;
@@ -45,6 +47,12 @@ public class MyPagerAdapter extends PagerAdapter {
         final View view = LayoutInflater.from(context).inflate(R.layout.pager_item, container, false);
         ((TextView) view.findViewById(R.id.title)).setText(titles.get(position));
         ((TextView) view.findViewById(R.id.msg)).setText(msg.get(position));
+        ImageView imageView = (ImageView) view.findViewById(R.id.pager_iv);
+     /*   if (id != null && id.length > 0) {
+            imageView.setVisibility(View.VISIBLE);
+            imageView.setImageResource(id[position]);
+        }*/
+
 
         view.findViewById(R.id.shangyige).setVisibility(position == 0 ? View.INVISIBLE : View.VISIBLE);
         view.findViewById(R.id.xiayige).setVisibility(position == (titles.size() - 1) ? View.INVISIBLE : View.VISIBLE);
@@ -52,14 +60,14 @@ public class MyPagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 if (onItemViewClickListener != null)
-                    onItemViewClickListener.OnItemView(position, view,true);
+                    onItemViewClickListener.OnItemView(position, view, true);
             }
         });
         view.findViewById(R.id.xiayige).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onItemViewClickListener != null)
-                    onItemViewClickListener.OnItemView(position, view,false);
+                    onItemViewClickListener.OnItemView(position, view, false);
             }
         });
         container.addView(view);
@@ -76,5 +84,9 @@ public class MyPagerAdapter extends PagerAdapter {
 
     public void setOnItemViewClickListener(OnItemViewClickListener onItemViewClickListener) {
         this.onItemViewClickListener = onItemViewClickListener;
+    }
+
+    public void setId(int[] id) {
+        this.id = id;
     }
 }

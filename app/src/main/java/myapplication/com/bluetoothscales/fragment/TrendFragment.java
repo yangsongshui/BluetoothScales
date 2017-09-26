@@ -19,8 +19,14 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
+import myapplication.com.bluetoothscales.CustomViewPager;
+import myapplication.com.bluetoothscales.OnItemViewClickListener;
 import myapplication.com.bluetoothscales.R;
+import myapplication.com.bluetoothscales.adapter.MyPagerAdapter;
 import myapplication.com.bluetoothscales.app.MyApplication;
 import myapplication.com.bluetoothscales.base.BaseFragment;
 import myapplication.com.bluetoothscales.utils.FragmentEvent;
@@ -51,8 +57,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
     LinearLayout trendLl;
     @BindView(R.id.trend_preg_ll3)
     LinearLayout trend_preg_ll3;
-    @BindView(R.id.baby_tv)
-    TextView babyTv;
+
     @BindView(R.id.msg)
     TextView msg;
     @BindView(R.id.yunfu)
@@ -65,6 +70,8 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
     TextView workTrend;
     @BindView(R.id.work_trend2)
     TextView workTrend2;
+    @BindView(R.id.baby_pager)
+    CustomViewPager babyPager;
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
@@ -84,7 +91,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
         } else if (SpUtils.getInt("type", 1) == 3) {
             title.setText("Baby Trend");
             trendBabyLl.setVisibility(View.VISIBLE);
-            if (SpUtils.getString("sex", "boy").equals("boy")) {
+            if (SpUtils.getString("sex", "Boy").equals("Boy")) {
                 trendLl.setBackgroundResource(R.drawable.main_home);
                 trendIv.setBackgroundResource(R.drawable.baby_boy);
             } else {
@@ -96,6 +103,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
 
         pregCb.setOnCheckedChangeListener(this);
         babyCb.setOnCheckedChangeListener(this);
+        initPregList();
     }
 
     @Override
@@ -118,7 +126,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
             setPreg();
         } else if (event.getDistance() == 3) {
             title.setText("Baby Trend");
-            if (SpUtils.getString("sex", "boy").equals("boy")) {
+            if (SpUtils.getString("sex", "Boy").equals("Boy")) {
                 trendLl.setBackgroundResource(R.drawable.main_home);
                 trendIv.setBackgroundResource(R.drawable.baby_boy);
             } else {
@@ -135,7 +143,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
     public void onResume() {
         super.onResume();
         if (SpUtils.getInt("type", 1) == 3) {
-            if (SpUtils.getString("sex", "boy").equals("boy")) {
+            if (SpUtils.getString("sex", "Boy").equals("Boy")) {
                 trendLl.setBackgroundResource(R.drawable.main_home);
                 trendIv.setBackgroundResource(R.drawable.baby_boy);
             } else {
@@ -167,7 +175,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
                 trendPregLl2.setVisibility(b ? View.VISIBLE : View.GONE);
                 break;
             case R.id.baby_cb:
-                babyTv.setVisibility(b ? View.VISIBLE : View.GONE);
+                babyPager.setVisibility(b ? View.VISIBLE : View.GONE);
                 break;
         }
     }
@@ -197,12 +205,12 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
                 workTrend.setText(String.format(getString(R.string.preg4), String.valueOf((weiht - MyApplication.newInstance().getQnData().getWeight()) + SpUtils.getString("unit", "LBS"))));
                 workTrend2.setText(String.format(getString(R.string.preg5), String.valueOf((workTarget - MyApplication.newInstance().getQnData().getWeight()) + SpUtils.getString("unit", "LBS"))));
             } else {
-                workTrend.setText(String.format(getString(R.string.preg4), "--"+SpUtils.getString("unit", "LBS")));
+                workTrend.setText(String.format(getString(R.string.preg4), "--" + SpUtils.getString("unit", "LBS")));
                 workTrend2.setText(String.format(getString(R.string.preg5), String.valueOf((workTarget - weiht) + SpUtils.getString("unit", "LBS"))));
             }
-        }else {
-            workTrend.setText(String.format(getString(R.string.preg4), "--"+SpUtils.getString("unit", "LBS")));
-            workTrend2.setText(String.format(getString(R.string.preg5), "--"+SpUtils.getString("unit", "LBS")));
+        } else {
+            workTrend.setText(String.format(getString(R.string.preg4), "--" + SpUtils.getString("unit", "LBS")));
+            workTrend2.setText(String.format(getString(R.string.preg5), "--" + SpUtils.getString("unit", "LBS")));
         }
     }
 
@@ -263,5 +271,33 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
             shiWu.setImageResource(R.drawable.xigua);
             trendMsg.setText(R.string.trend_preg9);
         }
+    }
+
+    private void initPregList() {
+        List<String> title = new ArrayList<>();
+        List<String> msg = new ArrayList<>();
+        title.add(getString(R.string.baby_title));
+        title.add(getString(R.string.baby_title2));
+        title.add(getString(R.string.baby_title3));
+        title.add(getString(R.string.baby_title4));
+        msg.add(getString(R.string.baby_msg));
+        msg.add(getString(R.string.baby_msg2));
+        msg.add(getString(R.string.baby_msg3));
+        msg.add(getString(R.string.baby_msg4));
+        int[] id = {R.drawable.baby2, R.drawable.baby3, R.drawable.baby4, R.drawable.baby5};
+        babyPager.setOffscreenPageLimit(3);
+        MyPagerAdapter adapter = new MyPagerAdapter(title, msg, getActivity());
+        adapter.setId(id);
+        babyPager.setAdapter(adapter);
+        adapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+            @Override
+            public void OnItemView(int position, View view, boolean is) {
+                if (is)
+                    babyPager.setCurrentItem(position - 1);
+                else
+                    babyPager.setCurrentItem(position + 1);
+            }
+        });
+
     }
 }
