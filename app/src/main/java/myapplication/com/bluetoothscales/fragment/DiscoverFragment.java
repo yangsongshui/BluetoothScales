@@ -67,6 +67,14 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
     @BindView(R.id.wrok_pager)
     CustomViewPager workLl;
 
+    @BindView(R.id.baby_pager)
+    CustomViewPager BabyPager;
+    @BindView(R.id.baby_pager2)
+    CustomViewPager BabyPager2;
+    @BindView(R.id.baby_check)
+    CheckBox babyCheck;
+    @BindView(R.id.baby_check2)
+    CheckBox babyCheck2;
     int mode = 0;
     boolean sex = false;
 
@@ -90,6 +98,8 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
         if (mode == 3) {
             discoverTitle.setText("Baby Discover");
             discoverLl.setBackground(SpUtils.getString("sex", "Boy").equals("Girl") ? getResources().getDrawable(R.drawable.main_home2) : getResources().getDrawable(R.drawable.main_home));
+            initBabyPregr();
+            initBabyPregr2();
         } else if (mode == 2) {
             discoverTitle.setText("Pregnancy Discover");
             initPregList();
@@ -109,6 +119,8 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
         workCb2.setOnCheckedChangeListener(this);
         workCb3.setOnCheckedChangeListener(this);
         workCb4.setOnCheckedChangeListener(this);
+        babyCheck.setOnCheckedChangeListener(this);
+        babyCheck2.setOnCheckedChangeListener(this);
     }
 
     @SuppressLint("StringFormatMatches")
@@ -259,7 +271,64 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
             case R.id.work_cb4:
                 workLl.setVisibility(b ? View.VISIBLE : View.GONE);
                 break;
-
+            case R.id.baby_check:
+                BabyPager.setVisibility(b ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.baby_check2:
+                BabyPager2.setVisibility(b ? View.VISIBLE : View.GONE);
+                break;
         }
+    }
+
+    private void initBabyPregr() {
+        List<String> title = new ArrayList<>();
+        List<String> msg = new ArrayList<>();
+        title.add(getString(R.string.discover_baby_title));
+        title.add(getString(R.string.discover_baby_title2));
+        title.add(getString(R.string.discover_baby_title3));
+        title.add(getString(R.string.discover_baby_title4));
+        msg.add(getString(R.string.discover_baby_msg));
+        msg.add(getString(R.string.discover_baby_msg2));
+        msg.add(getString(R.string.discover_baby_msg3));
+        msg.add(getString(R.string.discover_baby_msg4));
+        BabyPager.setOffscreenPageLimit(3);
+        MyPagerAdapter adapter3 = new MyPagerAdapter(title, msg, getActivity());
+        BabyPager.setAdapter(adapter3);
+        adapter3.setOnItemViewClickListener(new OnItemViewClickListener() {
+            @Override
+            public void OnItemView(int position, View view, boolean is) {
+                if (is)
+                    BabyPager.setCurrentItem(position - 1);
+                else
+                    BabyPager.setCurrentItem(position + 1);
+            }
+        });
+    }
+
+    private void initBabyPregr2() {
+        List<String> title = new ArrayList<>();
+        List<String> msg = new ArrayList<>();
+        title.add(getString(R.string.discover_baby2_title));
+        title.add(getString(R.string.discover_baby2_title2));
+        title.add(getString(R.string.discover_baby2_title3));
+        title.add(getString(R.string.discover_baby2_title4));
+        title.add(getString(R.string.discover_baby2_title5));
+        msg.add(getString(R.string.discover_baby2_msg));
+        msg.add(getString(R.string.discover_baby2_msg2));
+        msg.add(getString(R.string.discover_baby2_msg3));
+        msg.add(getString(R.string.discover_baby2_msg4));
+        msg.add(getString(R.string.discover_baby2_msg5));
+        BabyPager2.setOffscreenPageLimit(4);
+        MyPagerAdapter adapter3 = new MyPagerAdapter(title, msg, getActivity());
+        BabyPager2.setAdapter(adapter3);
+        adapter3.setOnItemViewClickListener(new OnItemViewClickListener() {
+            @Override
+            public void OnItemView(int position, View view, boolean is) {
+                if (is)
+                    BabyPager2.setCurrentItem(position - 1);
+                else
+                    BabyPager2.setCurrentItem(position + 1);
+            }
+        });
     }
 }

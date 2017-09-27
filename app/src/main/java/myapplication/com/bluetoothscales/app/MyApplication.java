@@ -24,8 +24,8 @@ public class MyApplication extends LitePalApplication {
     private static MyApplication instance;
     public static List<Activity> activitiesList = new ArrayList<Activity>(); // 活动管理集合
     private QNData qnData;
-
-    public  boolean isMeasure = false;
+    public boolean isLink = false;
+    public boolean isMeasure = false;
 
     /**
      * 获取单例

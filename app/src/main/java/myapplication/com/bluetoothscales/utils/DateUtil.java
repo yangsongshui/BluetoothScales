@@ -163,8 +163,8 @@ public class DateUtil {
      * @return 相减得到的秒数
      */
     public static long timeSub(String firstTime, String secTime) {
-        long first = stringtoDate(firstTime, FORMAT_ONE).getTime();
-        long second = stringtoDate(secTime, FORMAT_ONE).getTime();
+        long first = stringtoDate(firstTime, LONG_TIME).getTime();
+        long second = stringtoDate(secTime, LONG_TIME).getTime();
         return (second - first) / 1000;
     }
 

@@ -48,10 +48,10 @@ public class MyPagerAdapter extends PagerAdapter {
         ((TextView) view.findViewById(R.id.title)).setText(titles.get(position));
         ((TextView) view.findViewById(R.id.msg)).setText(msg.get(position));
         ImageView imageView = (ImageView) view.findViewById(R.id.pager_iv);
-     /*   if (id != null && id.length > 0) {
+        if (id != null && id.length > 0) {
             imageView.setVisibility(View.VISIBLE);
             imageView.setImageResource(id[position]);
-        }*/
+        }
 
 
         view.findViewById(R.id.shangyige).setVisibility(position == 0 ? View.INVISIBLE : View.VISIBLE);

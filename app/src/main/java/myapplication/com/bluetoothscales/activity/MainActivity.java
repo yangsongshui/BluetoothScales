@@ -4,12 +4,14 @@ import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.RadioGroup;
 
@@ -23,6 +25,7 @@ import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,11 +36,15 @@ import myapplication.com.bluetoothscales.base.BaseFragment;
 import myapplication.com.bluetoothscales.fragment.DiscoverFragment;
 import myapplication.com.bluetoothscales.fragment.HomeFragment;
 import myapplication.com.bluetoothscales.fragment.TrendFragment;
+import myapplication.com.bluetoothscales.utils.SpUtils;
 import myapplication.com.bluetoothscales.utils.Toastor;
 
 import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
 import static myapplication.com.bluetoothscales.utils.DateUtil.LONG_DATE_FORMAT;
+import static myapplication.com.bluetoothscales.utils.DateUtil.LONG_TIME;
+import static myapplication.com.bluetoothscales.utils.DateUtil.getCurrDate;
 import static myapplication.com.bluetoothscales.utils.DateUtil.stringtoDate;
+import static myapplication.com.bluetoothscales.utils.DateUtil.timeSub;
 
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
     private final static int REQUECT_CODE_COARSE = 1;
@@ -51,6 +58,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     QNBleDevice device;
     private BluetoothAdapter mBluetoothAdapter;
     Toastor toastor;
+    AlertDialog dialog;
 
     @Override
     protected int getContentView() {
@@ -64,11 +72,19 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         initBLE();
         initPermission();
         initData();
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Hint");
+        builder.setMessage("You should go exercise");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog = builder.create();
         mainRgrpNavigation.setOnCheckedChangeListener(this);
         mainRgrpNavigation.check(R.id.main_home);
-
-
+        initWeek();
     }
 
     @Override
@@ -161,7 +177,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void onResume() {
         super.onResume();
-       // mBluetoothAdapter.enable();
+        // mBluetoothAdapter.enable();
     }
 
     @PermissionGrant(REQUECT_CODE_COARSE)
@@ -205,6 +221,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         @Override
         public void onConnected(QNBleDevice qnBleDevice) {
             Log.e("Main", "连接成功");
+            MyApplication.newInstance().isLink=true;
         }
 
         /**
@@ -214,6 +231,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
          */
         @Override
         public void onDisconnected(QNBleDevice qnBleDevice) {
+            MyApplication.newInstance().isLink=false;
             if (!mBluetoothAdapter.isEnabled())
                 mBluetoothAdapter.enable();
             qnBleApi.startLeScan(null, null, new QNBleScanCallback() {
@@ -289,7 +307,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private void initBLE() {
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             toastor.showSingletonToast("手机蓝牙异常");
-           // finish();
+            // finish();
         }
         final BluetoothManager bluetoothManager =
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
@@ -300,5 +318,49 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             return;
         }
         mBluetoothAdapter.enable();
+    }
+
+    private void initWeek() {
+        Calendar c = Calendar.getInstance();
+        int time = c.get(Calendar.DAY_OF_WEEK);
+        if (timeSub(SpUtils.getString("workTime", "00:00"), getCurrDate(LONG_TIME)) > 0 && SpUtils.getInt("type", 1) == 1)
+            switch (time) {
+                case 1:
+                    if (SpUtils.getBoolean("week7", false)) {
+                        dialog.show();
+                    }
+                    break;
+                case 2:
+                    if (SpUtils.getBoolean("week1", false)) {
+                        dialog.show();
+                    }
+                    break;
+                case 3:
+                    if (SpUtils.getBoolean("week2", false)) {
+                        dialog.show();
+                    }
+                    break;
+                case 4:
+                    if (SpUtils.getBoolean("week3", false)) {
+                        dialog.show();
+                    }
+                    break;
+                case 5:
+                    if (SpUtils.getBoolean("week4", false)) {
+                        dialog.show();
+                    }
+                    break;
+                case 6:
+                    if (SpUtils.getBoolean("week5", false)) {
+                        dialog.show();
+                    }
+                    break;
+                case 7:
+                    if (SpUtils.getBoolean("week6", false)) {
+                        dialog.show();
+                    }
+                    break;
+
+            }
     }
 }

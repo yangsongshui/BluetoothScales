@@ -72,6 +72,8 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
     TextView workTrend2;
     @BindView(R.id.baby_pager)
     CustomViewPager babyPager;
+    @BindView(R.id.iv)
+    ImageView iv;
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
@@ -157,6 +159,9 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
         } else if (SpUtils.getInt("type", 1) == 1) {
 
         }
+        trendPregLl.setVisibility(SpUtils.getInt("type", 1) == 2 ? View.VISIBLE : View.GONE);
+        trendBabyLl.setVisibility(SpUtils.getInt("type", 1) == 3 ? View.VISIBLE : View.GONE);
+        trend_preg_ll3.setVisibility(SpUtils.getInt("type", 1) == 1 ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -185,15 +190,19 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
             if (qnData.getFloatValue(TYPE_BMI) < 18.5) {
                 trendIv.setBackgroundResource(R.drawable.bmi1);
                 msg.setText(R.string.preg1);
+                iv.setImageResource(R.drawable.xiao);
             } else if (qnData.getFloatValue(TYPE_BMI) < 25) {
                 trendIv.setBackgroundResource(R.drawable.bmi2);
                 msg.setText(R.string.preg2);
+                iv.setImageResource(R.drawable.wu);
             } else if (qnData.getFloatValue(TYPE_BMI) >= 25) {
                 trendIv.setBackgroundResource(R.drawable.bmi3);
                 msg.setText(R.string.preg3);
+                iv.setImageResource(R.drawable.ku);
             }
         } else {
             trendIv.setBackgroundResource(R.drawable.bmi1);
+            iv.setImageResource(R.drawable.xiao);
         }
     }
 

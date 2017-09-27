@@ -180,6 +180,39 @@
     <string name="baby_title4">Developmental milestones  -  8th-12th  month</string>
     <string name="baby_msg4">Look at your baby go!\nHe\'s become an eager explorer, and it might surprise you how quickly he can get around when he crawls or scoots. \nHe can sit on his own now and grabs anything he can to pull himself up to standing and "cruise." \nHe might even take some solo steps before his first birthday.\nYour role\nKeep talking to your baby: This is a critical time for his language development.\nDescribe your routine, what you\'re doing now and what you\'re going to do next, and what you see.\nDescribing how you think your baby is feeling helps him learn emotions.\nKeep reading together and play peekaboo, hide-and-seek, and turn-taking games.\n
     </string>
+    <string name="discover_baby_title">1- and 2-month-old babies need</string>
+    <string name="discover_baby_msg">12 to 24 ounces of breast milk or formula, though this amount may be as high as 32 ounces.\nAbout 16 hours of sleep – including nighttime sleep and naps. Three naps during the day (morning, afternoon, and evening) is typical.\n
+    </string>
+    <string name="discover_baby_title2">3- and 4-month-old babies need</string>
+    <string name="discover_baby_msg2">6 or 7 ounces of breast milk or formula per feeding, though limit this amount to 32 ounces in a 24-hour period. \nSome parents start solid foods like infant cereal when their baby is 4 months old.\nAbout 15 hours of sleep in a 24-hour period – this includes nighttime sleep and naps. Three naps during the day (morning, afternoon, and evening) is typical.\n
+    </string>
+    <string name="discover_baby_title3">5- and 6-month-old babies need</string>
+    <string name="discover_baby_msg3">Up to 32 ounces of breast milk or formula in a 24-hour period.\nAbout 14 hours of sleep in a 24-hour period – this includes nighttime sleep and naps.\n
+    </string>
+    <string name="discover_baby_title4">9- and 10-month-old babies need</string>
+    <string name="discover_baby_msg4">Solid foods three times a day, plus about 24 to 32 ounces of breast milk or formula in a 24-hour period.\nAbout 14 hours of sleep in a 24-hour period – this includes nighttime sleep and naps. Two naps during the day (morning and afternoon) is typical.\n
+    </string>
 
-
+    <string name="discover_baby2_title">Why should I have a schedule for my baby?</string>
+    <string name="discover_baby2_msg">A baby\'s needs aren\'t that complicated – food, sleep, play, and love pretty much sums it up.\n\nMany parents find that getting into a regular routine or schedule with their baby makes life much easier: It\'s almost like developing a personalized how-to manual for your child.
+    </string>
+    <string name="discover_baby2_title2">When can I start?</string>
+    <string name="discover_baby2_msg2">Experts disagree on when and how to establish a routine – and even on whether you need a set schedule for your baby.\nBut many experts, say that babies are ready for a general schedule between 2 and 4 months of age.\n
+    </string>
+    <string name="discover_baby2_title3">How to start a routine - 1</string>
+    <string name="discover_baby2_msg3">Most infants\' sleeping and feeding habits become more consistent and predictable after three or four months.\nYou may want to take this opportunity to encourage your baby to follow a more defined schedule.\nYour baby may fall into fairly predictable patterns long before this, however.\nIf that\'s the case, you can gently encourage your baby\'s emerging routine.\n
+    </string>
+    <string name="discover_baby2_title4">How to start a routine - 2</string>
+    <string name="discover_baby2_msg4">Tracking your child\'s eating, sleeping, and alert times can give you an understanding of his natural rhythms and enable you to pinpoint developing patterns.\nIn the days following delivery, many parents begin to note when their baby feeds, when he poops and pees, when he sleeps and for how long, and so on.\nTo log your baby\'s daily routine, you can use a notebook and pen, a computer spreadsheet, or any number of great apps.
+    </string>
+    <string name="discover_baby2_title5">What can my baby\'s growth chart tell me?</string>
+    <string name="discover_baby2_msg5">Your baby\'s growth chart can give you a general picture of how your baby is developing physically.\nBut don\'t get too hung up on your baby\'s percentiles. Although the current growth charts are a vast improvement over earlier charts, they\'re not the last word on how your baby is doing.\nThe most important thing is that your baby is growing at a steady, appropriate rate over time, not that she\'s hit some magic number.\nPercentiles in a growth chart aren\'t like grades in school. A lower percentile doesn\'t mean there\'s anything wrong with your baby.
+    </string>
+    <string name="group_week">Sun</string>
+    <string name="group_week1">Mon</string>
+    <string name="group_week2">Tue</string>
+    <string name="group_week3">Wed</string>
+    <string name="group_week4">Thurs</string>
+    <string name="group_week5">Fri</string>
+    <string name="group_week6">Sat</string>
 </resources>

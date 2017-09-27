@@ -213,6 +213,7 @@
                         android:text="Edit"
                         android:textColor="@color/white" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/edit_ll"
                     android:layout_width="match_parent"
@@ -259,9 +260,11 @@
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:background="@drawable/rim"
                 android:orientation="vertical">
 
@@ -347,6 +350,7 @@
                         android:text="Edit"
                         android:textColor="@color/white" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/edit_ll2"
                     android:layout_width="match_parent"
@@ -358,9 +362,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:layout_marginTop="20dp"
-                        android:background="@color/picton_blue">
+                        android:background="@color/picton_blue"
+                        android:gravity="center">
 
                         <LinearLayout
                             android:id="@+id/wheelview_container2"
@@ -399,7 +403,6 @@
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
-
 
 
             <LinearLayout
@@ -616,18 +619,30 @@
                         android:visibility="gone" />
                 </RadioGroup>
 
-                <TextView
-                    android:id="@+id/textView2"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginEnd="15dp"
-                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:drawablePadding="10dp"
-                    android:text="Recommended intensity"
-                    android:textColor="@color/grey"
-                    android:textSize="16sp" />
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Recommended intensity"
+                        android:textColor="@color/grey"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/intensity"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/white"
+                        android:text="0"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -670,90 +685,385 @@
                     android:text="08:00"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <LinearLayout
                     android:id="@+id/edit_ll3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:orientation="vertical"
                     android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:background="@color/blue2"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
-                        <EditText
-                            android:id="@+id/work_year"
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:background="@null"
-                            android:gravity="center"
-                            android:inputType="number"
-                            android:maxLength="2"
-                            android:padding="13dp"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/picton_blue"
+                            android:gravity="center">
 
-                        <EditText
-                            android:id="@+id/work_month"
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:background="@null"
+                            <LinearLayout
+                                android:id="@+id/wheelview_container3"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="horizontal" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:inputType="number"
-                            android:maxLength="2"
-                            android:padding="13dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:gravity="center"
+                                android:text="hour"
+                                android:textColor="@color/tv" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:gravity="center"
+                                android:text="min"
+                                android:textColor="@color/tv" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="10dp">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <CheckBox
+                                    android:id="@+id/week7"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/group_time"
+                                    android:button="@null"
+                                    android:gravity="bottom|center"
+                                    android:paddingBottom="5dp"
+                                    android:textSize="18sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/group_week"
+                                        android:textColor="@color/rg_rb"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/textView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:text="7"
+                                        android:textColor="@color/rg_rb" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1">
+
+                                <CheckBox
+                                    android:id="@+id/week1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/group_time"
+                                    android:button="@null"
+                                    android:gravity="bottom|center"
+                                    android:paddingBottom="5dp"
+
+                                    android:textColor="@color/tv"
+                                    android:textSize="18sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/group_week1"
+                                        android:textColor="@color/rg_rb"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:text="1"
+                                        android:textColor="@color/rg_rb" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1">
+
+                                <CheckBox
+                                    android:id="@+id/week2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/group_time"
+                                    android:button="@null"
+                                    android:gravity="bottom|center"
+                                    android:paddingBottom="5dp"
+
+                                    android:textColor="@color/tv"
+                                    android:textSize="18sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/group_week2"
+                                        android:textColor="@color/rg_rb"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:text="2"
+                                        android:textColor="@color/rg_rb" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1">
+
+                                <CheckBox
+                                    android:id="@+id/week3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/group_time"
+                                    android:button="@null"
+                                    android:gravity="bottom|center"
+                                    android:paddingBottom="5dp"
+                                    android:textColor="@color/tv"
+                                    android:textSize="18sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/group_week3"
+                                        android:textColor="@color/rg_rb"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:text="3"
+                                        android:textColor="@color/rg_rb" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1">
+
+                                <CheckBox
+                                    android:id="@+id/week4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/group_time"
+                                    android:button="@null"
+                                    android:gravity="bottom|center"
+                                    android:paddingBottom="5dp"
+
+                                    android:textColor="@color/tv"
+                                    android:textSize="18sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/group_week4"
+                                        android:textColor="@color/rg_rb"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:text="4"
+                                        android:textColor="@color/rg_rb" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1">
+
+                                <CheckBox
+                                    android:id="@+id/week5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/group_time"
+                                    android:button="@null"
+                                    android:gravity="bottom|center"
+                                    android:paddingBottom="5dp"
+
+                                    android:textColor="@color/tv"
+                                    android:textSize="18sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/group_week5"
+                                        android:textColor="@color/rg_rb"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:text="5"
+                                        android:textColor="@color/rg_rb" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+
+                                android:layout_weight="1">
+
+                                <CheckBox
+                                    android:id="@+id/week6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/group_time"
+                                    android:button="@null"
+                                    android:gravity="bottom|center"
+                                    android:paddingBottom="5dp"
+
+                                    android:textColor="@color/tv"
+                                    android:textSize="18sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/group_week6"
+                                        android:textColor="@color/rg_rb"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:text="6"
+                                        android:textColor="@color/rg_rb" />
+                                </LinearLayout>
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/work_next3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/preg_bt"
+                            android:paddingBottom="5dp"
+                            android:paddingEnd="35dp"
+                            android:paddingStart="35dp"
+                            android:paddingTop="5dp"
+                            android:text="Complete"
                             android:textColor="@color/white"
                             android:textSize="16sp" />
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="hour"
-                            android:textColor="@color/white" />
-
-                        <TextView
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="min"
-                            android:textColor="@color/white" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/work_next3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/preg_bt"
-                        android:paddingBottom="5dp"
-                        android:paddingEnd="35dp"
-                        android:paddingStart="35dp"
-                        android:paddingTop="5dp"
-                        android:text="Complete"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-
     </ScrollView>
 
 </LinearLayout>

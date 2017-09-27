@@ -1,12 +1,12 @@
 package myapplication.com.bluetoothscales.fragment;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -74,7 +74,8 @@ public class BabyFragment extends BaseFragment {
     int indext = 0;
     String unit = "";
     String weight = "";
-    AlertDialog dialog;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
@@ -82,10 +83,9 @@ public class BabyFragment extends BaseFragment {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         getActivity().registerReceiver(notifyReceiver, intentFilter);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Hint");
-        builder.setMessage("Please stand on the electronic scale");
-        dialog = builder.create();
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Loding...");
+        progressDialog.setCanceledOnTouchOutside(false);
         toastor = new Toastor(getActivity());
         babySex.setText(SpUtils.getString("sex", "Boy/Girl"));
         babyTime.setText(SpUtils.getString("BabyData", "2017-01-01"));
@@ -107,12 +107,21 @@ public class BabyFragment extends BaseFragment {
                 getActivity().finish();
                 break;
             case R.id.baby_measure:
-                dialog.show();
-                isMom = true;
+                if (MyApplication.newInstance().isLink){
+                    progressDialog.show();
+                    isMom = true;
+                }else {
+                    toastor.showSingletonToast("Unconnected equipment");
+                }
+
                 break;
             case R.id.baby_measure2:
-                dialog.show();
-                isBaby = true;
+                if (MyApplication.newInstance().isLink){
+                    progressDialog.show();
+                    isBaby = true;
+                }else {
+                    toastor.showSingletonToast("Unconnected equipment");
+                }
                 break;
             case R.id.baby_edit:
                 indext = 1;
@@ -184,7 +193,7 @@ public class BabyFragment extends BaseFragment {
                     QNData qnData = MyApplication.newInstance().getQnData();
                     momWeight.setText(String.valueOf(qnData.getWeight() + unit));
                     isMom = false;
-                    dialog.dismiss();
+                    progressDialog.dismiss();
                 }
                 if (isBaby) {
                     QNData qnData = MyApplication.newInstance().getQnData();
@@ -193,7 +202,7 @@ public class BabyFragment extends BaseFragment {
                     double weight = Double.parseDouble(momWeight.getText().toString().replace(unit, ""));
                     currentWeight.setText(String.format("%.2f", qnData.getWeight() - weight) + unit);
                     MyApplication.newInstance().isMeasure = true;
-                    dialog.dismiss();
+                    progressDialog.dismiss();
                 }
 
             }
@@ -244,7 +253,8 @@ public class BabyFragment extends BaseFragment {
         picker.setTextColor(Color.rgb(255, 255, 255));
         picker.setResetWhileWheel(false);
         picker.setLabel("", "", "");
-        picker.setTextSize(12);
+
+        picker.setLineSpaceMultiplier(3);
         picker.setDividerVisible(false);
         View pickerContentView = picker.getContentView();
         wheelview_container.addView(pickerContentView);
@@ -269,7 +279,8 @@ public class BabyFragment extends BaseFragment {
         doublePicker.setOffset(1);
         doublePicker.setTextColor(Color.rgb(255, 255, 255));
         doublePicker.setLabelTextColor(Color.rgb(255, 255, 255));
-        doublePicker.setTextSize(12);
+
+        doublePicker.setLineSpaceMultiplier(3);
         String msg = SpUtils.getString("BabyWeight", "");
         if (!msg.equals("")) {
             int indext = Integer.parseInt(msg.substring(0, msg.indexOf("."))) - 5;
@@ -290,7 +301,7 @@ public class BabyFragment extends BaseFragment {
         wheelView.setCycleDisable(true);
         wheelView.setDividerVisible(false);
         wheelView.setTextColor(Color.rgb(255, 255, 255));
-        wheelView.setTextSize(12);
+        wheelView.setLineSpaceMultiplier(3);
         if (!SpUtils.getString("sex", "").equals("")) {
             wheelView.setSelectedIndex(SpUtils.getString("sex", "Boy").equals("Boy") ? 0 : 1);
         }

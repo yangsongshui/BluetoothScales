@@ -1,5 +1,6 @@
 package myapplication.com.bluetoothscales.fragment;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +8,6 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -80,13 +80,12 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
     TextView month;
     @BindView(R.id.day)
     TextView day;
-    AlertDialog dialog;
     MyPagerAdapter adapter;
     List<String> title;
     List<String> msg;
     Toastor toastor;
     String unit = "";
-
+    ProgressDialog progressDialog;
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
         unit = SpUtils.getString("unit", "LBS");
@@ -120,11 +119,9 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
             currentTime.setText(String.valueOf((dayDiffCurr(pregancyTime.getText().toString()) / 7) + " Weeks"));
             setyunfu((int) (dayDiffCurr(pregancyTime.getText().toString()) / 7));
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Hint");
-        builder.setMessage("Please stand on the electronic scale");
-        dialog = builder.create();
-
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Loding...");
+        progressDialog.setCanceledOnTouchOutside(false);
         String time = pregancyTime.getText().toString();
         initWheel(Integer.parseInt(time.substring(0, 4)), Integer.parseInt(time.substring(6, 7)), Integer.parseInt(time.substring(8, 10)));
        // initTarget();
@@ -146,8 +143,12 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
                 getActivity().finish();
                 break;
             case R.id.preg_measure:
-                dialog.show();
-                isData = true;
+                if (MyApplication.newInstance().isLink){
+                    progressDialog.show();
+                    isData = true;
+                }else {
+                    toastor.showSingletonToast("Unconnected equipment");
+                }
                 break;
             case R.id.preg_edit:
                 indext = 1;
@@ -214,7 +215,7 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
             //Log.e("BLEService收到设备信息广播", intent.getAction());
             if (ACTION_BLE_NOTIFY_DATA.equals(intent.getAction())) {
                 if (isData) {
-                    dialog.dismiss();
+                    progressDialog.dismiss();
                     QNData qnData = MyApplication.newInstance().getQnData();
                     currentWeight.setText(String.valueOf(qnData.getWeight() + unit));
                     isData = false;
@@ -294,6 +295,7 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
         picker.setOffset(1);
         picker.setTopPadding(ConvertUtils.toPx(getActivity(), 10));
         picker.setRangeEnd(2111, 1, 11);
+        picker.setLineSpaceMultiplier(3);
         picker.setSelectedItem(year, month, day);
         picker.setTextColor(Color.rgb(255, 255, 255));
         picker.setResetWhileWheel(false);
@@ -326,6 +328,7 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
         doublePicker = new DoublePicker(getActivity(), firstData, secondData);
         doublePicker.setCycleDisable(true);
         doublePicker.setDividerVisible(false);
+        doublePicker.setLineSpaceMultiplier(3);
         doublePicker.setOffset(1);
         doublePicker.setTextColor(Color.rgb(255, 255, 255));
         doublePicker.setLabelTextColor(Color.rgb(255, 255, 255));

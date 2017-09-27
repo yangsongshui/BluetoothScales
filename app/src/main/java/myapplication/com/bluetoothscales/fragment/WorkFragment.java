@@ -1,5 +1,6 @@
 package myapplication.com.bluetoothscales.fragment;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +9,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
@@ -96,10 +95,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
     ScrollView scrollView;
     @BindView(R.id.work_rg)
     RadioGroup WorkRg;
-    @BindView(R.id.work_year)
-    EditText workYear;
-    @BindView(R.id.work_month)
-    EditText workMonth;
+
     @BindView(R.id.msg1)
     TextView msg1;
     @BindView(R.id.msg2)
@@ -124,11 +120,29 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
     LinearLayout wheelview_container;
     @BindView(R.id.wheelview_container2)
     LinearLayout wheelview_container2;
+    @BindView(R.id.wheelview_container3)
+    LinearLayout wheelview_container3;
+    @BindView(R.id.week1)
+    CheckBox week1;
+    @BindView(R.id.week2)
+    CheckBox week2;
+    @BindView(R.id.week3)
+    CheckBox week3;
+    @BindView(R.id.week4)
+    CheckBox week4;
+    @BindView(R.id.week5)
+    CheckBox week5;
+    @BindView(R.id.week6)
+    CheckBox week6;
+    @BindView(R.id.week7)
+    CheckBox week7;
+    @BindView(R.id.intensity)
+    TextView intensity;
     Toastor toastor;
     int postion = 0;
     int indext = 0;
     String unit = "";
-    AlertDialog dialog;
+    ProgressDialog progressDialog;
     int[] id = {R.id.work_xingzou, R.id.work_qixing, R.id.work_paobu, R.id.work_youyong, R.id.work_yangwoqizuo
             , R.id.work_fuwocheng, R.id.work_shendun, R.id.work_pashan, R.id.work_ticoa};
 
@@ -139,56 +153,88 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         workHeight.setText(SpUtils.getString("workHeight", "--") + "cm");
         workTarget.setText(SpUtils.getString("workTarget", "--") + unit);
         workDuration.setText(SpUtils.getString("workDuration", "--") + "weeks");
-        workTiem.setText(SpUtils.getString("workTiem", "00:00"));
-        if (SpUtils.getInt("workType", -1) != -1)
-            WorkRg.check(id[SpUtils.getInt("workType", -1)]);
+        workTiem.setText(SpUtils.getString("workTime", "00:00"));
+
         setTv(SpUtils.getInt("workType", -1));
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         getActivity().registerReceiver(notifyReceiver, intentFilter);
+        iniCb();
         initWheel();
         initTarget();
         workActivity.setOnCheckedChangeListener(this);
-
+        week1.setOnCheckedChangeListener(this);
+        week2.setOnCheckedChangeListener(this);
+        week3.setOnCheckedChangeListener(this);
+        week4.setOnCheckedChangeListener(this);
+        week5.setOnCheckedChangeListener(this);
+        week6.setOnCheckedChangeListener(this);
+        week7.setOnCheckedChangeListener(this);
+        if (SpUtils.getInt("workType", -1) != -1)
+            WorkRg.check(id[SpUtils.getInt("workType", -1)]);
         WorkRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                int inten=0;
+                int target = (int) (Double.parseDouble(SpUtils.getString("workTarget", "0")) * 7700);
+                int week = Integer.parseInt(SpUtils.getString("workDuration", "0"));
                 switch (checkedId) {
                     case R.id.work_xingzou:
                         SpUtils.putInt("workType", 0);
+                         inten=(target / 72) / week;
+                        intensity.setText(inten+"");
                         break;
                     case R.id.work_qixing:
                         SpUtils.putInt("workType", 1);
+                         inten=(target / 330) / week;
+                        intensity.setText(inten+"");
                         break;
                     case R.id.work_paobu:
                         SpUtils.putInt("workType", 2);
+                        inten=(target / 300) / week;
+                        intensity.setText(inten+"");
                         break;
                     case R.id.work_youyong:
                         SpUtils.putInt("workType", 3);
+                        inten=(target / 175) / week;
+                        intensity.setText(inten+"");
                         break;
                     case R.id.work_yangwoqizuo:
                         SpUtils.putInt("workType", 4);
+                        inten=(target / 432) / week;
+                        intensity.setText(inten+"");
                         break;
                     case R.id.work_fuwocheng:
                         SpUtils.putInt("workType", 5);
+                        inten=(target / 1968) / week;
+                        intensity.setText(inten+"");
                         break;
                     case R.id.work_shendun:
                         SpUtils.putInt("workType", 6);
+                        inten=(target / 150) / week;
+                        intensity.setText(inten+"");
                         break;
                     case R.id.work_pashan:
                         SpUtils.putInt("workType", 7);
+                        inten=(target / 210) / week;
+                        intensity.setText(inten+"");
                         break;
                     case R.id.work_ticoa:
                         SpUtils.putInt("workType", 8);
+                        inten=(target / 150) / week;
+                        intensity.setText(inten+"");
                         break;
                 }
                 setTv(SpUtils.getInt("workType", -1));
             }
         });
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+  /*      AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Hint");
         builder.setMessage("Please stand on the electronic scale");
-        dialog = builder.create();
+        dialog = builder.create();*/
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Loding...");
+        progressDialog.setCanceledOnTouchOutside(false);
     }
 
     @Override
@@ -213,12 +259,12 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
                 setText();
                 break;
             case R.id.work_measure:
-
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-                dialog.setTitle("Hint");
-                dialog.setMessage("Please stand on the electronic scale");
-                dialog.show();
-                isData = true;
+                if (MyApplication.newInstance().isLink) {
+                    progressDialog.show();
+                    isData = true;
+                } else {
+                    toastor.showSingletonToast("Unconnected equipment");
+                }
                 break;
 
             case R.id.goal_edit:
@@ -257,30 +303,17 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
 
                 break;
             case R.id.work_next3:
-                String hour = workYear.getText().toString().trim();
-                String min = workMonth.getText().toString().trim();
-                if (!hour.equals("") && !min.equals("")) {
-                    if (Integer.parseInt(hour) <= 24 && Integer.parseInt(min) <= 60) {
-                        workTiem.setText(hour + ":" + min);
-                        editLl3.setVisibility(View.GONE);
-                        settingEdit.setVisibility(View.VISIBLE);
-                        workTiem.setVisibility(View.GONE);
-                        SpUtils.putString("workTiem", workTiem.getText().toString());
-                    } else {
-                        toastor.showSingletonToast("请输入合法时间");
-                    }
-
-                } else {
-                    toastor.showSingletonToast("输入内容不能为空");
-                }
-
-
+                String h = doublePicker2.getSelectedFirstItem().length() == 1 ? "0" + doublePicker2.getSelectedFirstItem() : doublePicker2.getSelectedFirstItem();
+                String m = doublePicker2.getSelectedSecondItem().length() == 1 ? "0" + doublePicker2.getSelectedSecondItem() : doublePicker2.getSelectedSecondItem();
+                String msg = h + ":" + m;
+                workTiem.setText(msg);
+                editLl3.setVisibility(View.GONE);
+                settingEdit.setVisibility(View.VISIBLE);
+                workTiem.setVisibility(View.GONE);
+                SpUtils.putString("workTime", workTiem.getText().toString());
                 break;
             case R.id.setting_edit:
-                String time = SpUtils.getString("workTiem", "00:00");
-                workYear.setText(time.substring(0, 2));
-                workMonth.setText(time.substring(3, 5));
-
+                initTime();
                 editLl3.setVisibility(View.VISIBLE);
                 settingEdit.setVisibility(View.GONE);
                 workTiem.setVisibility(View.VISIBLE);
@@ -324,9 +357,40 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         switch (compoundButton.getId()) {
             case R.id.work_activity:
                 WorkRg.setVisibility(b ? View.VISIBLE : View.GONE);
-
                 break;
+            case R.id.week1:
+                SpUtils.putBoolean("week1", b);
+                break;
+            case R.id.week2:
+                SpUtils.putBoolean("week2", b);
+                break;
+            case R.id.week3:
+                SpUtils.putBoolean("week3", b);
+                break;
+            case R.id.week4:
+                SpUtils.putBoolean("week4", b);
+                break;
+            case R.id.week5:
+                SpUtils.putBoolean("week5", b);
+                break;
+            case R.id.week6:
+                SpUtils.putBoolean("week6", b);
+                break;
+            case R.id.week7:
+                SpUtils.putBoolean("week7", b);
+                break;
+
         }
+    }
+
+    private void iniCb() {
+        week1.setChecked(SpUtils.getBoolean("week1", false));
+        week2.setChecked(SpUtils.getBoolean("week2", false));
+        week3.setChecked(SpUtils.getBoolean("week3", false));
+        week4.setChecked(SpUtils.getBoolean("week4", false));
+        week5.setChecked(SpUtils.getBoolean("week5", false));
+        week6.setChecked(SpUtils.getBoolean("week6", false));
+        week7.setChecked(SpUtils.getBoolean("week7", false));
     }
 
     private void setText() {
@@ -350,7 +414,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
             //Log.e("BLEService收到设备信息广播", intent.getAction());
             if (ACTION_BLE_NOTIFY_DATA.equals(intent.getAction())) {
                 if (isData) {
-                    dialog.dismiss();
+                    progressDialog.dismiss();
                     QNData qnData = MyApplication.newInstance().getQnData();
                     workWeight.setText(String.valueOf(qnData.getWeight() + unit));
                     workBmi.setText(String.valueOf(qnData.getFloatValue(QNData.TYPE_BMI)));
@@ -400,6 +464,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         picker.setCycleDisable(true);
         picker.setDividerVisible(false);
         picker.setOffset(1);
+        picker.setLineSpaceMultiplier(3);
         picker.setTextColor(Color.rgb(255, 255, 255));
         picker.setRange(100, 230, 1);//数字范围
         if (!SpUtils.getString("workHeight", "").equals(""))
@@ -428,7 +493,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         doublePicker.setOffset(1);
         doublePicker.setTextColor(Color.rgb(255, 255, 255));
         doublePicker.setLabelTextColor(Color.rgb(255, 255, 255));
-        doublePicker.setWidth(50);
+        doublePicker.setLineSpaceMultiplier(3);
         String msg = SpUtils.getString("workTarget", "");
         if (!msg.equals("")) {
             int indext = Integer.parseInt(msg.substring(0, msg.indexOf("."))) - 5;
@@ -455,11 +520,47 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         picker2.setOffset(1);
         picker2.setTextColor(Color.rgb(255, 255, 255));
         picker2.setRange(1, 50, 1);//数字范围
+        picker2.setLineSpaceMultiplier(3);
         if (!SpUtils.getString("workDuration", "").equals(""))
             picker2.setSelectedItem(Integer.parseInt(SpUtils.getString("workDuration", "")));
         picker2.setLabel("");
         picker2.setDividerVisible(false);
         View pickerContentView = picker2.getContentView();
         wheelview_container2.addView(pickerContentView);
+    }
+
+    DoublePicker doublePicker2;
+
+    private void initTime() {
+        final ArrayList<String> firstData = new ArrayList<>();
+
+        for (int i = 0; i <= 23; i++) {
+            firstData.add(i + "");
+        }
+        final ArrayList<String> secondData = new ArrayList<>();
+        for (int i = 0; i <= 59; i++) {
+            secondData.add(i + "");
+        }
+        doublePicker2 = new DoublePicker(getActivity(), firstData, secondData);
+        doublePicker2.setCycleDisable(true);
+        doublePicker2.setDividerVisible(false);
+        doublePicker2.setOffset(1);
+        doublePicker2.setTextColor(Color.rgb(255, 255, 255));
+        doublePicker2.setLabelTextColor(Color.rgb(255, 255, 255));
+        doublePicker2.setLineSpaceMultiplier(3);
+        String msg = SpUtils.getString("workTime", "");
+        if (!msg.equals("")) {
+            int indext = Integer.parseInt(msg.substring(0, msg.indexOf(":")));
+            int indext2 = Integer.parseInt(msg.substring(msg.indexOf(":") + 1, msg.length()));
+            doublePicker2.setSelectedIndex(indext, indext2);
+
+        }
+
+        doublePicker2.setFirstLabel(null, ":");
+
+        doublePicker2.setDividerVisible(false);
+
+        View pickerContentView2 = doublePicker2.getContentView();
+        wheelview_container3.addView(pickerContentView2);
     }
 }
