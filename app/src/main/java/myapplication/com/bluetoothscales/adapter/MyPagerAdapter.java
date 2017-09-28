@@ -22,6 +22,7 @@ public class MyPagerAdapter extends PagerAdapter {
     List<String> titles;
     List<String> msg;
     int[] id;
+    int[] id2;
     Context context;
     private List<View> mView = new ArrayList<View>();
     private OnItemViewClickListener onItemViewClickListener;
@@ -48,12 +49,16 @@ public class MyPagerAdapter extends PagerAdapter {
         ((TextView) view.findViewById(R.id.title)).setText(titles.get(position));
         ((TextView) view.findViewById(R.id.msg)).setText(msg.get(position));
         ImageView imageView = (ImageView) view.findViewById(R.id.pager_iv);
+        ImageView yunfu = (ImageView) view.findViewById(R.id.yunfu);
         if (id != null && id.length > 0) {
             imageView.setVisibility(View.VISIBLE);
             imageView.setImageResource(id[position]);
         }
 
-
+        if (id2 != null && id2.length > 0) {
+            yunfu.setVisibility(View.VISIBLE);
+            yunfu.setImageResource(id2[position]);
+        }
         view.findViewById(R.id.shangyige).setVisibility(position == 0 ? View.INVISIBLE : View.VISIBLE);
         view.findViewById(R.id.xiayige).setVisibility(position == (titles.size() - 1) ? View.INVISIBLE : View.VISIBLE);
         view.findViewById(R.id.shangyige).setOnClickListener(new View.OnClickListener() {
@@ -88,5 +93,9 @@ public class MyPagerAdapter extends PagerAdapter {
 
     public void setId(int[] id) {
         this.id = id;
+    }
+
+    public void setId2(int[] id2) {
+        this.id2 = id2;
     }
 }

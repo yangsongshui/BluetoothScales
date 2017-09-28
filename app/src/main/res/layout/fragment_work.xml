@@ -663,16 +663,16 @@
                         android:id="@+id/setting_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
                         android:layout_marginEnd="15dp"
                         android:background="@drawable/preg_bg"
                         android:paddingBottom="3dp"
                         android:paddingEnd="23dp"
                         android:paddingStart="23dp"
                         android:paddingTop="3dp"
-                        android:text="edit"
-                        android:textColor="@color/white" />
+                        android:text="Edit"
+                        android:textColor="@color/white"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true" />
                 </RelativeLayout>
 
 

@@ -83,15 +83,24 @@
     <string name="preg3_title4">LINENS</string>
     <string name="preg3_msg4">4 receiving blankets\n2 cotton blankets\nCradle or bassinet with cotton sheets\n2 crib mattress pads\n2 waterproof liners (one for the bassinet and one for the crib)\n\nLink to the page \'BABY CENTER\' website for more detail:\n\n<a href='https://www.babycenter.com/baby-registry-checklist'>https://www.babycenter.com/baby-registry-checklist</a>
     </string>
-    <string name="trend_preg1">9 weeks Pregnancy\nIn both shape and size, she resembles a peapod and weighs less than 2 grams. \n</string>
-    <string name="trend_preg2">12 weeks pregnant\nYour little one\'s teeny toes can curl, her brain is growing furiously, and her kidneys are starting to excrete urine. \n</string>
-    <string name="trend_preg3">13 weeks pregnant\nIt\'s the last week of the first trimester! Your baby now has exquisite fingerprints and is almost 3 inches long. \n</string>
-    <string name="trend_preg4">14 weeks pregnant\nYour baby\'s tiny features are making different expressions. And you may be feeling more energetic and less nauseated. \n</string>
-    <string name="trend_preg5">19 weeks pregnant\nGo ahead and sing: Your baby may be able to hear you! And if your sides are aching, it could be round ligament pain. \n</string>
-    <string name="trend_preg6">27 weeks pregnant\nFeel a tickle? It may be your baby hiccupping. He\'s also opening and closing his eyes and even sucking his fingers. \n</string>
-    <string name="trend_preg7">28 weeks pregnant\nWelcome to your last trimester! Your developing baby\'s eyes may be able to see light filtering in through your womb. \n</string>
-    <string name="trend_preg8">30 weeks pregnant\nYour baby now weighs almost 3 pounds. Meanwhile, you may be battling mood swings, clumsiness, and fatigue. \n</string>
-    <string name="trend_preg9">39 weeks pregnant\nYour baby is full term this week and waiting to greet the world! If your water breaks, call your healthcare provider. \n</string>
+    <string name="trend_preg1_title">9 weeks Pregnancy</string>
+    <string name="trend_preg1_title2">12 weeks Pregnancy</string>
+    <string name="trend_preg1_title3">13 weeks Pregnancy</string>
+    <string name="trend_preg1_title4">14 Pregnancy</string>
+    <string name="trend_preg1_title5">19 weeks Pregnancy</string>
+    <string name="trend_preg1_title6">27 weeks Pregnancy</string>
+    <string name="trend_preg1_title7">28 weeks Pregnancy</string>
+    <string name="trend_preg1_title8">30 weeks Pregnancy</string>
+    <string name="trend_preg1_title9">39 weeks Pregnancy</string>
+    <string name="trend_preg1">In both shape and size, she resembles a peapod and weighs less than 2 grams.\n</string>
+    <string name="trend_preg2">Your little one\'s teeny toes can curl, her brain is growing furiously, and her kidneys are starting to excrete urine. \n</string>
+    <string name="trend_preg3">It\'s the last week of the first trimester! Your baby now has exquisite fingerprints and is almost 3 inches long. \n</string>
+    <string name="trend_preg4">Your baby\'s tiny features are making different expressions. And you may be feeling more energetic and less nauseated. \n</string>
+    <string name="trend_preg5">Go ahead and sing: Your baby may be able to hear you! And if your sides are aching, it could be round ligament pain. \n</string>
+    <string name="trend_preg6">Feel a tickle? It may be your baby hiccupping. He\'s also opening and closing his eyes and even sucking his fingers. \n</string>
+    <string name="trend_preg7">Welcome to your last trimester! Your developing baby\'s eyes may be able to see light filtering in through your womb. \n</string>
+    <string name="trend_preg8">Your baby now weighs almost 3 pounds. Meanwhile, you may be battling mood swings, clumsiness, and fatigue. \n</string>
+    <string name="trend_preg9">Your baby is full term this week and waiting to greet the world! If your water breaks, call your healthcare provider. \n</string>
     <string name="discover_msg1">1 Why you need folic acid?\n\nBecause it\'s very difficult to eat enough foods rich in the vitamin to supply the amount that experts recommend you take in pregnancy.\nIt helps make DNA (the body\'s genetic material) and is a critical component of spinal fluid.\nWhat are the best food sources?\nLeafy green vegetables are a good source, so try to have a large bowl of salad daily.\n
     </string>
     <string name="discover_msg3">2 Dietary Guidelines recommend that you enjoy a wide variety of nutritious foods every day from these food groups:\nVegetables of different types and colour and legumes\nFruit\nDrink milk and special formula for pregnant women\nTake the best prenatal vitamins recommended by your doctor\nGrain including breads, rice, pasta, noodles, polenta, oats, mostly wholegrain\nInclude lean meat, fish, poultry, nuts, legumes\nKeep away junk foods and unhealthy stuff\nAnd drink plenty of water\n

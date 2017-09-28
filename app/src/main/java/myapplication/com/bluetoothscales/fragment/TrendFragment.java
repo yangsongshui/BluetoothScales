@@ -35,7 +35,6 @@ import myapplication.com.bluetoothscales.utils.SpUtils;
 import static com.kitnew.ble.QNData.TYPE_BMI;
 import static java.lang.Double.parseDouble;
 import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
-import static myapplication.com.bluetoothscales.utils.DateUtil.dayDiffCurr;
 
 public class TrendFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
 
@@ -60,12 +59,8 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
 
     @BindView(R.id.msg)
     TextView msg;
-    @BindView(R.id.yunfu)
-    ImageView yunFu;
-    @BindView(R.id.shiwu)
-    ImageView shiWu;
-    @BindView(R.id.trend_msg)
-    TextView trendMsg;
+    @BindView(R.id.preg_pager)
+    CustomViewPager pregPager;
     @BindView(R.id.work_trend)
     TextView workTrend;
     @BindView(R.id.work_trend2)
@@ -125,7 +120,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
             title.setText("Pregnancy Mode");
             trendLl.setBackgroundResource(R.drawable.main_home);
             setView(MyApplication.newInstance().getQnData());
-            setPreg();
+            initList();
         } else if (event.getDistance() == 3) {
             title.setText("Baby Trend");
             if (SpUtils.getString("sex", "Boy").equals("Boy")) {
@@ -155,7 +150,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
 
         } else if (SpUtils.getInt("type", 1) == 2) {
             setView(MyApplication.newInstance().getQnData());
-            setPreg();
+            initList();
         } else if (SpUtils.getInt("type", 1) == 1) {
 
         }
@@ -234,53 +229,6 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
         }
     };
 
-    private void setPreg() {
-        setyunfu((int) (dayDiffCurr(SpUtils.getString("pregancyTime", "2017-01-01")) / 7));
-    }
-
-    private void setyunfu(int week) {
-        if (week <= 3) {
-            yunFu.setImageResource(R.drawable.yunfu1);
-            shiWu.setImageResource(R.drawable.putao);
-            trendMsg.setText(R.string.trend_preg1);
-        } else if (week <= 12) {
-            yunFu.setImageResource(R.drawable.yunfu2);
-            shiWu.setImageResource(R.drawable.jvzi);
-            trendMsg.setText(R.string.trend_preg2);
-        } else if (week <= 13) {
-            yunFu.setImageResource(R.drawable.yunfu3);
-            shiWu.setImageResource(R.drawable.wandou);
-            trendMsg.setText(R.string.trend_preg3);
-        } else if (week <= 14) {
-            yunFu.setImageResource(R.drawable.yunfu4);
-            shiWu.setImageResource(R.drawable.ninmeng);
-            trendMsg.setText(R.string.trend_preg4);
-        } else if (week <= 19) {
-            yunFu.setImageResource(R.drawable.yunfu5);
-            shiWu.setImageResource(R.drawable.xihongshi);
-            trendMsg.setText(R.string.trend_preg5);
-        } else if (week <= 27) {
-            yunFu.setImageResource(R.drawable.yunfu6);
-            shiWu.setImageResource(R.drawable.mianhua);
-            trendMsg.setText(R.string.trend_preg6);
-        } else if (week <= 28) {
-            yunFu.setImageResource(R.drawable.yunfu7);
-            shiWu.setImageResource(R.drawable.qiezi);
-            trendMsg.setText(R.string.trend_preg7);
-        } else if (week <= 30) {
-            yunFu.setImageResource(R.drawable.yunfu8);
-            shiWu.setImageResource(R.drawable.baocai);
-            trendMsg.setText(R.string.trend_preg8);
-        } else if (week <= 39) {
-            yunFu.setImageResource(R.drawable.yunfu9);
-            shiWu.setImageResource(R.drawable.xigua);
-            trendMsg.setText(R.string.trend_preg9);
-        } else {
-            yunFu.setImageResource(R.drawable.yunfu9);
-            shiWu.setImageResource(R.drawable.xigua);
-            trendMsg.setText(R.string.trend_preg9);
-        }
-    }
 
     private void initPregList() {
         List<String> title = new ArrayList<>();
@@ -298,6 +246,50 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
         MyPagerAdapter adapter = new MyPagerAdapter(title, msg, getActivity());
         adapter.setId(id);
         babyPager.setAdapter(adapter);
+        adapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+            @Override
+            public void OnItemView(int position, View view, boolean is) {
+                if (is)
+                    babyPager.setCurrentItem(position - 1);
+                else
+                    babyPager.setCurrentItem(position + 1);
+            }
+        });
+
+    }
+
+    private void initList() {
+        List<String> title = new ArrayList<>();
+        List<String> msg = new ArrayList<>();
+        title.add(getString(R.string.trend_preg1_title));
+        title.add(getString(R.string.trend_preg1_title2));
+        title.add(getString(R.string.trend_preg1_title3));
+        title.add(getString(R.string.trend_preg1_title4));
+        title.add(getString(R.string.trend_preg1_title5));
+        title.add(getString(R.string.trend_preg1_title6));
+        title.add(getString(R.string.trend_preg1_title7));
+        title.add(getString(R.string.trend_preg1_title8));
+        title.add(getString(R.string.trend_preg1_title9));
+
+        msg.add(getString(R.string.trend_preg1));
+        msg.add(getString(R.string.trend_preg2));
+        msg.add(getString(R.string.trend_preg3));
+        msg.add(getString(R.string.trend_preg4));
+        msg.add(getString(R.string.trend_preg5));
+        msg.add(getString(R.string.trend_preg6));
+        msg.add(getString(R.string.trend_preg7));
+        msg.add(getString(R.string.trend_preg8));
+        msg.add(getString(R.string.trend_preg9));
+
+        int[] id = {R.drawable.putao, R.drawable.jvzi, R.drawable.wandou, R.drawable.ninmeng, R.drawable.xihongshi, R.drawable.mianhua, R.drawable.qiezi
+                , R.drawable.baocai, R.drawable.xigua};
+        int[] id2 = {R.drawable.yunfu1, R.drawable.yunfu2, R.drawable.yunfu3, R.drawable.yunfu4, R.drawable.yunfu5, R.drawable.yunfu6, R.drawable.yunfu7
+                , R.drawable.yunfu8, R.drawable.yunfu9};
+        pregPager.setOffscreenPageLimit(5);
+        MyPagerAdapter adapter = new MyPagerAdapter(title, msg, getActivity());
+        adapter.setId(id);
+        adapter.setId2(id2);
+        pregPager.setAdapter(adapter);
         adapter.setOnItemViewClickListener(new OnItemViewClickListener() {
             @Override
             public void OnItemView(int position, View view, boolean is) {

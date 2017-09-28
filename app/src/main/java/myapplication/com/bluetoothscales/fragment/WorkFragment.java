@@ -175,56 +175,57 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         WorkRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                int inten=0;
+                int inten = 0;
                 int target = (int) (Double.parseDouble(SpUtils.getString("workTarget", "0")) * 7700);
                 int week = Integer.parseInt(SpUtils.getString("workDuration", "0"));
-                switch (checkedId) {
-                    case R.id.work_xingzou:
-                        SpUtils.putInt("workType", 0);
-                         inten=(target / 72) / week;
-                        intensity.setText(inten+"");
-                        break;
-                    case R.id.work_qixing:
-                        SpUtils.putInt("workType", 1);
-                         inten=(target / 330) / week;
-                        intensity.setText(inten+"");
-                        break;
-                    case R.id.work_paobu:
-                        SpUtils.putInt("workType", 2);
-                        inten=(target / 300) / week;
-                        intensity.setText(inten+"");
-                        break;
-                    case R.id.work_youyong:
-                        SpUtils.putInt("workType", 3);
-                        inten=(target / 175) / week;
-                        intensity.setText(inten+"");
-                        break;
-                    case R.id.work_yangwoqizuo:
-                        SpUtils.putInt("workType", 4);
-                        inten=(target / 432) / week;
-                        intensity.setText(inten+"");
-                        break;
-                    case R.id.work_fuwocheng:
-                        SpUtils.putInt("workType", 5);
-                        inten=(target / 1968) / week;
-                        intensity.setText(inten+"");
-                        break;
-                    case R.id.work_shendun:
-                        SpUtils.putInt("workType", 6);
-                        inten=(target / 150) / week;
-                        intensity.setText(inten+"");
-                        break;
-                    case R.id.work_pashan:
-                        SpUtils.putInt("workType", 7);
-                        inten=(target / 210) / week;
-                        intensity.setText(inten+"");
-                        break;
-                    case R.id.work_ticoa:
-                        SpUtils.putInt("workType", 8);
-                        inten=(target / 150) / week;
-                        intensity.setText(inten+"");
-                        break;
-                }
+                if (target > 0 && week > 0)
+                    switch (checkedId) {
+                        case R.id.work_xingzou:
+                            SpUtils.putInt("workType", 0);
+                            inten = (target / 72) / week;
+                            intensity.setText(inten + "");
+                            break;
+                        case R.id.work_qixing:
+                            SpUtils.putInt("workType", 1);
+                            inten = (target / 330) / week;
+                            intensity.setText(inten + "");
+                            break;
+                        case R.id.work_paobu:
+                            SpUtils.putInt("workType", 2);
+                            inten = (target / 300) / week;
+                            intensity.setText(inten + "");
+                            break;
+                        case R.id.work_youyong:
+                            SpUtils.putInt("workType", 3);
+                            inten = (target / 175) / week;
+                            intensity.setText(inten + "");
+                            break;
+                        case R.id.work_yangwoqizuo:
+                            SpUtils.putInt("workType", 4);
+                            inten = (target / 432) / week;
+                            intensity.setText(inten + "");
+                            break;
+                        case R.id.work_fuwocheng:
+                            SpUtils.putInt("workType", 5);
+                            inten = (target / 1968) / week;
+                            intensity.setText(inten + "");
+                            break;
+                        case R.id.work_shendun:
+                            SpUtils.putInt("workType", 6);
+                            inten = (target / 150) / week;
+                            intensity.setText(inten + "");
+                            break;
+                        case R.id.work_pashan:
+                            SpUtils.putInt("workType", 7);
+                            inten = (target / 210) / week;
+                            intensity.setText(inten + "");
+                            break;
+                        case R.id.work_ticoa:
+                            SpUtils.putInt("workType", 8);
+                            inten = (target / 150) / week;
+                            intensity.setText(inten + "");
+                            break;
+                    }
                 setTv(SpUtils.getInt("workType", -1));
             }
         });

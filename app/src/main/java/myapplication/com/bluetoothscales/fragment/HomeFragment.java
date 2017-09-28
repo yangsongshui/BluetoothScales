@@ -77,7 +77,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 window.setFocusable(true);
                 window.setOutsideTouchable(true);
                 window.update();
-                window2 = new PopupWindow(popupView2, homeLl.getWidth(), 350);
+                window2 = new PopupWindow(popupView2, homeLbs.getWidth(), 350);
                 window2.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6E199782")));
                 window2.setFocusable(true);
                 window2.setOutsideTouchable(true);
