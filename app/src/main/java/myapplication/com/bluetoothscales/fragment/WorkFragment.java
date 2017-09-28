@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.kitnew.ble.QNData;
@@ -140,6 +141,10 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
     CheckBox week7;
     @BindView(R.id.intensity)
     TextView intensity;
+    @BindView(R.id.work_switch)
+    Switch workSwitch;
+    @BindView(R.id.switch_tv)
+    TextView switchTv;
     Toastor toastor;
     int postion = 0;
     int indext = 0;
@@ -164,6 +169,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         iniCb();
         initWheel();
         initTarget();
+        initSwitch();
         workActivity.setOnCheckedChangeListener(this);
         week1.setOnCheckedChangeListener(this);
         week2.setOnCheckedChangeListener(this);
@@ -180,61 +186,53 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
                 int inten = 0;
                 int target = (int) (Double.parseDouble(SpUtils.getString("workTarget", "0")) * 7700);
                 int week = Integer.parseInt(SpUtils.getString("workDuration", "0"));
-                if (target > 0 && week > 0)
+                intensity.setVisibility(View.VISIBLE);
+                if (target > 0 && week > 0) {
                     switch (checkedId) {
                         case R.id.work_xingzou:
                             SpUtils.putInt("workType", 0);
                             inten = (target / 72) / week;
-                            intensity.setText(inten + "");
                             break;
                         case R.id.work_qixing:
                             SpUtils.putInt("workType", 1);
                             inten = (target / 330) / week;
-                            intensity.setText(inten + "");
                             break;
                         case R.id.work_paobu:
                             SpUtils.putInt("workType", 2);
                             inten = (target / 300) / week;
-                            intensity.setText(inten + "");
                             break;
                         case R.id.work_youyong:
                             SpUtils.putInt("workType", 3);
                             inten = (target / 175) / week;
-                            intensity.setText(inten + "");
                             break;
                         case R.id.work_yangwoqizuo:
                             SpUtils.putInt("workType", 4);
                             inten = (target / 432) / week;
-                            intensity.setText(inten + "");
                             break;
                         case R.id.work_fuwocheng:
                             SpUtils.putInt("workType", 5);
                             inten = (target / 1968) / week;
-                            intensity.setText(inten + "");
                             break;
                         case R.id.work_shendun:
                             SpUtils.putInt("workType", 6);
                             inten = (target / 150) / week;
-                            intensity.setText(inten + "");
                             break;
                         case R.id.work_pashan:
                             SpUtils.putInt("workType", 7);
                             inten = (target / 210) / week;
-                            intensity.setText(inten + "");
                             break;
                         case R.id.work_ticoa:
                             SpUtils.putInt("workType", 8);
                             inten = (target / 150) / week;
-                            intensity.setText(inten + "");
+
                             break;
                     }
+
+                }
+                intensity.setText(String.format(getString(R.string.goal), inten + ""));
                 setTv(SpUtils.getInt("workType", -1));
             }
         });
-  /*      AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Hint");
-        builder.setMessage("Please stand on the electronic scale");
-        dialog = builder.create();*/
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loding...");
         progressDialog.setCanceledOnTouchOutside(false);
@@ -312,14 +310,14 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
                 workTiem.setText(msg);
                 editLl3.setVisibility(View.GONE);
                 settingEdit.setVisibility(View.VISIBLE);
-                workTiem.setVisibility(View.GONE);
+                //workTiem.setVisibility(View.GONE);
                 SpUtils.putString("workTime", workTiem.getText().toString());
                 break;
             case R.id.setting_edit:
                 initTime();
                 editLl3.setVisibility(View.VISIBLE);
                 settingEdit.setVisibility(View.GONE);
-                workTiem.setVisibility(View.VISIBLE);
+                //workTiem.setVisibility(View.VISIBLE);
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
@@ -566,5 +564,18 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
 
         View pickerContentView2 = doublePicker2.getContentView();
         wheelview_container3.addView(pickerContentView2);
+    }
+
+    private void initSwitch() {
+        boolean isChecked = SpUtils.getBoolean("switch", false);
+        switchTv.setText(isChecked ? "OFF" : "ON");
+        workSwitch.setChecked(isChecked);
+        workSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                switchTv.setText(isChecked ? "OFF" : "ON");
+                SpUtils.putBoolean("switch", isChecked);
+            }
+        });
     }
 }

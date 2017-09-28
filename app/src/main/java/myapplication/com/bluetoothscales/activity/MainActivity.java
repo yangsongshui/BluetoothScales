@@ -225,14 +225,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             MyApplication.newInstance().isLink = true;
             toastor.showSingletonToast("Paired device");
         }
-
         /**
          * 断开了蓝牙连接 在主线程中回调
-         *
          * @param qnBleDevice 轻牛蓝牙设备
          */
         @Override
-        public void onDisconnected(QNBleDevice qnBleDevice) {
+        public void onDisconnected(QNBleDevice qnBleDevice, int i) {
             MyApplication.newInstance().isLink = false;
             toastor.showSingletonToast("The device has been disconnected");
             if (!mBluetoothAdapter.isEnabled())
@@ -297,6 +295,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             Log.e("Main", "onDeviceModelUpdate" + qnBleDevice.getDeviceName());
         }
 
+        @Override
+        public void onLowPower() {
+            toastor.showSingletonToast("The equipment is too low");
+        }
+
         /**
          * 连接中 在主线程中回调
          *
@@ -327,7 +330,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private void initWeek() {
         Calendar c = Calendar.getInstance();
         int time = c.get(Calendar.DAY_OF_WEEK);
-        if (timeSub(SpUtils.getString("workTime", "00:00"), getCurrDate(LONG_TIME)) > 0 && SpUtils.getInt("type", 1) == 1)
+        if (SpUtils.getBoolean("switch", false) && timeSub(SpUtils.getString("workTime", "00:00"), getCurrDate(LONG_TIME)) > 0 && SpUtils.getInt("type", 1) == 1)
             switch (time) {
                 case 1:
                     if (SpUtils.getBoolean("week7", false)) {
@@ -367,17 +370,18 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
             }
     }
+
     @Override
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);
-        if(homeFragment==null && fragment instanceof HomeFragment){
-            homeFragment=(HomeFragment)fragment;
+        if (homeFragment == null && fragment instanceof HomeFragment) {
+            homeFragment = (HomeFragment) fragment;
             getSupportFragmentManager().beginTransaction().hide(homeFragment).commit();
-        }else if(frags[1]==null && fragment instanceof TrendFragment){
-            frags[1]=(TrendFragment)fragment;
+        } else if (frags[1] == null && fragment instanceof TrendFragment) {
+            frags[1] = (TrendFragment) fragment;
             getSupportFragmentManager().beginTransaction().hide(frags[1]).commit();
-        }else if(frags[2]==null && fragment instanceof DiscoverFragment){
-            frags[2]=(DiscoverFragment)fragment;
+        } else if (frags[2] == null && fragment instanceof DiscoverFragment) {
+            frags[2] = (DiscoverFragment) fragment;
             getSupportFragmentManager().beginTransaction().hide(frags[2]).commit();
         }
     }

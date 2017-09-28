@@ -278,7 +278,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_margin="10dp"
-                        android:text="Goal"
+                        android:text="Set your goal"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
 
@@ -295,7 +295,7 @@
                         android:id="@+id/work_msg6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Target:"
+                        android:text="Target Weight Reduction:"
                         android:textColor="@color/tv" />
 
                     <TextView
@@ -318,7 +318,7 @@
                         android:id="@+id/work_msg7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Duration:"
+                        android:text="Target Period of Time:"
                         android:textColor="@color/tv" />
 
                     <TextView
@@ -603,7 +603,7 @@
                         android:layout_height="wrap_content"
                         android:button="@null"
                         android:drawablePadding="5dp"
-                        android:drawableStart="@drawable/ticoa"
+                        android:drawableStart="@drawable/ticao"
                         android:padding="8dp"
                         android:text="Burpees"
                         android:textColor="@color/work_rb"
@@ -619,30 +619,24 @@
                         android:visibility="gone" />
                 </RadioGroup>
 
-                <RelativeLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="10dp"
-                    android:orientation="horizontal">
+                    android:layout_margin="10dp"
+                    android:text="Recommended intensity"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Recommended intensity"
-                        android:textColor="@color/grey"
-                        android:textSize="16sp" />
-                    <TextView
-                        android:id="@+id/intensity"
-                        android:layout_width="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:textColor="@color/white"
-                        android:text="0"
-                        android:layout_height="wrap_content" />
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/intensity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:text="@string/goal"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -663,6 +657,8 @@
                         android:id="@+id/setting_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
                         android:layout_marginEnd="15dp"
                         android:background="@drawable/preg_bg"
                         android:paddingBottom="3dp"
@@ -670,22 +666,43 @@
                         android:paddingStart="23dp"
                         android:paddingTop="3dp"
                         android:text="Edit"
-                        android:textColor="@color/white"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true" />
+                        android:textColor="@color/white" />
                 </RelativeLayout>
 
-
-                <TextView
-                    android:id="@+id/work_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_marginBottom="10dp"
                     android:layout_marginStart="10dp"
-                    android:text="08:00"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:visibility="visible" />
+                    android:layout_marginEnd="10dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/work_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:text="08:00"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/switch_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@+id/work_switch"
+                        android:text="ON"
+                        android:textColor="@color/white" />
+
+                    <Switch
+                        android:id="@+id/work_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/edit_ll3"
