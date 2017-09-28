@@ -177,7 +177,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void onResume() {
         super.onResume();
-        // mBluetoothAdapter.enable();
+        mBluetoothAdapter.enable();
     }
 
     @PermissionGrant(REQUECT_CODE_COARSE)
@@ -211,6 +211,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         @Override
         public void onConnectStart(QNBleDevice qnBleDevice) {
             Log.e("Main", "开始链接");
+            toastor.showSingletonToast("Connecting the device...");
         }
 
         /**
@@ -221,7 +222,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         @Override
         public void onConnected(QNBleDevice qnBleDevice) {
             Log.e("Main", "连接成功");
-            MyApplication.newInstance().isLink=true;
+            MyApplication.newInstance().isLink = true;
+            toastor.showSingletonToast("Paired device");
         }
 
         /**
@@ -231,12 +233,14 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
          */
         @Override
         public void onDisconnected(QNBleDevice qnBleDevice) {
-            MyApplication.newInstance().isLink=false;
+            MyApplication.newInstance().isLink = false;
+            toastor.showSingletonToast("The device has been disconnected");
             if (!mBluetoothAdapter.isEnabled())
                 mBluetoothAdapter.enable();
             qnBleApi.startLeScan(null, null, new QNBleScanCallback() {
                 //如果失败，会在这个方法中返回错误码
                 public void onCompete(int errorCode) {
+                    toastor.showSingletonToast("搜索设备失败" + errorCode);
                 }
 
                 //如果扫描到设备，会在这个方法返回这个设备的相关信息
@@ -307,7 +311,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private void initBLE() {
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             toastor.showSingletonToast("手机蓝牙异常");
-            // finish();
+            finish();
         }
         final BluetoothManager bluetoothManager =
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
@@ -362,5 +366,19 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                     break;
 
             }
+    }
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        if(homeFragment==null && fragment instanceof HomeFragment){
+            homeFragment=(HomeFragment)fragment;
+            getSupportFragmentManager().beginTransaction().hide(homeFragment).commit();
+        }else if(frags[1]==null && fragment instanceof TrendFragment){
+            frags[1]=(TrendFragment)fragment;
+            getSupportFragmentManager().beginTransaction().hide(frags[1]).commit();
+        }else if(frags[2]==null && fragment instanceof DiscoverFragment){
+            frags[2]=(DiscoverFragment)fragment;
+            getSupportFragmentManager().beginTransaction().hide(frags[2]).commit();
+        }
     }
 }

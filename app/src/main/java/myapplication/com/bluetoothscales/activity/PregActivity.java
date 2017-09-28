@@ -34,8 +34,6 @@ public class PregActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         initData();
         mainRgrpNavigation.setOnCheckedChangeListener(this);
         mainRgrpNavigation.check(R.id.main_home);
-
-
     }
 
 
