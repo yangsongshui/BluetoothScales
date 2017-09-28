@@ -32,8 +32,10 @@ import myapplication.com.bluetoothscales.utils.SpUtils;
 import myapplication.com.bluetoothscales.utils.Toastor;
 
 import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
+import static myapplication.com.bluetoothscales.utils.DateUtil.FORMAT_TWO2;
 import static myapplication.com.bluetoothscales.utils.DateUtil.currDay;
 import static myapplication.com.bluetoothscales.utils.DateUtil.dayDiffCurr;
+import static myapplication.com.bluetoothscales.utils.DateUtil.getCurrDate;
 
 
 public class WorkFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
@@ -434,6 +436,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
 
                     isData = false;
                     MyApplication.newInstance().isMeasure = true;
+                    SpUtils.putString("HomeTime", getCurrDate(FORMAT_TWO2));
                 }
             }
         }

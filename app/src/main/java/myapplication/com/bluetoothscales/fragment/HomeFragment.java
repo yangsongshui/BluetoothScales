@@ -48,6 +48,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     TextView homeMode;
     @BindView(R.id.home_ll)
     LinearLayout homeLl;
+    @BindView(R.id.home_time)
+    TextView homeTime;
     PopupWindow window;
     PopupWindow window2;
 
@@ -157,5 +159,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             homeJirou.setText(String.valueOf(qnData.getFloatValue(TYPE_SKELETAL_MUSCLE)));
             homeGuge.setText(String.valueOf(qnData.getFloatValue(TYPE_BONE)));
         }
+        homeTime.setText("Detection time: "+SpUtils.getString("HomeTime", "00:00 01/01/2017"));
     }
 }

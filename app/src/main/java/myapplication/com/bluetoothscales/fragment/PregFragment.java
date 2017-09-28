@@ -35,7 +35,9 @@ import myapplication.com.bluetoothscales.utils.SpUtils;
 import myapplication.com.bluetoothscales.utils.Toastor;
 
 import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
+import static myapplication.com.bluetoothscales.utils.DateUtil.FORMAT_TWO2;
 import static myapplication.com.bluetoothscales.utils.DateUtil.dayDiffCurr;
+import static myapplication.com.bluetoothscales.utils.DateUtil.getCurrDate;
 
 
 public class PregFragment extends BaseFragment implements OnItemViewClickListener {
@@ -220,6 +222,7 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
                     currentWeight.setText(String.valueOf(qnData.getWeight() + unit));
                     isData = false;
                     MyApplication.newInstance().isMeasure = true;
+                    SpUtils.putString("HomeTime", getCurrDate(FORMAT_TWO2));
                 }
 
             }

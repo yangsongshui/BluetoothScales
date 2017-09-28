@@ -17,6 +17,8 @@ public class DateUtil {
 
     // 格式：年－月－日 小时：分钟
     public static final String FORMAT_TWO = "yyyy-MM-dd HH:mm";
+    //小时：分钟 格式：年－月－日
+    public static final String FORMAT_TWO2 = "HH:mm yyyy/MM/dd";
 
     // 格式：年月日 小时分钟秒
     public static final String FORMAT_THREE = "yyyyMMdd-HHmmss";
