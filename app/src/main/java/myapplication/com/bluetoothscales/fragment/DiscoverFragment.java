@@ -58,6 +58,8 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
     CheckBox workCb3;
     @BindView(R.id.work_cb4)
     CheckBox workCb4;
+    @BindView(R.id.work_cb5)
+    CheckBox workCb5;
     @BindView(R.id.cb_tv3)
     LinearLayout cbTv3;
     @BindView(R.id.cb_tv2)
@@ -66,7 +68,8 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
     LinearLayout cbTv1;
     @BindView(R.id.wrok_pager)
     CustomViewPager workLl;
-
+    @BindView(R.id.wrok_pager2)
+    CustomViewPager workLl2;
     @BindView(R.id.baby_pager)
     CustomViewPager BabyPager;
     @BindView(R.id.baby_pager2)
@@ -75,6 +78,7 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
     CheckBox babyCheck;
     @BindView(R.id.baby_check2)
     CheckBox babyCheck2;
+
     int mode = 0;
     boolean sex = false;
 
@@ -108,6 +112,7 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
         } else if (mode == 1) {
             discoverTitle.setText("Workout Discover");
             initWrokList();
+            initWrokList2();
         }
         discoverPregLl.setVisibility(mode == 2 ? View.VISIBLE : View.GONE);
         discoverWorkLl.setVisibility(mode == 1 ? View.VISIBLE : View.GONE);
@@ -119,6 +124,7 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
         workCb2.setOnCheckedChangeListener(this);
         workCb3.setOnCheckedChangeListener(this);
         workCb4.setOnCheckedChangeListener(this);
+        workCb5.setOnCheckedChangeListener(this);
         babyCheck.setOnCheckedChangeListener(this);
         babyCheck2.setOnCheckedChangeListener(this);
     }
@@ -145,15 +151,13 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
         title.add(getString(R.string.discover_title3));
         title.add(getString(R.string.discover_title4));
         title.add(getString(R.string.discover_title5));
-        title.add(getString(R.string.discover_title6));
-        title.add(getString(R.string.discover_title7));
+
         msg.add(getString(R.string.discover_diet_msg));
         msg.add(getString(R.string.discover_diet_msg2));
         msg.add(getString(R.string.discover_diet_msg3));
         msg.add(getString(R.string.discover_diet_msg4));
         msg.add(getString(R.string.discover_diet_msg5));
-        msg.add(getString(R.string.discover_diet_msg6));
-        msg.add(getString(R.string.discover_diet_msg7));
+
         workLl.setOffscreenPageLimit(4);
         MyPagerAdapter adapter = new MyPagerAdapter(title, msg, getActivity());
         workLl.setAdapter(adapter);
@@ -164,6 +168,30 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
                     workLl.setCurrentItem(position - 1);
                 else
                     workLl.setCurrentItem(position + 1);
+            }
+        });
+
+    }
+
+    private void initWrokList2() {
+        List<String> title = new ArrayList<>();
+        List<String> msg = new ArrayList<>();
+
+        title.add(getString(R.string.discover_title6));
+        title.add(getString(R.string.discover_title7));
+
+        msg.add(getString(R.string.discover_diet_msg6));
+        msg.add(getString(R.string.discover_diet_msg7));
+        workLl2.setOffscreenPageLimit(4);
+        MyPagerAdapter adapter = new MyPagerAdapter(title, msg, getActivity());
+        workLl2.setAdapter(adapter);
+        adapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+            @Override
+            public void OnItemView(int position, View view, boolean is) {
+                if (is)
+                    workLl2.setCurrentItem(position - 1);
+                else
+                    workLl2.setCurrentItem(position + 1);
             }
         });
 

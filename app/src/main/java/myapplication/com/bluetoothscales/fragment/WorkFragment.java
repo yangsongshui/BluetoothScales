@@ -482,12 +482,18 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
     private void initTarget() {
         final ArrayList<String> firstData = new ArrayList<>();
 
-        for (int i = 5; i <= 120; i++) {
+        for (int i = 0; i <= 120; i++) {
             firstData.add(i + "");
         }
         final ArrayList<String> secondData = new ArrayList<>();
-        for (int i = 0; i <= 99; i++) {
-            secondData.add(i + "");
+        if (unit.equals("LBS")) {
+            for (int i = 0; i <= 9; i++) {
+                secondData.add(i + "");
+            }
+        } else {
+            for (int i = 0; i <= 99; i++) {
+                secondData.add(i + "");
+            }
         }
         doublePicker = new DoublePicker(getActivity(), firstData, secondData);
         doublePicker.setCycleDisable(true);
@@ -498,7 +504,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         doublePicker.setLineSpaceMultiplier(3);
         String msg = SpUtils.getString("workTarget", "");
         if (!msg.equals("")) {
-            int indext = Integer.parseInt(msg.substring(0, msg.indexOf("."))) - 5;
+            int indext = Integer.parseInt(msg.substring(0, msg.indexOf(".")));
             int indext2 = Integer.parseInt(msg.substring(msg.indexOf(".") + 1, msg.length()));
             doublePicker.setSelectedIndex(indext, indext2);
             //doublePicker.setSelectedItem(Integer.parseInt(SpUtils.getString("workHeight", "")));
@@ -568,12 +574,12 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
 
     private void initSwitch() {
         boolean isChecked = SpUtils.getBoolean("switch", false);
-        switchTv.setText(isChecked ? "OFF" : "ON");
+        switchTv.setText(isChecked ? "ON" : "OFF");
         workSwitch.setChecked(isChecked);
         workSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                switchTv.setText(isChecked ? "OFF" : "ON");
+                switchTv.setText(isChecked ? "ON" : "OFF");
                 SpUtils.putBoolean("switch", isChecked);
             }
         });

@@ -63,7 +63,7 @@
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/preparation_list"
         android:padding="15dp"
-        android:text="Preparation list"
+        android:text="Preparation List"
         android:textColor="@color/grey"
         android:textSize="15sp" />
 

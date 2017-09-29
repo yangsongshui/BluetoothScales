@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:drawablePadding="5dp"
-                    android:drawableStart="@drawable/baby_cute"
+                    android:drawableStart="@drawable/xiao"
                     android:text="Congratulation! Your baby growth trend is good."
                     android:textColor="@color/white" />
 
@@ -143,7 +143,7 @@
                     android:drawablePadding="5dp"
                     android:drawableStart="@drawable/baby1"
                     android:padding="10dp"
-                    android:text="Baby growth Symptoms"
+                    android:text="Baby Growth Symptoms"
                     android:textColor="@color/grey"
                     android:textSize="15sp" />
 

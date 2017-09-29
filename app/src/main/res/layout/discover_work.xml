@@ -101,6 +101,7 @@
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/pen"
         android:padding="15dp"
+        android:visibility="gone"
         android:text="Being Active Every Day"
         android:textColor="@color/grey"
         android:textSize="15sp" />
@@ -144,7 +145,7 @@
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/daocha"
         android:padding="15dp"
-        android:text="Diet Tips "
+        android:text="Diet Tips – Cardio Fitness"
         android:textColor="@color/grey"
         android:textSize="15sp" />
 
@@ -154,5 +155,22 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:visibility="gone" />
-
+    <CheckBox
+        android:id="@+id/work_cb5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawableEnd="@drawable/down2"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/daocha"
+        android:padding="15dp"
+        android:text="Diet Tips – Muscle Building "
+        android:textColor="@color/grey"
+        android:textSize="15sp" />
+    <myapplication.com.bluetoothscales.CustomViewPager
+        android:id="@+id/wrok_pager2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone" />
 </LinearLayout>

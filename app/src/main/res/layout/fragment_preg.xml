@@ -316,7 +316,7 @@
                             android:id="@+id/current_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
+                            android:layout_marginStart="8dp"
                             android:text="Two weeks"
                             android:textColor="@color/white" />
                     </LinearLayout>
@@ -355,7 +355,7 @@
                     android:drawableEnd="@drawable/down2"
                     android:drawablePadding="10dp"
                     android:padding="10dp"
-                    android:text="Daily reminder"
+                    android:text="Daily Reminder"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 

@@ -620,7 +620,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Recommended intensity"
+                    android:text="Recommended Intensity"
                     android:textColor="@color/grey"
                     android:textSize="16sp" />
 
@@ -646,7 +646,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:text="Reminder setting "
+                        android:text="Reminder Setting "
                         android:textColor="@color/grey"
                         android:textSize="16sp" />
 
@@ -657,7 +657,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="10dp"
                         android:layout_toStartOf="@+id/work_switch"
-                        android:text="ON"
+                        android:text="OFF"
                         android:textColor="@color/white" />
 
                     <Switch

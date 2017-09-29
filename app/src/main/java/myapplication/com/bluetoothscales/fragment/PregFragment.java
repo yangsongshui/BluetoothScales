@@ -327,11 +327,11 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
         }
         final ArrayList<String> secondData = new ArrayList<>();
         if (unit.equals("LBS")) {
-            for (int i = 0; i <= 99; i++) {
+            for (int i = 0; i <= 9; i++) {
                 secondData.add(i + "");
             }
         } else {
-            for (int i = 0; i <= 9; i++) {
+            for (int i = 0; i <= 99; i++) {
                 secondData.add(i + "");
             }
         }

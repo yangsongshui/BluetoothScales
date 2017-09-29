@@ -15,7 +15,7 @@
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/baby6"
         android:padding="15dp"
-        android:text="Diet tips（for baby）"
+        android:text="Diet Tips（for baby）"
         android:textColor="@color/grey"
         android:textSize="15sp" />
 
@@ -34,7 +34,7 @@
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/baby7"
         android:padding="15dp"
-        android:text="Parenting tips"
+        android:text="Parenting Tips"
         android:textColor="@color/grey"
         android:textSize="15sp" />
 

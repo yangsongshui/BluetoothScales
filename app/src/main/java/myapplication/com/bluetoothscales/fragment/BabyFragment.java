@@ -274,8 +274,14 @@ public class BabyFragment extends BaseFragment {
             firstData.add(i + "");
         }
         final ArrayList<String> secondData = new ArrayList<>();
-        for (int i = 0; i <= 99; i++) {
-            secondData.add(i + "");
+        if (unit.equals("LBS")) {
+            for (int i = 0; i <= 9; i++) {
+                secondData.add(i + "");
+            }
+        } else {
+            for (int i = 0; i <= 99; i++) {
+                secondData.add(i + "");
+            }
         }
         doublePicker = new DoublePicker(getActivity(), firstData, secondData);
         doublePicker.setCycleDisable(true);
