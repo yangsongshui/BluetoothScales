@@ -57,9 +57,10 @@
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/news"
         android:padding="15dp"
-        android:text="The Secret to Gaining Muscle"
+        android:text="The Secret to Gain Muscle"
         android:textColor="@color/grey"
         android:textSize="15sp" />
+
     <LinearLayout
         android:id="@+id/cb_tv2"
         android:layout_width="match_parent"
@@ -91,7 +92,6 @@
     </LinearLayout>
 
 
-
     <CheckBox
         android:id="@+id/work_cb3"
         android:layout_width="match_parent"
@@ -104,6 +104,7 @@
         android:text="Being Active Every Day"
         android:textColor="@color/grey"
         android:textSize="15sp" />
+
     <LinearLayout
         android:id="@+id/cb_tv3"
         android:layout_width="match_parent"
@@ -151,7 +152,7 @@
         android:id="@+id/wrok_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:visibility="gone" />
 
 </LinearLayout>

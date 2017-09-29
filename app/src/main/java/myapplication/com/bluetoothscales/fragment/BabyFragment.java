@@ -86,7 +86,7 @@ public class BabyFragment extends BaseFragment {
         intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         getActivity().registerReceiver(notifyReceiver, intentFilter);
         progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loding...");
+        progressDialog.setMessage("Lading...");
         progressDialog.setCanceledOnTouchOutside(false);
         toastor = new Toastor(getActivity());
         babySex.setText(SpUtils.getString("sex", "Boy/Girl"));
@@ -176,7 +176,7 @@ public class BabyFragment extends BaseFragment {
         if (indext == 1) {
             month.setText("Month");
         } else if (indext == 2) {
-            month.setText("Kg");
+            month.setText(unit);
         } else if (indext == 3) {
             month.setText("Gender");
         }

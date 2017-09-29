@@ -234,7 +234,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
             }
         });
         progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loding...");
+        progressDialog.setMessage("Lading...");
         progressDialog.setCanceledOnTouchOutside(false);
     }
 
@@ -405,7 +405,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
         workTarget.setTextColor(getResources().getColor(postion == 1 ? R.color.maya_blue2 : R.color.tv));
         workMsg7.setTextColor(getResources().getColor(postion == 2 ? R.color.maya_blue2 : R.color.tv));
         workDuration.setTextColor(getResources().getColor(postion == 2 ? R.color.maya_blue2 : R.color.tv));
-        workTv2.setText(postion == 2 ? "Weeks" : "Kg");
+        workTv2.setText(postion == 2 ? "Weeks" : unit);
 
     }
 

@@ -71,7 +71,7 @@
                         android:id="@+id/preg_msg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pregancy Date:"
+                        android:text="Pregnacy Date:"
                         android:textColor="@color/tv" />
 
                     <TextView
@@ -118,7 +118,7 @@
                         android:id="@+id/preg_msg3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Weight before prenancy:"
+                        android:text="Weight before pregnacy:"
                         android:textColor="@color/tv" />
 
                     <TextView
@@ -328,6 +328,7 @@
                         android:layout_gravity="center"
                         android:layout_marginEnd="10dp"
                         android:layout_marginTop="15dp"
+                        android:layout_marginStart="-20dp"
                         android:background="@drawable/preg_bg"
                         android:paddingBottom="5dp"
                         android:paddingEnd="10dp"

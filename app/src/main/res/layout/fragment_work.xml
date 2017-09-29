@@ -78,7 +78,24 @@
                             android:layout_marginStart="5dp"
                             android:text="--"
                             android:textColor="@color/tv" />
+
+
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/work_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="@drawable/preg_bg"
+                        android:paddingBottom="5dp"
+                        android:paddingEnd="30dp"
+                        android:paddingStart="30dp"
+                        android:paddingTop="5dp"
+                        android:text="Edit"
+                        android:textColor="@color/white" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -115,8 +132,8 @@
                             android:layout_alignParentEnd="true"
                             android:background="@drawable/preg_bg"
                             android:paddingBottom="5dp"
-                            android:paddingEnd="10dp"
-                            android:paddingStart="10dp"
+                            android:paddingEnd="15dp"
+                            android:paddingStart="15dp"
                             android:paddingTop="5dp"
                             android:text="Measure"
                             android:textColor="@color/white" />
@@ -193,26 +210,6 @@
                         android:textColor="@color/tv" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:id="@+id/work_edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/preg_bg"
-                        android:paddingBottom="5dp"
-                        android:paddingEnd="30dp"
-                        android:paddingStart="30dp"
-                        android:paddingTop="5dp"
-                        android:text="Edit"
-                        android:textColor="@color/white" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/edit_ll"
@@ -654,40 +651,6 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/setting_edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginEnd="15dp"
-                        android:background="@drawable/preg_bg"
-                        android:paddingBottom="3dp"
-                        android:paddingEnd="23dp"
-                        android:paddingStart="23dp"
-                        android:paddingTop="3dp"
-                        android:text="Edit"
-                        android:textColor="@color/white" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/work_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:text="08:00"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:visibility="visible" />
-
-                    <TextView
                         android:id="@+id/switch_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -702,6 +665,40 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp">
+
+                    <TextView
+                        android:id="@+id/work_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:text="08:00"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/setting_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/preg_bg"
+                        android:paddingBottom="3dp"
+                        android:paddingEnd="23dp"
+                        android:paddingStart="23dp"
+                        android:paddingTop="3dp"
+                        android:text="Edit"
+                        android:textColor="@color/white" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -717,47 +714,6 @@
                         android:background="@color/white"
                         android:gravity="center"
                         android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:background="@color/picton_blue"
-                            android:gravity="center">
-
-                            <LinearLayout
-                                android:id="@+id/wheelview_container3"
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:orientation="horizontal" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="10dp"
-                                android:gravity="center"
-                                android:text="hour"
-                                android:textColor="@color/tv" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:gravity="center"
-                                android:text="min"
-                                android:textColor="@color/tv" />
-
-                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -819,7 +775,6 @@
                                     android:button="@null"
                                     android:gravity="bottom|center"
                                     android:paddingBottom="5dp"
-
                                     android:textColor="@color/tv"
                                     android:textSize="18sp" />
 
@@ -1061,6 +1016,48 @@
                                 </LinearLayout>
                             </RelativeLayout>
                         </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/picton_blue"
+                            android:gravity="center">
+
+                            <LinearLayout
+                                android:id="@+id/wheelview_container3"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="horizontal" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:gravity="center"
+                                android:text="hour"
+                                android:textColor="@color/tv" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:gravity="center"
+                                android:text="min"
+                                android:textColor="@color/tv" />
+
+                        </LinearLayout>
+
 
                         <TextView
                             android:id="@+id/work_next3"

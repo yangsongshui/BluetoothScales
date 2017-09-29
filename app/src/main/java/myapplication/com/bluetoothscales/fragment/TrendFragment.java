@@ -33,7 +33,6 @@ import myapplication.com.bluetoothscales.utils.FragmentEvent;
 import myapplication.com.bluetoothscales.utils.SpUtils;
 
 import static com.kitnew.ble.QNData.TYPE_BMI;
-import static java.lang.Double.parseDouble;
 import static myapplication.com.bluetoothscales.utils.Constant.ACTION_BLE_NOTIFY_DATA;
 
 public class TrendFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener {
@@ -185,7 +184,7 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
             if (qnData.getFloatValue(TYPE_BMI) < 18.5) {
                 trendIv.setBackgroundResource(R.drawable.bmi1);
                 msg.setText(R.string.preg1);
-                iv.setImageResource(R.drawable.xiao);
+                iv.setImageResource(R.drawable.ku);
             } else if (qnData.getFloatValue(TYPE_BMI) < 25) {
                 trendIv.setBackgroundResource(R.drawable.bmi2);
                 msg.setText(R.string.preg2);
@@ -193,16 +192,16 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
             } else if (qnData.getFloatValue(TYPE_BMI) >= 25) {
                 trendIv.setBackgroundResource(R.drawable.bmi3);
                 msg.setText(R.string.preg3);
-                iv.setImageResource(R.drawable.ku);
+                iv.setImageResource(R.drawable.xiao);
             }
         } else {
             trendIv.setBackgroundResource(R.drawable.bmi1);
-            iv.setImageResource(R.drawable.xiao);
+            iv.setImageResource(R.drawable.ku);
         }
     }
 
     private void initWork() {
-        if (!SpUtils.getString("weight", "").equals("") && !SpUtils.getString("workTarget", "").equals("")) {
+     /*   if (!SpUtils.getString("weight", "").equals("") && !SpUtils.getString("workTarget", "").equals("")) {
             double weiht = parseDouble(SpUtils.getString("weight", ""));
             double workTarget = Double.parseDouble(SpUtils.getString("workTarget", ""));
             if (MyApplication.newInstance().getQnData() != null) {
@@ -215,7 +214,9 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
         } else {
             workTrend.setText(String.format(getString(R.string.preg4), "--" + SpUtils.getString("unit", "LBS")));
             workTrend2.setText(String.format(getString(R.string.preg5), "--" + SpUtils.getString("unit", "LBS")));
-        }
+        }*/
+        workTrend.setText(String.format(getString(R.string.preg4), "50" + SpUtils.getString("unit", "LBS")));
+        workTrend2.setText(String.format(getString(R.string.preg5), "50" + SpUtils.getString("unit", "LBS")));
     }
 
     private BroadcastReceiver notifyReceiver = new BroadcastReceiver() {
@@ -294,9 +295,9 @@ public class TrendFragment extends BaseFragment implements CompoundButton.OnChec
             @Override
             public void OnItemView(int position, View view, boolean is) {
                 if (is)
-                    babyPager.setCurrentItem(position - 1);
+                    pregPager.setCurrentItem(position - 1);
                 else
-                    babyPager.setCurrentItem(position + 1);
+                    pregPager.setCurrentItem(position + 1);
             }
         });
 

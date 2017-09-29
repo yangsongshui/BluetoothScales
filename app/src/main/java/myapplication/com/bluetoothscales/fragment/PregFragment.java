@@ -88,6 +88,7 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
     Toastor toastor;
     String unit = "";
     ProgressDialog progressDialog;
+
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
         unit = SpUtils.getString("unit", "LBS");
@@ -122,11 +123,11 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
             setyunfu((int) (dayDiffCurr(pregancyTime.getText().toString()) / 7));
         }
         progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loding...");
+        progressDialog.setMessage("Lading...");
         progressDialog.setCanceledOnTouchOutside(false);
         String time = pregancyTime.getText().toString();
         initWheel(Integer.parseInt(time.substring(0, 4)), Integer.parseInt(time.substring(6, 7)), Integer.parseInt(time.substring(8, 10)));
-       // initTarget();
+        // initTarget();
         adapter.setOnItemViewClickListener(this);
     }
 
@@ -145,10 +146,10 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
                 getActivity().finish();
                 break;
             case R.id.preg_measure:
-                if (MyApplication.newInstance().isLink){
+                if (MyApplication.newInstance().isLink) {
                     progressDialog.show();
                     isData = true;
-                }else {
+                } else {
                     toastor.showSingletonToast("Unconnected equipment");
                 }
                 break;
@@ -207,7 +208,7 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
         wheelview_container.setVisibility(indext == 3 ? View.GONE : View.VISIBLE);
         weightEt.setVisibility(indext == 3 ? View.VISIBLE : View.GONE);
         year.setVisibility(indext == 3 ? View.GONE : View.VISIBLE);
-        month.setText(indext == 3 ? "Kg" : "Month");
+        month.setText(indext == 3 ? unit : "Month");
     }
 
     boolean isData = false;
@@ -325,9 +326,16 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
             firstData.add(i + "");
         }
         final ArrayList<String> secondData = new ArrayList<>();
-        for (int i = 0; i <= 99; i++) {
-            secondData.add(i + "");
+        if (unit.equals("LBS")) {
+            for (int i = 0; i <= 99; i++) {
+                secondData.add(i + "");
+            }
+        } else {
+            for (int i = 0; i <= 9; i++) {
+                secondData.add(i + "");
+            }
         }
+
         doublePicker = new DoublePicker(getActivity(), firstData, secondData);
         doublePicker.setCycleDisable(true);
         doublePicker.setDividerVisible(false);

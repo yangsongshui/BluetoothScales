@@ -31,16 +31,16 @@
     <string name="preg1">❖ You gain less than the recommended amount of weight\n❖ If you start out underweight, can mean a higher risk of delivering a low-birth-weight baby (less than 5.5 pounds).</string>
     <string name="preg2">❖ Good, you gain in the recommended amount of weight.\n❖ Congratulate yourself and keep up the good work.</string>
     <string name="preg3">❖ Gaining more than recommended during pregnancy :\n❖ Puts you at a higher risk for high blood pressure disorders.\n❖ Cesarean delivery\n❖ Having a large baby</string>
-    <string name="preg4">You’re reducing weight %s this week.</string>
+    <string name="preg4">You\’re reducing weight %s this week.</string>
     <string name="preg5"> %s to go! Keep it up!</string>
     <string name="msgtitle">1. Tips for a Good Pregnancy</string>
-    <string name="msg">❖ Fetal movement is also a status indicator to track the baby\’s growth!\n❖ In general, you can relax if you can feel 10 fetal movements during day time.</string>
+    <string name="msg">❖ Fetal movement is also a status indicator to track the baby\’s growth!\n\n❖ In general, you can relax if you can feel 10 fetal movements during day time.</string>
     <string name="msgtitle2">2. Is it Ok to Exercise?</string>
     <string name="msg2">❖ Yes, of course! Walking, yoga, and swimming are great options, at about 30 minutes a day.</string>
     <string name="msgtitle3">3. Balancing Work &amp; Pregnancy</string>
     <string name="msg3">❖ Sometimes, being pregnant can feel as if it\'s a full-time job. And that is a problem if you\'ve already got a full-time job.\n\n ❖ Despite its discomforts, pregnancy isn\'t a ticket to slack off at work. And thankfully, there are lots of ways to curb your symptoms so they don\'t interfere with your job performance
     </string>
-    <string name="msgtitle4">4. Soothing aching muscles</string>
+    <string name="msgtitle4">4. Soothing Aching Muscles</string>
     <string name="msg4">❖ Try gently massaging your lower back or use a heat pack, hot water bottle or warmed facecloth.</string>
     <string name="preg_title">1. Why you need folic acid?</string>
     <string name="preg_msg">❖ Because it\'s very difficult to eat enough foods rich in the vitamin to supply the amount that experts recommend you take in pregnancy.\n\n ❖ It helps make DNA (the body\'s genetic material) and is a critical component of spinal fluid.
@@ -70,7 +70,7 @@
     <string name="preg2_msg6">❖ Eating and drinking in labour\n❖ Lunch: beetroot soup\n❖ Snack: fruity flapjacks\n❖ Dinner: ragu sauce
     </string>
     <string name="preg3_title">DIAPERING</string>
-    <string name="preg3_msg">❖ Diaper changing pads\n❖ Diaper rash ointment\n❖ 4 waterproof pads for\n❖ changing table\n❖ Rattles and small toys\n❖ Dirty diaper receptacle\n❖ Wipes or cotton cloths\n❖ Small thermos to hold warm water (for cleaning babies younger than 6 weeks)\n❖ Plastic wipes holder (for the diaper bag)\n❖ 2 packages newborn diapers
+    <string name="preg3_msg">❖ Diaper changing pads\n❖ Diaper rash ointment\n❖ 4 waterproof pads for\n❖ Changing table\n❖ Rattles and small toys\n❖ Dirty diaper receptacle\n❖ Wipes or cotton cloths\n❖ Small thermos to hold warm water (for cleaning babies younger than 6 weeks)\n❖ Plastic wipes holder (for the diaper bag)\n❖ 2 packages newborn diapers
     </string>
     <string name="preg3_title2">CLOTHING</string>
     <string name="preg3_msg2">❖ 1 pack T-shirts\n❖ 6 one-piece outfits that snap at the crotch (long- and shortsleeved)\n❖ 4 pajama sets\n❖ 6 pairs socks\n❖ 2 pairs soft booties\n❖ 2 pairs stretch cotton pants\n❖ 3 bibs\n❖ Cotton sweater\n❖ Knit cap\n❖ Sun hat\n❖ Zip-up sweatshirt\n❖ 15 baby hangers
@@ -79,7 +79,7 @@
     <string name="preg3_msg3">❖ Nursing pillow\n❖ 6 burp cloths\n❖ 6 bottles equipped with newborn nipples\n❖ Bottle brush\n❖ Insulated bottle holder for diaper bag\n❖ Nursing bras\n❖ Nursing pads for bras\n❖ Breast pump
     </string>
     <string name="preg3_title4">LINENS</string>
-    <string name="preg3_msg4">❖ 4 receiving blankets\n❖ 2 cotton blankets\n❖ Cradle or bassinet with cotton sheets\n❖ 2 crib mattress pads\n❖ 2 waterproof liners (one for the bassinet and one for the crib)\n\n ❖ Link to the page \'BABY CENTER\' website for more detail:\n\n ❖ <a href='https://www.babycenter.com/baby-registry-checklist'>https://www.babycenter.com/baby-registry-checklist</a>
+    <string name="preg3_msg4">❖ 4 receiving blankets\n❖ 2 cotton blankets\n❖ Cradle or bassinet with cotton sheets\n❖ 2 crib mattress pads\n❖ 2 waterproof liners (one for the bassinet and one for the crib)\n\n ❖ Link to the page \'BABY CENTER\' website for more detail\n\n ❖ <a href='https://www.babycenter.com/baby-registry-checklist'>https://www.babycenter.com/baby-registry-checklist</a>
     </string>
     <string name="trend_preg1_title">9 weeks Pregnancy</string>
     <string name="trend_preg1_title2">12 weeks Pregnancy</string>
@@ -171,7 +171,7 @@
     <string name="discover_diet_msg5">❖ Generally, about ⅓ of your plate should be fruits and vegetables and ⅓ of your plate should be grains. The final third should be a mix of protein and low-fat dairy (cottage cheese, eggs, milk, etc).\n\n\n❖ If you find yourself don‘t lost weight, please try to take the advice of  diet.
     </string>
     <string name="discover_title6">Choose calorie-dense foods  &amp; increase your caloric intake</string>
-    <string name="discover_diet_msg6">❖ full-fat dairy products, olive oil, avocado, nuts and nut butters.\n\n❖ Drizzle olive oil or put a pat of butter on your foods after you\'ve prepared them.\n\n❖ Put avocados on your salad or serve with scrambled eggs in the morning.\n\n❖ Blend peanut butter into protein shakes or have it as an afternoon snack.\n\n\n❖ If you find yourself don‘t lost weight, please try to take the advice of  diet.
+    <string name="discover_diet_msg6">❖ Full-fat dairy products, olive oil, avocado, nuts and nut butters.\n\n❖ Drizzle olive oil or put a pat of butter on your foods after you\'ve prepared them.\n\n❖ Put avocados on your salad or serve with scrambled eggs in the morning.\n\n❖ Blend peanut butter into protein shakes or have it as an afternoon snack.\n\n\n❖ If you find yourself don‘t lost weight, please try to take the advice of  diet.
     </string>
     <string name="discover_title7">Foods to avoid</string>
     <string name="discover_diet_msg7">❖ Sugary junk food to increase your calorie intake.\n❖ Eating cookies, candy, donuts, etc. may help you gain weight, but not in a healthy way.\n\n\n❖ If you find yourself don‘t lost weight, please try to take the advice of  diet.
@@ -219,7 +219,7 @@
     <string name="group_week1">Mon</string>
     <string name="group_week2">Tue</string>
     <string name="group_week3">Wed</string>
-    <string name="group_week4">Thurs</string>
+    <string name="group_week4">Thur</string>
     <string name="group_week5">Fri</string>
     <string name="group_week6">Sat</string>
     <string name="goal">Based on your goal setting, you should implement your exercise plan   %s times per week.\n\nIf you think the training schedule is too tight, extend your duration or increase your exercise intensity!

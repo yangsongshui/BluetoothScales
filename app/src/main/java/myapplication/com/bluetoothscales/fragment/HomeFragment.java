@@ -151,7 +151,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        if (MyApplication.newInstance().isMeasure) {
+        if (MyApplication.newInstance().isMeasure && SpUtils.getInt("type", 0) != 3) {
             QNData qnData = MyApplication.newInstance().getQnData();
             homeWeight.setText(String.valueOf(qnData.getWeight()));
             homeBmi.setText(String.valueOf(qnData.getFloatValue(TYPE_BMI)));
@@ -159,6 +159,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             homeJirou.setText(String.valueOf(qnData.getFloatValue(TYPE_SKELETAL_MUSCLE)));
             homeGuge.setText(String.valueOf(qnData.getFloatValue(TYPE_BONE)));
         }
-        homeTime.setText("Detection time: "+SpUtils.getString("HomeTime", "00:00 01/01/2017"));
+        homeTime.setText("Detection time: " + SpUtils.getString("HomeTime", "00:00 01/01/2017"));
     }
 }

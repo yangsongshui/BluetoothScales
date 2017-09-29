@@ -13,7 +13,8 @@
         android:gravity="center"
         android:padding="5dp"
         android:text="Workout Mode"
-        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:textSize="12sp" />
 
     <TextView
@@ -21,10 +22,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textStyle="bold"
         android:padding="5dp"
 
         android:text="Pregnancy Mode"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="12sp" />
 
     <TextView
@@ -33,8 +35,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
+        android:textStyle="bold"
         android:text="Baby Mode"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="12sp" />
 
 </LinearLayout>
