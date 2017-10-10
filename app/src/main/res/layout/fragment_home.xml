@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="myapplication.com.bluetoothscales.fragment.HomeFragment">
 
     <LinearLayout
@@ -74,7 +74,7 @@
                     android:layout_above="@+id/home_weight"
                     android:layout_alignEnd="@+id/home_weight"
                     android:drawableEnd="@drawable/down"
-                    android:text="LBS"
+                    android:text="Lbs"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -114,9 +114,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/home_msg1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -176,8 +178,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="30dp"
                     android:layout_marginEnd="10dp"
+                    android:layout_marginStart="30dp"
                     android:src="@drawable/rou" />
 
                 <LinearLayout
@@ -208,6 +210,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/home_msg2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -221,23 +224,23 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/imageView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/home_rim3"
                     android:layout_marginStart="30dp"
-                    android:src="@drawable/jirou"
-                    android:id="@+id/imageView4" />
+                    android:background="@drawable/home_rim3"
+                    android:src="@drawable/jirou" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
                     android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/imageView4">
+                    android:layout_toEndOf="@+id/imageView4"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -268,8 +271,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="30dp"
                     android:layout_marginEnd="10dp"
+                    android:layout_marginStart="30dp"
                     android:src="@drawable/guge" />
 
                 <LinearLayout
@@ -300,6 +303,13 @@
             </RelativeLayout>
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/home_baby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baby_home"
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>

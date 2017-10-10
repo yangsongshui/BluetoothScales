@@ -275,7 +275,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_margin="10dp"
-                        android:text="Set your goal"
+                        android:text="Set Your Goal"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
 
@@ -580,7 +580,7 @@
                         android:layout_height="wrap_content"
                         android:button="@null"
                         android:drawablePadding="5dp"
-                        android:drawableStart="@drawable/pashan"
+                        android:drawableStart="@drawable/plank"
                         android:padding="8dp"
                         android:text="Planks"
                         android:textColor="@color/work_rb"
@@ -669,6 +669,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/time_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -681,7 +682,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:text="08:00"
+                        android:text="00:00"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:visibility="visible" />
@@ -1045,7 +1046,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="10dp"
                                 android:gravity="center"
-                                android:text="hour"
+                                android:text="Hour"
                                 android:textColor="@color/tv" />
 
                             <TextView
@@ -1053,7 +1054,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:gravity="center"
-                                android:text="min"
+                                android:text="Min"
                                 android:textColor="@color/tv" />
 
                         </LinearLayout>

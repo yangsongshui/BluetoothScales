@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -52,6 +53,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     TextView homeTime;
     PopupWindow window;
     PopupWindow window2;
+    @BindView(R.id.home_msg1)
+    LinearLayout homeMsg1;
+    @BindView(R.id.home_msg2)
+    LinearLayout homeMsg2;
+    @BindView(R.id.home_baby)
+    ImageView homeBaby;
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
@@ -69,8 +76,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             homeMode.setText("Pregnancy Mode");
         else if (SpUtils.getInt("type", 0) == 3)
             homeMode.setText("Baby Mode");
-        else
+        else{
             homeMode.setText("Select Mode");
+            homeMode.setTextColor(getResources().getColor(R.color.black));
+        }
+
         homeLl.post(new Runnable() {
             @Override
             public void run() {
@@ -86,8 +96,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 window2.update();
             }
         });
-        homeLbs.setText(SpUtils.getString("unit", "LBS"));
-
+        homeLbs.setText(SpUtils.getString("unit", "Lbs"));
+        homeMsg1.setVisibility(SpUtils.getInt("type", 0) == 3?View.GONE:View.VISIBLE);
+        homeMsg2.setVisibility(SpUtils.getInt("type", 0) == 3?View.GONE:View.VISIBLE);
+        homeBaby.setVisibility(SpUtils.getInt("type", 0) == 3?View.VISIBLE:View.GONE);
     }
 
     @Override
@@ -118,22 +130,25 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 EventBus.getDefault().post(new FragmentEvent(3));
                 SpUtils.putInt("type", 3);
                 startActivity(new Intent(getActivity(), BabyActivity.class));
+                homeMode.setTextColor(getResources().getColor(R.color.white));
                 break;
             case R.id.work_pop:
                 homeMode.setText("Workout Mode");
                 EventBus.getDefault().post(new FragmentEvent(1));
                 SpUtils.putInt("type", 1);
                 startActivity(new Intent(getActivity(), WorkoutActivity.class));
+                homeMode.setTextColor(getResources().getColor(R.color.white));
                 break;
             case R.id.preg_pop:
                 homeMode.setText("Pregnancy Mode");
                 EventBus.getDefault().post(new FragmentEvent(2));
                 SpUtils.putInt("type", 2);
                 startActivity(new Intent(getActivity(), PregActivity.class));
+                homeMode.setTextColor(getResources().getColor(R.color.white));
                 break;
             case R.id.preg_lbs:
-                homeLbs.setText("LBS");
-                SpUtils.putString("unit", "LBS");
+                homeLbs.setText("Lbs");
+                SpUtils.putString("unit", "Lbs");
                 break;
             case R.id.preg_kg:
                 homeLbs.setText("Kg");
@@ -151,10 +166,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        if (MyApplication.newInstance().isMeasure ) {
+        if (MyApplication.newInstance().isMeasure) {
             QNData qnData = MyApplication.newInstance().getQnData();
             homeWeight.setText(String.valueOf(qnData.getWeight()));
-            if ( SpUtils.getInt("type", 0) != 3){
+            if (SpUtils.getInt("type", 0) != 3) {
                 homeBmi.setText(String.valueOf(qnData.getFloatValue(TYPE_BMI)));
                 homeRou.setText(String.valueOf(qnData.getFloatValue(TYPE_BODYFAT)));
                 homeJirou.setText(String.valueOf(qnData.getFloatValue(TYPE_SKELETAL_MUSCLE)));
@@ -162,5 +177,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
         }
         homeTime.setText("Detection time: " + SpUtils.getString("HomeTime", "00:00 01/01/2017"));
+        homeMsg1.setVisibility(SpUtils.getInt("type", 0) == 3?View.GONE:View.VISIBLE);
+        homeMsg2.setVisibility(SpUtils.getInt("type", 0) == 3?View.GONE:View.VISIBLE);
+        homeBaby.setVisibility(SpUtils.getInt("type", 0) == 3?View.VISIBLE:View.GONE);
     }
 }

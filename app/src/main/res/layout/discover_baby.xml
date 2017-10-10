@@ -15,7 +15,7 @@
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/baby6"
         android:padding="15dp"
-        android:text="Diet Tips（for baby）"
+        android:text="Baby Diet &amp; Sleeping  Tips "
         android:textColor="@color/grey"
         android:textSize="15sp" />
 

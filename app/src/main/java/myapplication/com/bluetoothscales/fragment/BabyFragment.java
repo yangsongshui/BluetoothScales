@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -72,6 +73,8 @@ public class BabyFragment extends BaseFragment {
     TextView month;
     @BindView(R.id.day)
     TextView day;
+    @BindView(R.id.baby_sex_iv)
+    ImageView babySexIv;
     Toastor toastor;
     int indext = 0;
     String unit = "";
@@ -81,19 +84,25 @@ public class BabyFragment extends BaseFragment {
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
-        unit = SpUtils.getString("unit", "LBS");
+        unit = SpUtils.getString("unit", "Lbs");
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         getActivity().registerReceiver(notifyReceiver, intentFilter);
         progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Lading...");
+        progressDialog.setMessage("Loading...");
         progressDialog.setCanceledOnTouchOutside(false);
         toastor = new Toastor(getActivity());
-        babySex.setText(SpUtils.getString("sex", "Boy/Girl"));
+        String sex=SpUtils.getString("sex", "Boy/Girl");
+        babySex.setText(sex);
         babyTime.setText(SpUtils.getString("BabyData", "2017-01-01"));
         babyWeight.setText(SpUtils.getString("BabyWeight", "--") + unit);
         if (!babyWeight.getText().equals("--"))
             currentTime.setText(String.valueOf((dayDiffCurr(babyTime.getText().toString()) / 7) + " Weeks"));
+        if (sex.equals("Boy")){
+            babySexIv.setImageResource(R.drawable.baby1);
+        }else if (sex.equals("Girl")){
+            babySexIv.setImageResource(R.drawable.baby5);
+        }
     }
 
     @Override
@@ -128,6 +137,7 @@ public class BabyFragment extends BaseFragment {
             case R.id.baby_edit:
                 indext = 1;
                 babyEdit.setVisibility(View.GONE);
+                babySexIv.setVisibility(View.GONE);
                 edit_ll.setVisibility(View.VISIBLE);
                 String time = babyTime.getText().toString();
                 initWheel(Integer.parseInt(time.substring(0, 4)), Integer.parseInt(time.substring(6, 7)), Integer.parseInt(time.substring(8, 10)));
@@ -231,6 +241,8 @@ public class BabyFragment extends BaseFragment {
             indext = 0;
             edit_ll.setVisibility(View.GONE);
             babyEdit.setVisibility(View.VISIBLE);
+            babySexIv.setVisibility(View.VISIBLE);
+            babySexIv.setImageResource(wheelView.getSelectedIndex() == 0 ? R.drawable.baby1 : R.drawable.baby5);
             SpUtils.putString("sex", babySex.getText().toString());
         }
         setText();
@@ -274,7 +286,7 @@ public class BabyFragment extends BaseFragment {
             firstData.add(i + "");
         }
         final ArrayList<String> secondData = new ArrayList<>();
-        if (unit.equals("LBS")) {
+        if (unit.equals("Lbs")) {
             for (int i = 0; i <= 9; i++) {
                 secondData.add(i + "");
             }

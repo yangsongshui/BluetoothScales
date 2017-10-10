@@ -187,19 +187,7 @@
                     </LinearLayout>
 
 
-                    <!--       <EditText
 
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:background="@color/picton_blue"
-                        android:gravity="center"
-                        android:inputType="number"
-                        android:maxLength="3"
-                        android:padding="13dp"
-                        android:textColor="@color/white"
-                        android:textSize="14dp"
-                        android:visibility="gone" />-->
 
                     <LinearLayout
 
@@ -317,7 +305,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="Two weeks"
+                            android:text="--"
                             android:textColor="@color/white" />
                     </LinearLayout>
 

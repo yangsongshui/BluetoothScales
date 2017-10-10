@@ -91,7 +91,7 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
-        unit = SpUtils.getString("unit", "LBS");
+        unit = SpUtils.getString("unit", "Lbs");
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_BLE_NOTIFY_DATA);
         getActivity().registerReceiver(notifyReceiver, intentFilter);
@@ -123,7 +123,7 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
             setyunfu((int) (dayDiffCurr(pregancyTime.getText().toString()) / 7));
         }
         progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Lading...");
+        progressDialog.setMessage("Loading...");
         progressDialog.setCanceledOnTouchOutside(false);
         String time = pregancyTime.getText().toString();
         initWheel(Integer.parseInt(time.substring(0, 4)), Integer.parseInt(time.substring(6, 7)), Integer.parseInt(time.substring(8, 10)));
@@ -326,7 +326,7 @@ public class PregFragment extends BaseFragment implements OnItemViewClickListene
             firstData.add(i + "");
         }
         final ArrayList<String> secondData = new ArrayList<>();
-        if (unit.equals("LBS")) {
+        if (unit.equals("Lbs")) {
             for (int i = 0; i <= 9; i++) {
                 secondData.add(i + "");
             }

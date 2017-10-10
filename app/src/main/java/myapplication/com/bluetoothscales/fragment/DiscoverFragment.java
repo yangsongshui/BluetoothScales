@@ -109,7 +109,9 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
             initPregList();
             initPregList2();
             initPregList3();
+            discoverLl.setBackground(getResources().getDrawable(R.drawable.main_home));
         } else if (mode == 1) {
+            discoverLl.setBackground(getResources().getDrawable(R.drawable.main_home));
             discoverTitle.setText("Workout Discover");
             initWrokList();
             initWrokList2();
@@ -135,6 +137,7 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
         mode = event.getDistance();
         initView();
     }
+
 
     @Override
     public void onDestroyView() {
@@ -298,6 +301,9 @@ public class DiscoverFragment extends BaseFragment implements CompoundButton.OnC
                 break;
             case R.id.work_cb4:
                 workLl.setVisibility(b ? View.VISIBLE : View.GONE);
+                break;
+            case R.id.work_cb5:
+                workLl2.setVisibility(b ? View.VISIBLE : View.GONE);
                 break;
             case R.id.baby_check:
                 BabyPager.setVisibility(b ? View.VISIBLE : View.GONE);

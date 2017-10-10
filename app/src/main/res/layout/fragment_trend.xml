@@ -88,8 +88,42 @@
                             android:id="@+id/preg_pager"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                             />
+                            android:layout_marginTop="10dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/preg_cb2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableEnd="@drawable/down2"
+                    android:padding="10dp"
+                    android:text="Fetus Weight"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:id="@+id/preg_ll2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <myapplication.com.bluetoothscales.CustomViewPager
+                            android:id="@+id/preg_pager2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -106,6 +140,8 @@
                     android:id="@+id/work_trend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:drawableStart="@drawable/workout"
                     android:text="@string/preg4"
                     android:textColor="@color/white" />
 

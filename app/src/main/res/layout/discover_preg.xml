@@ -14,7 +14,7 @@
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/diet_tips"
         android:padding="15dp"
-        android:text="Diet tips"
+        android:text="Diet Tips"
         android:textColor="@color/grey"
         android:textSize="15sp" />
 

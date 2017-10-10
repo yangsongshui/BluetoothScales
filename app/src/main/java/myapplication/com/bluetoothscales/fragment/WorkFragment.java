@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -145,6 +146,8 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
     Switch workSwitch;
     @BindView(R.id.switch_tv)
     TextView switchTv;
+    @BindView(R.id.time_ll)
+    RelativeLayout timeLl;
     Toastor toastor;
     int postion = 0;
     int indext = 0;
@@ -155,7 +158,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
 
     @Override
     protected void initData(View layout, Bundle savedInstanceState) {
-        unit = SpUtils.getString("unit", "LBS");
+        unit = SpUtils.getString("unit", "Lbs");
         toastor = new Toastor(getActivity());
         workHeight.setText(SpUtils.getString("workHeight", "--") + "cm");
         workTarget.setText(SpUtils.getString("workTarget", "--") + unit);
@@ -234,7 +237,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
             }
         });
         progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Lading...");
+        progressDialog.setMessage("Loading...");
         progressDialog.setCanceledOnTouchOutside(false);
     }
 
@@ -486,7 +489,7 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
             firstData.add(i + "");
         }
         final ArrayList<String> secondData = new ArrayList<>();
-        if (unit.equals("LBS")) {
+        if (unit.equals("Lbs")) {
             for (int i = 0; i <= 9; i++) {
                 secondData.add(i + "");
             }
@@ -575,12 +578,14 @@ public class WorkFragment extends BaseFragment implements CompoundButton.OnCheck
     private void initSwitch() {
         boolean isChecked = SpUtils.getBoolean("switch", false);
         switchTv.setText(isChecked ? "ON" : "OFF");
+        timeLl.setVisibility(isChecked?View.VISIBLE:View.GONE);
         workSwitch.setChecked(isChecked);
         workSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 switchTv.setText(isChecked ? "ON" : "OFF");
                 SpUtils.putBoolean("switch", isChecked);
+                timeLl.setVisibility(isChecked?View.VISIBLE:View.GONE);
             }
         });
     }

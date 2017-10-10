@@ -1,6 +1,7 @@
 package myapplication.com.bluetoothscales.app;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.kitnew.ble.QNApiManager;
 import com.kitnew.ble.QNData;
@@ -47,6 +48,7 @@ public class MyApplication extends LitePalApplication {
             @Override
             public void onCompete(int errorCode) {
                 //执行结果，为0则成功，其它则参考api文档的种的错误码
+                Log.e("MyApplication",errorCode+"");
             }
         });
 
