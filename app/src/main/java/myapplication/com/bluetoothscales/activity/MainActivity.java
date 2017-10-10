@@ -182,10 +182,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @PermissionGrant(REQUECT_CODE_COARSE)
     public void requestSdcardSuccess() {
+        toastor.showSingletonToast("Scanning Equipment...");
         qnBleApi.startLeScan(null, null, new QNBleScanCallback() {
             //如果失败，会在这个方法中返回错误码
             public void onCompete(int errorCode) {
-                Log.e("MainActivity",errorCode+"");
+                Log.e("MainActivity", errorCode + "");
+                toastor.showSingletonToast("Scan Fail ErrorCode:" + errorCode);
             }
 
             //如果扫描到设备，会在这个方法返回这个设备的相关信息
