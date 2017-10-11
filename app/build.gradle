@@ -34,8 +34,6 @@ dependencies {
     compile 'org.litepal.android:core:1.6.0'
     compile 'com.gyf.barlibrary:barlibrary:2.2.8'
     compile 'com.android.support:support-v4:25.3.1'
-    compile 'me.codeboy.android:align-text-view:2.3.0'
-    compile 'org.sufficientlysecure:html-textview:3.4'
     testCompile 'junit:junit:4.12'
     apt 'com.zhy:mpermission-compiler:1.0.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'

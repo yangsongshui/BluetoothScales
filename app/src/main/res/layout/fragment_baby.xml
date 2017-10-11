@@ -72,6 +72,7 @@
                         android:id="@+id/baby_msg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="13sp"
                         android:text="Birth Date:"
                         android:textColor="@color/tv" />
 
@@ -81,6 +82,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="2017-01-01"
+                        android:textSize="13sp"
                         android:textColor="@color/tv" />
                 </LinearLayout>
 
@@ -97,6 +99,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Birth Weight:"
+                        android:textSize="13sp"
                         android:textColor="@color/tv" />
 
                     <TextView
@@ -106,6 +109,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="--"
+                        android:textSize="13sp"
                         android:textColor="@color/tv" />
                 </LinearLayout>
 
@@ -121,6 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Gender:"
+                        android:textSize="13sp"
                         android:textColor="@color/tv" />
 
                     <TextView
@@ -129,6 +134,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="Boy／Girl"
+                        android:textSize="13sp"
                         android:textColor="@color/tv" />
                 </LinearLayout>
 
@@ -151,6 +157,7 @@
                         android:paddingEnd="30dp"
                         android:paddingStart="30dp"
                         android:paddingTop="5dp"
+                        android:textSize="13sp"
                         android:text="Edit"
                         android:textColor="@color/white" />
                     <ImageView
@@ -279,6 +286,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1) Mom Step on scale:"
+                        android:textSize="13sp"
                         android:textColor="@color/white" />
 
                     <TextView
@@ -286,7 +294,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:textSize="13sp"
                         android:text="--"
+
                         android:textColor="@color/white" />
 
                     <RelativeLayout
@@ -302,6 +312,7 @@
                             android:background="@drawable/preg_bg"
                             android:paddingBottom="5dp"
                             android:paddingEnd="10dp"
+                            android:textSize="13sp"
                             android:paddingStart="10dp"
                             android:paddingTop="5dp"
                             android:text="Measure"
@@ -318,6 +329,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="13sp"
                         android:text="2) Mom + Baby Step on scale: "
                         android:textColor="@color/white" />
 
@@ -326,6 +338,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:textSize="13sp"
                         android:text="--"
                         android:textColor="@color/white" />
 
@@ -343,6 +356,7 @@
                             android:paddingBottom="5dp"
                             android:paddingEnd="10dp"
                             android:paddingStart="10dp"
+                            android:textSize="13sp"
                             android:paddingTop="5dp"
                             android:text="Measure"
                             android:textColor="@color/white" />
@@ -360,6 +374,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Current Weight:"
+                        android:textSize="13sp"
                         android:textColor="@color/white" />
 
                     <TextView
@@ -367,6 +382,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:textSize="13sp"
                         android:text="--"
                         android:textColor="@color/white" />
                 </LinearLayout>
@@ -382,6 +398,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Current Week:"
+                        android:textSize="13sp"
                         android:textColor="@color/white" />
 
                     <TextView
@@ -390,6 +407,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="--"
+                        android:textSize="13sp"
                         android:textColor="@color/white" />
                 </LinearLayout>
             </LinearLayout>

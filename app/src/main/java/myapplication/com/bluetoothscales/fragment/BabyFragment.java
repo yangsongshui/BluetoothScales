@@ -213,10 +213,13 @@ public class BabyFragment extends BaseFragment {
                     babyMomWeight.setText(String.valueOf(qnData.getWeight() + unit));
                     isMom = false;
                     double weight = Double.parseDouble(momWeight.getText().toString().replace(unit, ""));
-                    currentWeight.setText(String.format("%.2f", qnData.getWeight() - weight) + unit);
+                    String msg=String.format("%.2f", qnData.getWeight() - weight);
+
+                    currentWeight.setText(msg + unit);
                     MyApplication.newInstance().isMeasure = true;
                     progressDialog.dismiss();
                     SpUtils.putString("HomeTime", getCurrDate(FORMAT_TWO2));
+                    SpUtils.putString("babyWeight", msg);
                 }
 
             }

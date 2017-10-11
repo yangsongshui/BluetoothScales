@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kitnew.ble.QNData;
@@ -51,6 +52,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     LinearLayout homeLl;
     @BindView(R.id.home_time)
     TextView homeTime;
+    @BindView(R.id.home_yunfu)
+    LinearLayout homeYunFu;
+    @BindView(R.id.home_rl)
+    RelativeLayout homeRl;
     PopupWindow window;
     PopupWindow window2;
     @BindView(R.id.home_msg1)
@@ -76,7 +81,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             homeMode.setText("Pregnancy Mode");
         else if (SpUtils.getInt("type", 0) == 3)
             homeMode.setText("Baby Mode");
-        else{
+        else {
             homeMode.setText("Select Mode");
             homeMode.setTextColor(getResources().getColor(R.color.black));
         }
@@ -97,9 +102,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
         });
         homeLbs.setText(SpUtils.getString("unit", "Lbs"));
-        homeMsg1.setVisibility(SpUtils.getInt("type", 0) == 3?View.GONE:View.VISIBLE);
-        homeMsg2.setVisibility(SpUtils.getInt("type", 0) == 3?View.GONE:View.VISIBLE);
-        homeBaby.setVisibility(SpUtils.getInt("type", 0) == 3?View.VISIBLE:View.GONE);
+   /*     homeMsg1.setVisibility(SpUtils.getInt("type", 0) == 3 ? View.GONE : View.VISIBLE);
+        homeMsg2.setVisibility(SpUtils.getInt("type", 0) != 1 ? View.GONE : View.VISIBLE);
+        homeBaby.setVisibility(SpUtils.getInt("type", 0) == 3 ? View.VISIBLE : View.GONE);
+        homeRl.setVisibility(SpUtils.getInt("type", 0) == 2 ? View.GONE : View.VISIBLE);
+        homeYunFu.setVisibility(SpUtils.getInt("type", 0) == 2 ? View.VISIBLE : View.GONE);*/
+
+
     }
 
     @Override
@@ -168,7 +177,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         super.onResume();
         if (MyApplication.newInstance().isMeasure) {
             QNData qnData = MyApplication.newInstance().getQnData();
-            homeWeight.setText(String.valueOf(qnData.getWeight()));
+            if (SpUtils.getInt("type", 0) == 3) {
+                homeWeight.setText(SpUtils.getString("babyWeight", "0"));
+            } else {
+                homeWeight.setText(String.valueOf(qnData.getWeight()));
+            }
             if (SpUtils.getInt("type", 0) != 3) {
                 homeBmi.setText(String.valueOf(qnData.getFloatValue(TYPE_BMI)));
                 homeRou.setText(String.valueOf(qnData.getFloatValue(TYPE_BODYFAT)));
@@ -177,8 +190,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
         }
         homeTime.setText("Detection time: " + SpUtils.getString("HomeTime", "00:00 01/01/2017"));
-        homeMsg1.setVisibility(SpUtils.getInt("type", 0) == 3?View.GONE:View.VISIBLE);
-        homeMsg2.setVisibility(SpUtils.getInt("type", 0) == 3?View.GONE:View.VISIBLE);
-        homeBaby.setVisibility(SpUtils.getInt("type", 0) == 3?View.VISIBLE:View.GONE);
+        homeMsg1.setVisibility(SpUtils.getInt("type", 0) == 3 ? View.GONE : View.VISIBLE);
+        homeMsg2.setVisibility(SpUtils.getInt("type", 1) != 1 ? View.GONE : View.VISIBLE);
+        homeBaby.setVisibility(SpUtils.getInt("type", 0) == 3 ? View.VISIBLE : View.GONE);
+        homeRl.setVisibility(SpUtils.getInt("type", 0) == 2 ? View.GONE : View.VISIBLE);
+        homeYunFu.setVisibility(SpUtils.getInt("type", 0) == 2 ? View.VISIBLE : View.GONE);
     }
 }

@@ -134,14 +134,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:orientation="vertical"
-                android:visibility="gone">
+               >
 
                 <TextView
                     android:id="@+id/work_trend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="5dp"
-                    android:drawableStart="@drawable/workout"
                     android:text="@string/preg4"
                     android:textColor="@color/white" />
 
@@ -151,6 +150,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/preg5"
                     android:textColor="@color/white" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/workout"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
