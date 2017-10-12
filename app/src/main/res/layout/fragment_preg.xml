@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_margin="10dp"
-                        android:text="Pregnacy data"
+                        android:text="Pregnancy data"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
 
@@ -71,7 +71,7 @@
                         android:id="@+id/preg_msg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pregnacy Date:"
+                        android:text="Pregnancy Date:"
                         android:textColor="@color/tv" />
 
                     <TextView
@@ -118,7 +118,7 @@
                         android:id="@+id/preg_msg3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Weight before pregnacy:"
+                        android:text="Weight before pregnancy:"
                         android:textColor="@color/tv" />
 
                     <TextView
